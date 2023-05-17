@@ -12,7 +12,7 @@ export default function Home() {
 
     return (
         <>
-            <header className="py-5 mx-auto max-w-screen-lg">
+            <header className="px-1 py-5 w-3/4">
                 <a href="https://www.tcd.ie/">
                     <Image
                         src={tcdLogo}
@@ -23,8 +23,8 @@ export default function Home() {
                     />
                 </a>
             </header>
-            <nav className="bg-accent text-white pt-5">
-                <div className="mx-auto max-w-screen-lg">
+            <nav className="bg-accent text-white pt-5 w-full">
+                <div className="px-1 mx-auto w-3/4">
                     <h2 className="text-3xl font-light">{text['title']}</h2>
                     <div className="flex">
                         {menuItem.map((item) => (

@@ -18,9 +18,9 @@ export default function RootLayout({
     
     return (
         <html lang="en">
-            <body className={openSans.className}>
+            <body className={`${openSans.className} flex flex-col items-center`}>
                 <Header/>
-                <section className="mx-auto max-w-screen-lg">{children}</section>
+                <div className="px-1 w-3/4 overflow-clip">{children}</div>
             </body>
         </html>
     );
