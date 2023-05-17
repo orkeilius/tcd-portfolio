@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import tcdLogo from "public/tcd-logo.png";
-import useTranslation from "../lib/TextString";
+import useTranslation from "src/lib/TextString";
 
 export default function Home() {
     const text = useTranslation("Headers")
