@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import tcdLogo from "public/tcd-logo.png";
+import useTranslation from "../lib/TextString";
 
 export default function Home() {
+    const text = useTranslation("Headers")
     var menuItem = [
-        { text: "Home", link: "/" },
-        { text: "Login", link: "/login" },
+        { text: text['home'], link: "/" },
+        { text: text["login"], link: "/login" },
     ];
 
     return (
@@ -17,13 +19,13 @@ export default function Home() {
                         width={232}
                         height={62}
                         quality="100"
-                        alt="logo of the trinity colege"
+                        alt={text.logoDescription}
                     />
                 </a>
             </header>
             <nav className="bg-accent text-white pt-5">
                 <div className="mx-auto max-w-screen-lg">
-                    <h2 className="text-3xl font-light">Portfolio</h2>
+                    <h2 className="text-3xl font-light">{text['title']}</h2>
                     <div className="flex">
                         {menuItem.map((item) => (
                             <Link
