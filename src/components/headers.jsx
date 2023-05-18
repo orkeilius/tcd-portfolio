@@ -1,24 +1,21 @@
-import Image from "next/image";
-import Link from "next/link";
-import tcdLogo from "public/tcd-logo.png";
+import tcdLogo from "src/image/tcd-logo.png";
 import useTranslation from "src/lib/TextString";
+import Login from "src/components/login"
 
 export default function Home() {
     const text = useTranslation("Headers")
     var menuItem = [
         { text: text['home'], link: "/" },
-        { text: text["login"], link: "/login" },
+
     ];
 
     return (
         <>
-            <header className="px-1 py-5 w-3/4">
                 <a href="https://www.tcd.ie/">
-                    <Image
+                    <img
                         src={tcdLogo}
                         width={232}
                         height={62}
-                        quality="100"
                         alt={text.logoDescription}
                     />
                 </a>
@@ -28,13 +25,13 @@ export default function Home() {
                     <h2 className="text-3xl font-light">{text['title']}</h2>
                     <div className="flex">
                         {menuItem.map((item) => (
-                            <Link
+                            <a
                                 className="p-3 bg-accent hover:bg-accentHover -translate-x-3"
                                 key={item.link}
                                 href={item.link}
                             >
                                 {item.text}
-                            </Link>
+                            </a>
                         ))}
                     </div>
                 </div>

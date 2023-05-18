@@ -3,6 +3,8 @@
         "logo Description": "Trinity College Dublin, The University of Dublin",
         "title" : "Portfolio",
         "home": "Home",
-        "login": "Login"
-    }
+        "login": "Log in",
+        "log out": "Log out",
+        "not connected": "not connected"
+    },
 }

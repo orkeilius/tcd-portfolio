@@ -2,6 +2,6 @@
 const lang = "en"
 
 export default function useTranslation(key){
-    const text = require(`locales/${lang}.json`);
+    const text = require(`src/locales/${lang}.json`);
     return text[key]
 }
