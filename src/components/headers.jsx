@@ -11,6 +11,7 @@ export default function Home() {
 
     return (
         <>
+            <header className="px-1 py-5 w-3/4 flex justify-between">
                 <a href="https://www.tcd.ie/">
                     <img
                         src={tcdLogo}
@@ -19,6 +20,7 @@ export default function Home() {
                         alt={text.logoDescription}
                     />
                 </a>
+                <Login />
             </header>
             <nav className="bg-accent text-white pt-5 w-full">
                 <div className="px-1 mx-auto w-3/4">

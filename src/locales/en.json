@@ -7,4 +7,12 @@
         "log out": "Log out",
         "not connected": "not connected"
     },
+    "Login":{
+        "login": "log in",
+        "logout": "log out",
+        "not connected": "not connected",
+        "email":"email",
+        "password":"password",
+        "setting":"setting"
+    }
 }

@@ -5,7 +5,9 @@ module.exports = {
     extend: {
       colors: {
         'accent': '#0e73b8',
-        'accentHover':'#0f6eae',
+        'accentHover': '#0f6eae',
+        'accent2': '#35b8d6',
+        'boutton1':'#eff0f1',
         'text': '#53565a'
       },
       screens: {
