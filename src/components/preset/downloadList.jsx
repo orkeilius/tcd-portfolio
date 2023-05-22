@@ -2,8 +2,11 @@ import { faker } from "@faker-js/faker";
 import { useRef, useState } from "react";
 import { IoCloudDownloadOutline, IoTrashOutline } from "react-icons/io5";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
+import useTranslation from "src/lib/TextString";
 
 function getFileData(portfolioId) {
+    // Query file from db with props.postId
+
     //place holder
     var fileList = [];
     for (let index = 0; index < Math.round(Math.random() * 40); index++) {
@@ -17,7 +20,8 @@ function getFileData(portfolioId) {
 }
 
 export default function DownloadList(props) {
-    // Query file from db with props.postId
+    
+    const text = useTranslation("Download");
 
     //place holder
     const [isAuthor, setIsAuthor] = useState(true);
@@ -48,7 +52,7 @@ export default function DownloadList(props) {
                         <p className="a">{file.size + "mo"}</p>
                         {isAuthor ? (
                             <button
-                                onClick={() => { popUpRef.current.popUp("\n"+file.name, () => handleFileDelete(file.name)) }}
+                                onClick={() => { popUpRef.current.popUp(text["file confirm"].replace("${0}",file.name), () => handleFileDelete(file.name)) }}
                                 className=" transition-all m-1 mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                             >
                                 <IoTrashOutline />
@@ -64,7 +68,7 @@ export default function DownloadList(props) {
                     </li>
                 ))}
             </ul>
-            <a className="mx-3 underline">dowload all</a>
+            <a className="mx-3 underline" href="/" >{text["download all"]}</a>
         </>
     );
 }

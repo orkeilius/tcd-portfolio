@@ -14,5 +14,9 @@
         "email":"email",
         "password":"password",
         "setting":"setting"
+    },
+    "Download":{
+        "file confirm": "are you sure to delete ${0} ?",
+        "download all": "download all"
     }
 }

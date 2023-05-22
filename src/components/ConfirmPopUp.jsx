@@ -24,7 +24,7 @@ const ConfirmPopUp = forwardRef((props, ref) => {
             <div
                 className={
                     (!popUpData.enable && "scale-0 ") +
-                    " transition-all fixed top-1/2  -translate-x-1/2  -translate-y-1/2 z-10 left-1/2 bg-white w-56 p-3 rounded-xl m-auto opacity-100"
+                    " transition-all fixed top-1/2  -translate-x-1/2  -translate-y-1/2 z-10 left-1/2 bg-white min-w-[14em]  p-3 rounded-xl m-auto opacity-100 w-min"
                 }
             >
                 <p className="font-bold mb-3 text-center">{popUpData.text}</p>
