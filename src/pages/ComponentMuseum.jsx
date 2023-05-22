@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { createRoot } from "react-dom/client";
 
-import DownloadList from 'src/components/preset/downloadList'
-
-function useForceUpdate(){
-    const [value, setValue] = useState(0); // integer state
-    return () => setValue(value => value + 1); // update state to force render
-    // A function that increment 👆🏻 the previous state like here 
-    // is better than directly setting `setValue(value + 1)`
-}
-
+import DownloadList from "src/components/preset/downloadList";
 
 export default function Home() {
+    const [showComponent, setShowComponent] = useState(true);
 
-    const forceUpdate = useForceUpdate();
+    const ForceUpdate = () => {
+        setShowComponent(false)
+        setTimeout(() => { setShowComponent(true) } , 1)
+        
+    }
 
     return (
         <main>
-            <h1 className='text-6xl'>museum of components</h1>
-            <button className='bg-slate-400 p-4 rounded-full hover:bg-slate-500' onClick={forceUpdate}>re-render</button>
-            
-            <p>{Math.random()}</p>
-            <DownloadList />
-
-      </main>
-    )
-  }
-  
+            <h1 className="text-6xl">museum of components</h1>
+            <button className='bg-slate-400 p-4 rounded-full hover:bg-slate-500' onClick={ForceUpdate}>re-render</button>
+            {showComponent && (
+                <div>
+                    <p>{Math.random()}</p>
+                    <DownloadList />
+                </div>
+            )}
+        </main>
+    );
+}

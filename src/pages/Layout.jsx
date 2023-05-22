@@ -7,7 +7,7 @@ const Layout = () => {
     <div className="flex flex-col items-center">
       
       <Headers />
-      <div className="px-1 w-3/4 overflow-clip">
+      <div className="px-1 w-3/4">
 
       <Outlet />
       </div>
