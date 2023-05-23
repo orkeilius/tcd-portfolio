@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import useTranslation from "src/lib/TextString";
 import { supabase } from "../lib/supabaseClient";
 import { SessionContext } from "./SessionProvider";
+import ProfileImage from "./profileImage";
 
 function DropDownMenu() {
     const session = useContext(SessionContext)
@@ -88,7 +89,7 @@ export default function Login() {
                 }
             >
                 <div className="flex flex-row justify-end">
-                    <div>
+                    <div className="mr-3">
                         <h3 className="font-bold">
                             {session != null ? "errored" : text["not connected"]}
                         </h3>
@@ -96,7 +97,7 @@ export default function Login() {
                     </div>
 
                     {/* image place holder */}
-                    <div className="bg-slate-500 rounded-full h-12 ml-3 aspect-square" />
+                    {session != null ? <ProfileImage firstName="Error" lastName="r" /> : <ProfileImage />}
                 </div>
                 <div
                     className={
