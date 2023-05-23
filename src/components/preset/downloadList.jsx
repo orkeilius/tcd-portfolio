@@ -26,7 +26,7 @@ export default function DownloadList(props) {
     //place holder
     const [isAuthor, setIsAuthor] = useState(true);
     const popUpRef = useRef(null);
-    const [fileList, setFileList] = useState(getFileData);
+    const [fileList, setFileList] = useState(getFileData());
 
     const handleFileDelete = (name) => {
         //call to db

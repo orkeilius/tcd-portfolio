@@ -27,8 +27,8 @@ function DropDownMenu() {
     if (session != null) {
         return (
             <div className="flex flex-col">
-                <button className="mt-2 rounded-sm bg-boutton1 hover:bg-slate-300">{text.setting}</button> 
-                <button className="mt-1 rounded-sm bg-boutton1 hover:bg-slate-300" onClick={() =>  supabase.auth.signOut() }>{text.logout}</button>
+                <button className="mt-2 px-1 rounded-md bg-boutton1 hover:bg-slate-300">{text.setting}</button> 
+                <button className="mt-1 px-1 rounded-md bg-boutton1 hover:bg-slate-300" onClick={() =>  supabase.auth.signOut() }>{text.logout}</button>
             </div>
         );
     } else {
