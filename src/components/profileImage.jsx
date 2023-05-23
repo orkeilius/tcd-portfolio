@@ -4,7 +4,7 @@ export default function ProfileImage(props) {
             props.firstName + props.lastName
         )}deg 65% 85%)`,
     };
-    if (props.firstName == undefined || props.lastName == undefined) {
+    if (props.firstName === undefined || props.lastName === undefined) {
         return  <div className="bg-slate-500 rounded-full h-12 aspect-square" />
     }
     return (
