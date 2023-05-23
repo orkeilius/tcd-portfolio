@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import DownloadList from "src/components/preset/downloadList";
 import Comment from "src/components/preset/comment";
+import UserList from "../components/preset/userList";
 
 export default function Home() {
     const [showComponent, setShowComponent] = useState(true);
@@ -20,6 +21,7 @@ export default function Home() {
             {showComponent && (
                 <div>
                     <p>{Math.random()}</p>
+                    <UserList />
                     <Comment />
                     <DownloadList />
                 </div>

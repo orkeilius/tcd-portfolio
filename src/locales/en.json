@@ -1,6 +1,7 @@
 {
     "comment author": "comment by",
     "comment placeholder": "add a comment ...",
+    "user confirm":"are you sure to kick ${0} ?",
     "download all": "download all",
     "email": "email",
     "file confirm": "are you sure to delete ${0} ?",
@@ -10,6 +11,6 @@
     "logo Description": "Trinity College Dublin, The University of Dublin",
     "not connected": "not connected",
     "password": "password",
-    "setting": "setting",
+    "setting": "Setting",
     "title": "Portfolio"
 }
