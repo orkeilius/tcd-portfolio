@@ -24,21 +24,25 @@ export default function DownloadList(props) {
     const [commentData, setCommentData] = useState(getCommentData);
 
     const handleEdit = (event) => {
-        event.target.style.height = 'auto'
-        event.target.style.height = `${event.target.scrollHeight}px`
-        setCommentData((commentData) => ({ ...commentData, text: event.target.value }))
-    }
-    
-    if (commentData.text === "" && !isAuthor) {
-        return null
-    }
-    console.log(commentData)
+        event.target.style.height = "auto";
+        event.target.style.height = `${event.target.scrollHeight}px`;
+        setCommentData((commentData) => ({
+            ...commentData,
+            text: event.target.value,
+        }));
+    };
 
-    setTimeout(() => {
-        var textarea = document.getElementById("area")
-        textarea.style.height = `${textarea.scrollHeight}px`
+    if (commentData.text === "" && !isAuthor) {
+        return null;
     }
-    )
+    console.log(commentData);
+
+    if (isAuthor) {
+        setTimeout(() => {
+            var textarea = document.getElementById("area");
+            textarea.style.height = `${textarea.scrollHeight}px`;
+        });
+    }
     return (
         <>
             <button
@@ -55,14 +59,20 @@ export default function DownloadList(props) {
                         lastName={commentData.lastName}
                     />
                     <div className="ml-1">
-                        <p className="font-light text-xs mt-1">comment from</p>
+                        <p className="font-light text-xs mt-1">{text["comment author"]}</p>
                         <p className="font-semibold text-lg leading-4">
                             {commentData.firstName + " " + commentData.lastName}
                         </p>
                     </div>
                 </div>
                 {isAuthor ? (
-                    <textarea id="area" placeholder="click to add a comment" className="w-full resize-none" value={commentData.text} onChange={handleEdit}/>
+                    <textarea
+                        id="area"
+                        placeholder={text["comment placeholder"]}
+                        className="w-full resize-none"
+                        value={commentData.text}
+                        onChange={handleEdit}
+                    />
                 ) : (
                     <p>{commentData.text}</p>
                 )}
