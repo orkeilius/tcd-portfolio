@@ -6,7 +6,7 @@ import ProfileImage from "./profileImage";
 
 function DropDownMenu() {
     const session = useContext(SessionContext)
-    const text = useTranslation("Login");
+    const text = useTranslation();
 
     const [inputs, setInputs] = useState({});
 
@@ -63,7 +63,7 @@ function DropDownMenu() {
 }
 
 export default function Login() {
-    const text = useTranslation("Login");
+    const text = useTranslation();
     const session = useContext(SessionContext)
 
     const [isHover, setIsHover] = useState(false);

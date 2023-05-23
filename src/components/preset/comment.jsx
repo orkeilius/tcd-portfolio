@@ -16,7 +16,7 @@ function getCommentData(portfolioId) {
 }
 
 export default function DownloadList(props) {
-    const text = useTranslation("Download");
+    const text = useTranslation();
 
     //place holder
     const [isAuthor, setIsAuthor] = useState(true);

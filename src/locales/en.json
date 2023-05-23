@@ -1,22 +1,15 @@
 {
-    "Headers":{
-        "logo Description": "Trinity College Dublin, The University of Dublin",
-        "title" : "Portfolio",
-        "home": "Home",
-        "login": "Log in",
-        "log out": "Log out",
-        "not connected": "not connected"
-    },
-    "Login":{
-        "login": "log in",
-        "logout": "log out",
-        "not connected": "not connected",
-        "email":"email",
-        "password":"password",
-        "setting":"setting"
-    },
-    "Download":{
-        "file confirm": "are you sure to delete ${0} ?",
-        "download all": "download all"
-    }
+    "comment author": "comment by",
+    "comment placeholder": "add a comment ...",
+    "download all": "download all",
+    "email": "email",
+    "file confirm": "are you sure to delete ${0} ?",
+    "home": "Home",
+    "logout": "Log out",
+    "login": "Log in",
+    "logo Description": "Trinity College Dublin, The University of Dublin",
+    "not connected": "not connected",
+    "password": "password",
+    "setting": "setting",
+    "title": "Portfolio"
 }

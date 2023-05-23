@@ -3,7 +3,7 @@ import useTranslation from "src/lib/TextString";
 import Login from "src/components/login"
 
 export default function Home() {
-    const text = useTranslation("Headers")
+    const text = useTranslation()
     var menuItem = [
         { text: text['home'], link: "/" },
 
