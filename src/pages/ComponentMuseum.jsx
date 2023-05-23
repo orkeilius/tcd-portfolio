@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { createRoot } from "react-dom/client";
+import React, { useState } from "react";
+
 
 import DownloadList from "src/components/preset/downloadList";
+import Comment from "src/components/preset/comment";
 
 export default function Home() {
     const [showComponent, setShowComponent] = useState(true);
@@ -19,6 +20,7 @@ export default function Home() {
             {showComponent && (
                 <div>
                     <p>{Math.random()}</p>
+                    <Comment />
                     <DownloadList />
                 </div>
             )}
