@@ -11,7 +11,7 @@ function getCommentData(portfolioId) {
     return {
         firstName: faker.person.firstName(),
         lastName: faker.person.lastName(),
-        text: faker.lorem.paragraph({ min: 1, max: 10 }),
+        text: faker.lorem.paragraph({ min: 0, max: 20 }),
     };
 }
 
@@ -33,6 +33,12 @@ export default function DownloadList(props) {
         return null
     }
     console.log(commentData)
+
+    setTimeout(() => {
+        var textarea = document.getElementById("area")
+        textarea.style.height = `${textarea.scrollHeight}px`
+    }
+    )
     return (
         <>
             <button
@@ -56,7 +62,7 @@ export default function DownloadList(props) {
                     </div>
                 </div>
                 {isAuthor ? (
-                    <textarea placeholder="click to add a comment" className="w-full h-auto" value={commentData.text} onChange={handleEdit}/>
+                    <textarea id="area" placeholder="click to add a comment" className="w-full resize-none" value={commentData.text} onChange={handleEdit}/>
                 ) : (
                     <p>{commentData.text}</p>
                 )}
