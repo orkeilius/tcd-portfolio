@@ -1,16 +1,19 @@
 {
     "comment author": "comment by",
     "comment placeholder": "add a comment ...",
-    "user confirm":"are you sure to kick ${0} ?",
     "download all": "download all",
     "email": "email",
     "file confirm": "are you sure to delete ${0} ?",
     "home": "Home",
-    "logout": "Log out",
     "login": "Log in",
     "logo Description": "Trinity College Dublin, The University of Dublin",
+    "logout": "Log out",
     "not connected": "not connected",
     "password": "password",
+    "portfolio author": "portfolio by",
     "setting": "Setting",
-    "title": "Portfolio"
+    "text placeholder": "add a text ...",
+    "title": "Portfolio",
+    "title placeholder": "add a title ...",
+    "user confirm": "are you sure to kick ${0} ?"
 }

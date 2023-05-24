@@ -35,7 +35,6 @@ export default function DownloadList(props) {
     if (commentData.text === "" && !isAuthor) {
         return null;
     }
-    console.log(commentData);
 
     if (isAuthor) {
         setTimeout(() => {

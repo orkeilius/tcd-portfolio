@@ -3,8 +3,11 @@ import { useRef, useState } from "react";
 import { faker } from "@faker-js/faker";
 import DownloadList from "src/components/preset/downloadList";
 import Comment from "src/components/preset/comment";
+import useTranslation from "src/lib/TextString";
 
 export default function Portfolio(props) {
+    const text = useTranslation();
+
     function getPortfolioData(portfolioId) {
         // Query file from db with props.postId
 
@@ -51,7 +54,7 @@ export default function Portfolio(props) {
             <br />
             {isAuthor ? (
                 <input
-                    placeholder="add a title here..."
+                    placeholder={text["title placeholder"]}
                     className="font-semibold text-3xl border-b border-black p-1 w-full"
                     value={portfolioData.title}
                     onChange={handleTitleEdit}
@@ -62,12 +65,18 @@ export default function Portfolio(props) {
                 </h1>
             )}
             <p className="font-thin ml-1">
-                {"by " + portfolioData.firstName + " " + portfolioData.lastName}
+                {
+                    text["portfolio author"] +
+                    " " +
+                    portfolioData.firstName +
+                    " " +
+                    portfolioData.lastName
+                }
             </p>
             {isAuthor ? (
                 <textarea
                     id="area"
-                    placeholder="add a text here..."
+                    placeholder={text["text placeholder"]}
                     className="resize-none w-full m-1"
                     value={portfolioData.text}
                     onChange={handleTextEdit}
