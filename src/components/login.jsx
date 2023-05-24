@@ -5,10 +5,10 @@ import { SessionContext } from "./SessionProvider";
 import ProfileImage from "./profileImage";
 
 function DropDownMenu() {
-    const session = useContext(SessionContext)
+    const session = useContext(SessionContext);
     const text = useTranslation();
 
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState({firstName:'',lastName:''});
 
     const handleChange = (event) => {
         const name = event.target.type;
@@ -27,8 +27,15 @@ function DropDownMenu() {
     if (session != null) {
         return (
             <div className="flex flex-col">
-                <button className="mt-2 px-1 rounded-md bg-boutton1 hover:bg-slate-300">{text.setting}</button> 
-                <button className="mt-1 px-1 rounded-md bg-boutton1 hover:bg-slate-300" onClick={() =>  supabase.auth.signOut() }>{text.logout}</button>
+                <button className="mt-2 px-1 rounded-md bg-boutton1 hover:bg-slate-300">
+                    {text.setting}
+                </button>
+                <button
+                    className="mt-1 px-1 rounded-md bg-boutton1 hover:bg-slate-300"
+                    onClick={() => supabase.auth.signOut()}
+                >
+                    {text.logout}
+                </button>
             </div>
         );
     } else {
@@ -42,7 +49,6 @@ function DropDownMenu() {
                     placeholder={text["email"]}
                     type="email"
                     onChange={handleChange}
-
                 />
 
                 <input
@@ -50,7 +56,6 @@ function DropDownMenu() {
                     placeholder={text["password"]}
                     type="password"
                     onChange={handleChange}
-
                 />
                 <input
                     className="transition duration-500 m-1 text-white bg-accent rounded-md border-accent border-2 hover:bg-white hover:text-accent"
@@ -64,10 +69,27 @@ function DropDownMenu() {
 
 export default function Login() {
     const text = useTranslation();
-    const session = useContext(SessionContext)
+    const session = useContext(SessionContext);
 
+    const [userMetadata, setUserMetadata] = useState({});
     const [isHover, setIsHover] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+
+    async function getUserMetadata() {
+        if (session == null) {
+            return
+        }
+        let { data, error } = await supabase
+            .from("userMetadata")
+            .select("user_firstName,user_lastName")
+            .eq("user_id",session.user.id);
+        setUserMetadata(data[0]);
+    }
+
+
+    useEffect(() => {
+        getUserMetadata();
+    }, session);
 
     const handleClick = () => {
         setIsOpen(isHover);
@@ -91,13 +113,21 @@ export default function Login() {
                 <div className="flex flex-row justify-end">
                     <div className="mr-3">
                         <h3 className="font-bold">
-                            {session != null ? "errored" : text["not connected"]}
+                            {session != null
+                                ? `${userMetadata.user_firstName} ${userMetadata.user_lastName}`
+                                : text["not connected"]}
                         </h3>
-                        <p className="underline text-right">{session != null ? null :text["login"]}</p>
+                        <p className="underline text-right">
+                            {session != null ? null : text["login"]}
+                        </p>
                     </div>
 
                     {/* image place holder */}
-                    {session != null ? <ProfileImage firstName="Error" lastName="r" /> : <ProfileImage />}
+                    {session != null ? (
+                        <ProfileImage firstName={userMetadata.user_firstName} lastName={userMetadata.user_lastName} />
+                    ) : (
+                        <ProfileImage />
+                    )}
                 </div>
                 <div
                     className={
