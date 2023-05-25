@@ -24,7 +24,7 @@ function DropDownMenu() {
         });
     };
 
-    if (session != null) {
+    if (session.isLogged) {
         return (
             <div className="flex flex-col">
                 <button className="mt-2 px-1 rounded-md bg-boutton1 hover:bg-slate-300">
@@ -77,13 +77,13 @@ export default function Login() {
 
     useEffect(() => {
         const getUserMetadata = async() => {
-            if (session == null) {
+            if (!session.isLogged) {
                 return;
             }
             let { data, error } = await supabase
                 .from("userMetadata")
                 .select("user_firstName,user_lastName")
-                .eq("user_id", session.user.id);
+                .eq("user_id", session.id);
 
             if (error == null) {
                 setUserMetadata(data[0]);
@@ -92,6 +92,7 @@ export default function Login() {
             }
         }
         getUserMetadata();
+ 
     }, [session]);
 
     const handleClick = () => {
@@ -116,17 +117,17 @@ export default function Login() {
                 <div className="flex flex-row justify-end">
                     <div className="mr-3">
                         <h3 className="font-bold">
-                            {session != null
+                            {session.isLogged
                                 ? `${userMetadata.user_firstName} ${userMetadata.user_lastName}`
                                 : text["not connected"]}
                         </h3>
                         <p className="underline text-right">
-                            {session != null ? null : text["login"]}
+                            {session.logged ? null : text["login"]}
                         </p>
                     </div>
 
                     {/* image place holder */}
-                    {session != null ? (
+                    {session.isLogged ? (
                         <ProfileImage
                             firstName={userMetadata.user_firstName}
                             lastName={userMetadata.user_lastName}

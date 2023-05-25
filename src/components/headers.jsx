@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { SessionContext } from "./SessionProvider";
-import { supabase } from "../lib/supabaseClient";
 import useTranslation from "src/lib/TextString";
 import tcdLogo from "src/image/tcd-logo.png";
 import Login from "src/components/login";
@@ -14,28 +13,12 @@ export default function Home() {
     ]);
 
     useEffect(() => {
-        const getUserMetadata = async () => {
-            if (session == null) {
-                setMenuItem([{ text: text["home"], link: "/" }]);
-                return;
-            }
-            let { data, error } = await supabase
-                .from("role")
-                .select("role_role")
-                .eq("role_id", session.user.id);
-
-            if (error != null) {
-                console.log(error);
-                return;
-            }
-            if (["student", "professor"].includes(data[0]["role_role"])) {
-                setMenuItem([
-                    { text: text["home"], link: "/" },
-                    { text: text["project"], link: "project" },
-                ]);
-            }
-        };
-        getUserMetadata();
+        if (["student", "professor"].includes(session.role)) {
+            setMenuItem([
+                { text: text["home"], link: "/" },
+                { text: text["project"], link: "project" },
+            ]);
+        }
     }, [session, text]);
     return (
         <>
