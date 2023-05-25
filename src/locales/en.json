@@ -3,7 +3,7 @@
     "comment placeholder": "add a comment ...",
     "download all": "download all",
     "email": "email",
-    "file confirm": "are you sure to delete ${0} ?",
+    "file confirm": "are you sure to delete {0} ?",
     "home": "Home",
     "login": "Log in",
     "logo Description": "Trinity College Dublin, The University of Dublin",
@@ -15,5 +15,5 @@
     "text placeholder": "add a text ...",
     "title": "Portfolio",
     "title placeholder": "add a title ...",
-    "user confirm": "are you sure to kick ${0} ?"
+    "user confirm": "are you sure to kick {0} ?"
 }

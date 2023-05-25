@@ -56,7 +56,7 @@ export default function UserList(props) {
                                 onClick={() => {
                                     popUpRef.current.popUp(
                                         text["user confirm"].replace(
-                                            "${0}",
+                                            "{0}",
                                             user.firstName+' '+user.lastName
                                         ),
                                         () => handleFileDelete(user.firstName,user.lastName)

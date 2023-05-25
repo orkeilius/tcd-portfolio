@@ -52,7 +52,7 @@ export default function DownloadList(props) {
                         <p className="a">{file.size + "mo"}</p>
                         {isAuthor ? (
                             <button
-                                onClick={() => { popUpRef.current.popUp(text["file confirm"].replace("${0}",file.name), () => handleFileDelete(file.name)) }}
+                                onClick={() => { popUpRef.current.popUp(text["file confirm"].replace('{0}',file.name), () => handleFileDelete(file.name)) }}
                                 className=" transition-all m-1 mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                             >
                                 <IoTrashOutline />
