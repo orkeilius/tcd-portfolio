@@ -45,7 +45,7 @@ export default function DownloadList(props) {
             <ConfirmPopUp ref={popUpRef} />
             <ul className="m-auto border rounded-xl border-black border-separate w-[97%] overflow-hidden">
                 {fileList.map((file) => (
-                    <li className="w-full flex border-b border-black last:border-0">
+                    <li key={file.name} className="w-full flex border-b border-black last:border-0">
                         <p className="ml-1 mr-auto font-semibold">
                             {file.name}
                         </p>
