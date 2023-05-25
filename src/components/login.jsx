@@ -8,7 +8,7 @@ function DropDownMenu() {
     const session = useContext(SessionContext);
     const text = useTranslation();
 
-    const [inputs, setInputs] = useState({firstName:'',lastName:''});
+    const [inputs, setInputs] = useState({ firstName: "", lastName: "" });
 
     const handleChange = (event) => {
         const name = event.target.type;
@@ -75,21 +75,24 @@ export default function Login() {
     const [isHover, setIsHover] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
-    async function getUserMetadata() {
-        if (session == null) {
-            return
-        }
-        let { data, error } = await supabase
-            .from("userMetadata")
-            .select("user_firstName,user_lastName")
-            .eq("user_id",session.user.id);
-        setUserMetadata(data[0]);
-    }
-
-
     useEffect(() => {
+        const getUserMetadata = async() => {
+            if (session == null) {
+                return;
+            }
+            let { data, error } = await supabase
+                .from("userMetadata")
+                .select("user_firstName,user_lastName")
+                .eq("user_id", session.user.id);
+
+            if (error == null) {
+                setUserMetadata(data[0]);
+            } else {
+                console.error(error);
+            }
+        }
         getUserMetadata();
-    }, session);
+    }, [session]);
 
     const handleClick = () => {
         setIsOpen(isHover);
@@ -124,7 +127,10 @@ export default function Login() {
 
                     {/* image place holder */}
                     {session != null ? (
-                        <ProfileImage firstName={userMetadata.user_firstName} lastName={userMetadata.user_lastName} />
+                        <ProfileImage
+                            firstName={userMetadata.user_firstName}
+                            lastName={userMetadata.user_lastName}
+                        />
                     ) : (
                         <ProfileImage />
                     )}
