@@ -9,7 +9,7 @@ export default function ProfileImage(props) {
     }
     return (
         <div className={`rounded-full h-12 aspect-square flex items-center justify-center`} style={color}>
-            <hi className="text-center font-bold text-xl" >{props.firstName.charAt(0).toUpperCase() + props.lastName.charAt(0).toUpperCase() }</hi>
+            <h1 className="text-center font-bold text-xl" >{props.firstName.charAt(0).toUpperCase() + props.lastName.charAt(0).toUpperCase() }</h1>
         </div>
     );
 }
