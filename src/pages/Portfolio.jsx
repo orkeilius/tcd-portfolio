@@ -2,36 +2,27 @@ import { SessionContext } from "src/components/SessionProvider";
 import { useEffect, useContext, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import useTranslation from "src/lib/TextString";
-import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import DownloadList from "src/components/preset/downloadList";
 import Comment from "src/components/preset/comment";
 
 export default function Portfolio(props) {
-    const text = useTranslation();
-    const navigate = useNavigate();
-
-    const session = useContext(SessionContext);
+    
     async function getPortfolioData(portfolioId) {
-        // Query file from db with props.postId
         let { data, error } = await supabase
             .from("portfolio")
             .select("*,userMetadata(*)")
             .eq("id", portfolioId);
 
-        if (error != null) {
-            navigate("/");
+        if (error != null || data.length === 0) {
             console.error(error);
-            return;
         }
-
-        if (data.length === 0) {
-            return null;
+        else {       
+            return {...data[0],};
         }
-
-        return {...data[0],};
     }
+
     async function handleEdit(key,value, portfolioId) {
         const { error } = await supabase
             .from("portfolio")
@@ -45,9 +36,11 @@ export default function Portfolio(props) {
             [key]: value,
         }));
     };
-    
 
+    const text = useTranslation();
+    const session = useContext(SessionContext);
     const { id } = useParams();
+    
     const [portfolioData, setPortfolioData] = useState(null);
 
     useEffect(() => {
@@ -65,7 +58,7 @@ export default function Portfolio(props) {
             textarea.style.height = `${textarea.scrollHeight}px`;
         });
     }
-    console.log(portfolioData)
+
     return (
         <main>
             <br />
