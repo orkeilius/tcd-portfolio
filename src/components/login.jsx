@@ -82,8 +82,8 @@ export default function Login() {
             }
             let { data, error } = await supabase
                 .from("userMetadata")
-                .select("user_firstName,user_lastName")
-                .eq("user_id", session.id);
+                .select("*")
+                .eq("id", session.id);
 
             if (error == null) {
                 setUserMetadata(data[0]);
@@ -118,7 +118,7 @@ export default function Login() {
                     <div className="mr-3">
                         <h3 className="font-bold">
                             {session.isLogged
-                                ? `${userMetadata.user_firstName} ${userMetadata.user_lastName}`
+                                ? `${userMetadata.first_name} ${userMetadata.last_name}`
                                 : text["not connected"]}
                         </h3>
                         <p className="underline text-right">
@@ -129,8 +129,8 @@ export default function Login() {
                     {/* image place holder */}
                     {session.isLogged ? (
                         <ProfileImage
-                            firstName={userMetadata.user_firstName}
-                            lastName={userMetadata.user_lastName}
+                            firstName={userMetadata.first_name}
+                            lastName={userMetadata.last_name}
                         />
                     ) : (
                         <ProfileImage />
