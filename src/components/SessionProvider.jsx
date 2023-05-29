@@ -10,17 +10,18 @@ async function makeSessionObject(rawSession) {
   }
 
   let { data, error } = await supabase
-    .from("role")
-    .select("role")
-    .eq("id", rawSession.user.id);
+    .from("userInfo")
+    .select("id,role(role)")
+    .eq("id", rawSession.user.id)
+    .limit(1)
+    .maybeSingle();
 
   if (error != null) {
-    console.log(error);
+    console.error(error);
   }
-
   return {
     isLogged: true,
-    role : data[0]['role'],
+    role : data?.role.role,
     id: rawSession.user.id,
   }
 
