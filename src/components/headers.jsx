@@ -1,25 +1,31 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { SessionContext } from "./SessionProvider";
 import useTranslation from "src/lib/TextString";
 import tcdLogo from "src/image/tcd-logo.png";
 import Login from "src/components/login";
 
+
 export default function Home() {
     const text = useTranslation();
     const session = useContext(SessionContext);
 
-    const [menuItem, setMenuItem] = useState([
-        { text: text["home"], link: "/" },
-    ]);
-
-    useEffect(() => {
-        if (["student", "professor"].includes(session.role)) {
-            setMenuItem([
-                { text: text["home"], link: "/" },
-                { text: text["project"], link: "project" },
-            ]);
+    const getMenuItem= useCallback(() => {
+        switch (session.role) {
+            // case 'admin':
+            case "student":
+            case "proffesor":
+                return [
+                    { text: text["home"], link: "/" },
+                    { text: text["project"], link: "project" },
+                ];
+            default:
+                return [{ text: text["home"], link: "/" }];
         }
-    }, [session, text]);
+    },[session,text])
+    
+    const [menuItem, setMenuItem] = useState(getMenuItem(session));
+    useEffect(() => { setMenuItem(getMenuItem()); }, [getMenuItem]);
+    
     return (
         <>
             <header className="px-1 py-5 w-3/4 flex justify-between">
