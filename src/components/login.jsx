@@ -71,27 +71,27 @@ export default function Login() {
     const text = useTranslation();
     const session = useContext(SessionContext);
 
-    const [userMetadata, setUserMetadata] = useState({});
+    const [userInfo, setuserInfo] = useState({});
     const [isHover, setIsHover] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        const getUserMetadata = async() => {
+        const getuserInfo = async() => {
             if (!session.isLogged) {
                 return;
             }
             let { data, error } = await supabase
-                .from("userMetadata")
+                .from("userInfo")
                 .select("*")
                 .eq("id", session.id);
 
             if (error == null) {
-                setUserMetadata(data[0]);
+                setuserInfo(data[0]);
             } else {
                 console.error(error);
             }
         }
-        getUserMetadata();
+        getuserInfo();
  
     }, [session]);
 
@@ -118,7 +118,7 @@ export default function Login() {
                     <div className="mr-3">
                         <h3 className="font-bold">
                             {session.isLogged
-                                ? `${userMetadata.first_name} ${userMetadata.last_name}`
+                                ? `${userInfo.first_name} ${userInfo.last_name}`
                                 : text["not connected"]}
                         </h3>
                         <p className="underline text-right">
@@ -129,8 +129,8 @@ export default function Login() {
                     {/* image place holder */}
                     {session.isLogged ? (
                         <ProfileImage
-                            firstName={userMetadata.first_name}
-                            lastName={userMetadata.last_name}
+                            firstName={userInfo.first_name}
+                            lastName={userInfo.last_name}
                         />
                     ) : (
                         <ProfileImage />

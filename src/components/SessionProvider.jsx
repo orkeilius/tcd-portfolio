@@ -11,8 +11,8 @@ async function makeSessionObject(rawSession) {
 
   let { data, error } = await supabase
     .from("role")
-    .select("role_role")
-    .eq("role_id", rawSession.user.id);
+    .select("role")
+    .eq("id", rawSession.user.id);
 
   if (error != null) {
     console.log(error);
@@ -20,7 +20,7 @@ async function makeSessionObject(rawSession) {
 
   return {
     isLogged: true,
-    role : data[0]['role_role'],
+    role : data[0]['role'],
     id: rawSession.user.id,
   }
 

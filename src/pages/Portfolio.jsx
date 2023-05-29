@@ -12,7 +12,7 @@ export default function Portfolio(props) {
     async function getPortfolioData(portfolioId) {
         let { data, error } = await supabase
             .from("portfolio")
-            .select("*,userMetadata(*)")
+            .select("*,userInfo(*)")
             .eq("id", portfolioId);
 
         if (error != null || data.length === 0) {
@@ -79,9 +79,9 @@ export default function Portfolio(props) {
             <p className="font-thin ml-1">
                 {text["portfolio author"] +
                     " " +
-                    portfolioData.userMetadata.firstName +
+                    portfolioData.userInfo.firstName +
                     " " +
-                    portfolioData.userMetadata.lastName}
+                    portfolioData.userInfo.lastName}
             </p>
             {isAuthor ? (
                 <textarea
