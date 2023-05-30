@@ -1,4 +1,6 @@
+import { supabase } from "../lib/supabaseClient";
 import singup_bg from "src/image/singup-bg.jpg";
+import { toast } from "react-toastify";
 
 function InputEntry(props) {
     return (
@@ -11,37 +13,53 @@ function InputEntry(props) {
     );
 }
 
-function handleSingUp(event) {
-    event.preventDefault() 
-    const args = event.target.elements 
+async function handleSingUp(event) {
+    event.preventDefault();
+    const args = event.target.elements;
+
+    if (args.password.value !== args.password2.value) {
+        toast.error(" missmatching password");
+        return;
+    }
+
+    const { data, error } = await supabase.auth.signUp({
+        email: args.email.value,
+        password: args.password.value,
+        options: {
+            data: {
+                firstName: args.firstName.value,
+                lastName: args.lastName.value,
+            },
+        },
+    });
+    if (error !== null) {console.error(error)};
+    
 
 }
 
-
-export default function Home() {
+export default function SingUp() {
     return (
         <main className="grid md:grid-cols-2 w-full h-full items-center">
             <form onSubmit={handleSingUp}>
-                <h1 className="text-7xl mb-16 text-center">Sing Up</h1>
+                <h1 className="text-6xl mb-16 text-center">Sing Up</h1>
                 <InputEntry
                     type="text"
                     placeholder="firstName"
                     name="firstName"
+                    minlength="3"
                 />
                 <InputEntry
                     type="text"
                     name="lastName"
                     placeholder="lastName"
+                    minlength="3"
                 />
-                <InputEntry
-                    type="email"
-                    name="email"
-                    placeholder="email"
-                />
+                <InputEntry type="email" name="email" placeholder="email" />
                 <InputEntry
                     type="password"
                     name="password"
                     placeholder="password"
+                    minlength="8"
                 />
                 <InputEntry
                     type="password"
