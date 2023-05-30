@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import singup_bg from "src/image/singup-bg.jpg";
 import useTranslation from "src/lib/TextString";
+import ImageParallax from "../components/ImageParallax";
 
 function InputEntry(props) {
     return (
@@ -116,10 +117,10 @@ export default function SingUp() {
                     />
                 </form>
             </div>
-            <img
+            <ImageParallax
                 alt=""
                 src={singup_bg}
-                className=" hidden md:block rounded-3xl object-cover w-full h-[80%]"
+                className=" hidden md:block rounded-3xl w-full h-[80%] overflow-hidden"
             />
         </main>
     );
