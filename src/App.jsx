@@ -5,6 +5,7 @@ import ComponentMuseum from "./pages/ComponentMuseum";
 import Portfolio from "./pages/Portfolio";
 import SingUp from "./pages/SingUp"
 import { SessionProvider } from "src/components/SessionProvider";
+import 'react-toastify/dist/ReactToastify.css'
 
 // import NoPage from "./pages/NoPage";
 
