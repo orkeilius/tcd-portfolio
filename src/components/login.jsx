@@ -40,29 +40,32 @@ function DropDownMenu() {
         );
     } else {
         return (
-            <form
-                className="flex flex-col text-center mt-2"
-                onSubmit={handleLogin}
-            >
-                <input
-                    className="bg-slate-200 m-1 outline-none focus-visible:border-accent2 rounded-md border-2"
-                    placeholder={text["email"]}
-                    type="email"
-                    onChange={handleChange}
-                />
+            <>
+                <form
+                    className="flex flex-col text-center mt-2"
+                    onSubmit={handleLogin}
+                >
+                    <input
+                        className="bg-slate-200 m-1 outline-none focus-visible:border-accent2 rounded-md border-2"
+                        placeholder={text["email"]}
+                        type="email"
+                        onChange={handleChange}
+                    />
 
-                <input
-                    className="bg-slate-200 m-1 outline-none focus-visible:border-accent2 rounded-md border-2"
-                    placeholder={text["password"]}
-                    type="password"
-                    onChange={handleChange}
-                />
-                <input
-                    className="transition duration-500 m-1 text-white bg-accent rounded-md border-accent border-2 hover:bg-white hover:text-accent"
-                    placeholder={text["login"]}
-                    type="submit"
-                />
-            </form>
+                    <input
+                        className="bg-slate-200 m-1 outline-none focus-visible:border-accent2 rounded-md border-2"
+                        placeholder={text["password"]}
+                        type="password"
+                        onChange={handleChange}
+                    />
+                    <input
+                        className="transition duration-500 m-1 text-white bg-accent rounded-md border-accent border-2 hover:bg-white hover:text-accent"
+                        placeholder={text["login"]}
+                        type="submit"
+                    />
+                </form>
+                <a href="/singup" className="block text-right w-full pr-2 text-accent hover:underline">{text["create account"]}</a>
+            </>
         );
     }
 }
@@ -76,7 +79,7 @@ export default function Login() {
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        const getuserInfo = async() => {
+        const getuserInfo = async () => {
             if (!session.isLogged) {
                 return;
             }
@@ -90,9 +93,8 @@ export default function Login() {
             } else {
                 console.error(error);
             }
-        }
+        };
         getuserInfo();
- 
     }, [session]);
 
     const handleClick = () => {
@@ -138,7 +140,7 @@ export default function Login() {
                 </div>
                 <div
                     className={
-                        "transition-all duration-700 overflow-hidden " +
+                        "transition-all duration-700 overflow-hidden w-60 min-w-full " +
                         (isOpen ? "max-h-96" : "max-h-0")
                     }
                 >
