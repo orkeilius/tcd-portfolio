@@ -48,7 +48,6 @@ export default function SingUp() {
         }
     }
     const [formStatus, setFormStatus] = useState("edit"); // edit | pending | fulfilled
-    console.log(formStatus);
     return (
         <main className="grid md:grid-cols-2 w-full h-full items-center">
             <div>
@@ -90,20 +89,20 @@ export default function SingUp() {
                         type="text"
                         placeholder={text["firstName"]}
                         name="firstName"
-                        minlength="3"
+                        minLength="3"
                     />
                     <InputEntry
                         type="text"
                         name="lastName"
                         placeholder={text["lastName"]}
-                        minlength="3"
+                        minLength="3"
                     />
                     <InputEntry type="email" name="email" placeholder="email" />
                     <InputEntry
                         type="password"
                         name="password"
                         placeholder={text["password"]}
-                        minlength="8"
+                        minLength="8"
                     />
                     <InputEntry
                         type="password"
