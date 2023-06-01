@@ -23,18 +23,18 @@ export default function Portfolio(props) {
         }
     }
 
-    async function handleEdit(key,value, portfolioId) {
+    async function handleEdit(key, value, portfolioId) {
+        setPortfolioData((commentData) => ({
+            ...commentData,
+            [key]: value,
+        }));
+
         const { error } = await supabase
             .from("portfolio")
             .update({ [key]: value })
             .eq("id", portfolioId);
 
-        if (error != null) console.error(error);
-
-        setPortfolioData((commentData) => ({
-            ...commentData,
-            [key]: value,
-        }));
+        if (error != null) console.error(error);        
     };
 
     const text = useTranslation();
@@ -68,7 +68,7 @@ export default function Portfolio(props) {
                     className="font-semibold text-3xl border-b border-black p-1 w-full"
                     value={portfolioData.title}
                     onChange={(event) =>
-                        handleEdit('name',event.target.value, id)
+                        handleEdit('title',event.target.value, id)
                     }
                 />
             ) : (

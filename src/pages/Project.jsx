@@ -34,13 +34,6 @@ export default function Project() {
     }
 
     async function handleEdit(key, value, project) {
-        const { error } = await supabase
-            .from("project")
-            .update({ [key]: value })
-            .eq("id", project.id);
-
-        if (error != null) console.error(error);
-
         setProjectList((list) =>
             list.map((i) => {
                 if (i.id === project.id) {
@@ -50,6 +43,13 @@ export default function Project() {
                 }
             })
         );
+
+        const { error } = await supabase
+            .from("project")
+            .update({ [key]: value })
+            .eq("id", project.id);
+
+        if (error != null) console.error(error);
     }
     const handleProjectDelete = async (project) => {
         const { error } = await supabase
