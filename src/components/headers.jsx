@@ -33,7 +33,7 @@ export default function Home() {
                     <img
                         className="max-h-[63px]"
                         src={tcdLogo}
-                        alt={text.logoDescription}
+                        alt={text['logo Description']}
                     />
                 </a>
                 <Login />
