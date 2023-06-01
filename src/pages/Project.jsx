@@ -1,8 +1,9 @@
+import { IoHelpCircle } from "react-icons/io5";
 import { SessionContext } from "src/components/SessionProvider";
 import { supabase } from "src/lib/supabaseClient";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef } from "react";
+import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
-import {IoHelpCircle} from "react-icons/io5";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -16,14 +17,16 @@ function generateCode() {
 export default function Project() {
     const text = useTranslation();
     const session = useContext(SessionContext);
+    const popUpRef = useRef(null);
 
     async function getProjectList() {
-        const { error: funcError } = await supabase.rpc('deleteExpiredCodeApi')
-        if (funcError) console.error(funcError)
+        const { error: funcError } = await supabase.rpc("deleteExpiredCodeApi");
+        if (funcError) console.error(funcError);
 
         let { data, error } = await supabase
             .from("project")
-            .select("*,project_code(*)");
+            .select("*,project_code(*)")
+            .order("id",{ascending:false});
         if (error) console.error(error);
         else setProjectList(data);
     }
@@ -36,15 +39,30 @@ export default function Project() {
 
         if (error != null) console.error(error);
 
-        setProjectList((list) => 
+        setProjectList((list) =>
             list.map((i) => {
                 if (i.id === project.id) {
-                    return { ...i, [key]: value }
+                    return { ...i, [key]: value };
                 } else {
-                    return i
+                    return i;
                 }
-            }
-        ))
+            })
+        );
+    }
+    const handleProjectDelete = async (project) => {
+        const { error } = await supabase
+            .from("project")
+            .delete()
+            .eq("id", project.id);
+
+        if (error != null) console.error(error);
+        getProjectList();
+    };
+
+    async function createProject() {
+        const { error } = await supabase.rpc("createProject");
+        if (error != null) console.error(error);
+        getProjectList();
     }
 
     async function setCode(project) {
@@ -52,19 +70,19 @@ export default function Project() {
         let expire = new Date(Date.now());
         expire.setHours(expire.getHours() + 12);
 
-        const { error } = await supabase
-            .from("project_code")
-            .upsert(
-                { id: project.id, code: code, expire: expire.toISOString() }
-            );
+        const { error } = await supabase.from("project_code").upsert({
+            id: project.id,
+            code: code,
+            expire: expire.toISOString(),
+        });
 
         if (error != null) console.error(error);
-        getProjectList()
+        getProjectList();
     }
 
     function copyLink(project) {
-        let link = `${process.env.REACT_APP_BASE_URL}/join/${project.id}/${project.project_code.code}`
-        navigator.clipboard.writeText(link)
+        let link = `${process.env.REACT_APP_BASE_URL}/join/${project.id}/${project.project_code.code}`;
+        navigator.clipboard.writeText(link);
     }
 
     const [projectList, setProjectList] = useState([]);
@@ -72,8 +90,6 @@ export default function Project() {
     useEffect(() => {
         getProjectList();
     }, []);
-
-    console.log(projectList)
     return (
         <main>
             <ConfirmPopUp ref={popUpRef} />
@@ -108,19 +124,47 @@ export default function Project() {
                                         );
                                     }}
                                 />
-                                {project.project_code?.code === undefined ? (
-                                    <button className="text-accent mr-1 underline" onClick={() => setCode(project)}>
-                                        generate invite code
+                                <div className="flex justify-between flex-wrap">
+                                    {project.project_code?.code ===
+                                    undefined ? (
+                                        <button
+                                            className="text-accent mr-1 underline"
+                                            onClick={() => setCode(project)}
+                                        >
+                                            generate invite code
+                                        </button>
+                                    ) : (
+                                        <div className="pl-1 flex items-center">
+                                            <button
+                                                className="text-accent mr-1 underline"
+                                                onClick={() =>
+                                                    copyLink(project)
+                                                }
+                                            >
+                                                Copy invite link
+                                            </button>
+                                            <IoHelpCircle className="fill-slate-500" />
+                                            <p className="text-sm">
+                                                code expire after 12 hours
+                                            </p>
+                                        </div>
+                                    )}
+                                    <button
+                                        className="text-red-500 mr-1 underline"
+                                        onClick={() => {
+                                            popUpRef.current.popUp(
+                                                text["file confirm"].replace(
+                                                    "{0}",
+                                                    project.name
+                                                ),
+                                                () =>
+                                                    handleProjectDelete(project)
+                                            );
+                                        }}
+                                    >
+                                        delete project
                                     </button>
-                                ) : (
-                                    <div className="pl-1 flex items-center">
-                                        <button className="text-accent mr-1 underline" onClick={() => copyLink(project)}>
-                                            Copy invite link
-                                                </button>
-                                        <IoHelpCircle  className="fill-slate-500"/>
-                                        <p className="text-sm">code expire after 12 hours</p>
-                                    </div>
-                                )}
+                                </div>
                             </>
                         )}
                     </div>
