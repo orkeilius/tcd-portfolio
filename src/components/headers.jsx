@@ -16,7 +16,7 @@ export default function Home() {
             case "professor":
                 return [
                     { text: text["home"], link: "/" },
-                    { text: text["project"], link: "project" },
+                    { text: text["project"], link: "/project" },
                 ];
             default:
                 return [{ text: text["home"], link: "/" }];
