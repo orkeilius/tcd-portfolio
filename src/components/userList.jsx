@@ -41,11 +41,11 @@ export default function UserList(props) {
     return (
         <>
             <ConfirmPopUp ref={popUpRef} />
-            <ul className="mx-auto my-1 border rounded-xl border-black border-separate w-[97%] overflow-hidden">
+            <ul className="mx-auto my-1 border rounded-xl border-gray-500 border-separate w-[97%] overflow-hidden">
                 {userList.map((user) => (
                     <li
                         key={user.first_name + user.last_name}
-                        className="w-full flex justify-between border-b border-black last:border-0"
+                        className="w-full flex justify-between border-b border-gray-500 last:border-0"
                     >
                         <p className="ml-1 font-semibold">
                             {user.first_name + " " + user.last_name}

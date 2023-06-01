@@ -108,7 +108,7 @@ export default function Project() {
 
             {projectList.map((project) => {
                 return (
-                    <div key={project.id}>
+                    <div key={project.id} className="my-7">
                         {session.role !== "professor" ? (
                             <h1 className="font-semibold text-3xl border-b border-black p-1">
                                 {project.name}
@@ -168,9 +168,9 @@ export default function Project() {
                                         delete project
                                     </button>
                                 </div>
+                                <UserList projectId={project.id}/>
                             </>
                         )}
-                        <UserList projectId={project.id}/>
                     </div>
                 );
             })}
