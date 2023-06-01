@@ -7,6 +7,7 @@ import Layout from "./pages/Layout";
 import Portfolio from "./pages/Portfolio";
 import Project from "./pages/Project";
 import SingUp from "./pages/SingUp";
+import Join from "./pages/Join";
 
 // import NoPage from "./pages/NoPage";
 
@@ -18,6 +19,7 @@ export default function App() {
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />
                         <Route path="/portfolio/:id" element={<Portfolio />} />
+                        <Route path="/join/:id/:code" element={<Join />} />
                         <Route path="/SingUp" element={<SingUp />} />
                         <Route path="/Project" element={<Project />} />
                         {/* test page */}
