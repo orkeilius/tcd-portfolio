@@ -5,6 +5,7 @@ import { useEffect, useContext, useState, useRef } from "react";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
 import UserList from "../components/userList";
+import { toast } from "react-toastify";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -84,6 +85,7 @@ export default function Project() {
     function copyLink(project) {
         let link = `${process.env.REACT_APP_BASE_URL}/join/${project.id}/${project.project_code.code}`;
         navigator.clipboard.writeText(link);
+        toast.success('copied !',{autoClose: 750});
     }
 
     const [projectList, setProjectList] = useState([]);
