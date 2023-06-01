@@ -24,14 +24,14 @@ export default function UserList(props) {
     const [userList, setUserList] = useState([]);
 
     const handleUserDelete = async (user_id) => {
-        let { data, error } = await supabase.rpc("kickUserProject", {
-            arg_project_id:props.projectId,
-            arg_user_id:user_id,
+        let { error } = await supabase.rpc("kickUserProject", {
+            arg_project_id: props.projectId,
+            arg_user_id: user_id,
         });
 
         if (error) console.error(error);
 
-        getUserData()
+        getUserData();
     };
 
     useEffect(() => {
@@ -67,10 +67,7 @@ export default function UserList(props) {
                                                 " " +
                                                 user.last_name
                                         ),
-                                        () =>
-                                            handleUserDelete(
-                                                user.user_id
-                                            )
+                                        () => handleUserDelete(user.user_id)
                                     );
                                 }}
                                 className=" transition-all m-1 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
