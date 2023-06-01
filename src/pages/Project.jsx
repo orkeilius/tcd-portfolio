@@ -89,7 +89,7 @@ export default function Project() {
 
     useEffect(() => {
         getProjectList();
-    }, []);
+    }, [session]);
     return (
         <main>
             <ConfirmPopUp ref={popUpRef} />
