@@ -76,7 +76,17 @@ export default function Project() {
     console.log(projectList)
     return (
         <main>
+            <ConfirmPopUp ref={popUpRef} />
             <br />
+            {session.role === "professor" && (
+                <button
+                    className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
+                    onClick={createProject}
+                >
+                    + Create a project
+                </button>
+            )}
+
             {projectList.map((project) => {
                 return (
                     <div key={project.id}>
