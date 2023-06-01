@@ -4,6 +4,7 @@ import { supabase } from "src/lib/supabaseClient";
 import { useEffect, useContext, useState, useRef } from "react";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
+import UserList from "../components/userList";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -167,6 +168,7 @@ export default function Project() {
                                 </div>
                             </>
                         )}
+                        <UserList projectId={project.id}/>
                     </div>
                 );
             })}
