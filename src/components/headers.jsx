@@ -13,7 +13,7 @@ export default function Home() {
         switch (session.role) {
             // case 'admin':
             case "student":
-            case "proffesor":
+            case "professor":
                 return [
                     { text: text["home"], link: "/" },
                     { text: text["project"], link: "project" },
@@ -28,18 +28,17 @@ export default function Home() {
     
     return (
         <>
-            <header className="px-1 py-5 w-3/4 flex justify-between">
+            <header className="px-1 py-5 w-10/12 sm:w-3/4 flex justify-between items-center">
                 <a href="https://www.tcd.ie/">
                     <img
+                        className="max-h-[63px]"
                         src={tcdLogo}
-                        width={232}
-                        height={62}
                         alt={text.logoDescription}
                     />
                 </a>
                 <Login />
             </header>
-            <nav className="bg-accent text-white pt-5 w-full">
+            <nav className="bg-accent text-white pt-5 w-full h-f">
                 <div className="px-1 mx-auto w-3/4">
                     <h2 className="text-3xl font-light">{text["title"]}</h2>
                     <div className="flex">

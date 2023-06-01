@@ -107,18 +107,18 @@ export default function Login() {
     });
 
     return (
-        <div className="overflow-visible h-0">
+        <div className={"overflow-visible sm:h-0 "+ (isOpen && "h-0") }>
             <div
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
                 className={
-                    "overflow-y-hidden transition-all duration-700 rounded-xl h-fit p-2 relative bg-white z-10 w-fit " +
-                    (isOpen ? "shadow-2xl max-h-fit" : "hover:bg-gray-100 ")
+                    "overflow-y-hidden transition-shadow transform-colors duration-700 rounded-xl h-fit p-2 relative bg-white z-10 w-fit sm:-translate-y-8 " +
+                    (isOpen ? "shadow-2xl max-h-fit -translate-y-9" : "sm:hover:bg-gray-100 ")
                 }
             >
                 <div className="flex flex-row justify-end">
-                    <div className="mr-3">
-                        <h3 className="font-bold">
+                    <div className="mr-3 hidden sm:block ">
+                        <h3 className="font-bold overflow-y-clip whitespace-nowrap">
                             {session.isLogged
                                 ? `${userInfo.first_name} ${userInfo.last_name}`
                                 : text["not connected"]}
@@ -140,7 +140,7 @@ export default function Login() {
                 </div>
                 <div
                     className={
-                        "transition-all duration-700 overflow-hidden w-60 min-w-full " +
+                        "transition-all duration-700 overflow-hidden min-w-full " +
                         (isOpen ? "max-h-96" : "max-h-0")
                     }
                 >
