@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import DownloadList from "src/components/preset/downloadList";
 import Comment from "src/components/preset/comment";
-import UserList from "../components/userList";
-import { supabase } from "src/lib/supabaseClient";
+
 
 export default function Home() {
     const [showComponent, setShowComponent] = useState(true);
