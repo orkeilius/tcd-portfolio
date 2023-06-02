@@ -5,6 +5,8 @@
     "copy invite":"Copy invite link",
     "invite expire":"link expire after 12 hours",
     "delete project":"delete project", 
+    "redirecting": "redirecting...",
+    "join not connected" : "you must be connected to join a group",
     "my portfolio":"my porfolio:",
     "account created": "account created - check your email",
     "comment author": "comment by",
