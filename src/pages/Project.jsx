@@ -167,7 +167,7 @@ export default function Project() {
                             <>
                                 <input
                                     placeholder={text["title placeholder"]}
-                                    className="font-semibold text-3xl border-b border-black p-1 w-full"
+                                    className="font-semibold text-3xl p-1 w-full hover:bg-gray-100 rounded-xl"
                                     value={project.name}
                                     onChange={(event) => {
                                         handleEdit(
@@ -176,7 +176,8 @@ export default function Project() {
                                             project
                                         );
                                     }}
-                                />
+                                    />
+                                    <div className="w-full border-b my-1 border-black" />
                                 <div className="flex justify-between flex-wrap">
                                     {project.project_code?.code ===
                                     undefined ? (

@@ -65,17 +65,18 @@ export default function Portfolio(props) {
             {isAuthor ? (
                 <input
                     placeholder={text["title placeholder"]}
-                    className="font-semibold text-3xl border-b border-black p-1 w-full"
+                    className="font-semibold text-3xl p-1 w-full hover:bg-gray-100 rounded-lg"
                     value={portfolioData.title}
                     onChange={(event) =>
                         handleEdit('title',event.target.value, id)
                     }
                 />
             ) : (
-                <h1 className="font-semibold text-3xl border-b border-black p-1">
+                <h1 className="font-semibold text-3xl p-1">
                     {portfolioData.title}
                 </h1>
             )}
+            <div className="w-full border-b my-1 border-black" />
             <p className="font-thin ml-1">
                 {text["portfolio author"] +
                     " " +
@@ -87,12 +88,12 @@ export default function Portfolio(props) {
                 <textarea
                     id="area"
                     placeholder={text["text placeholder"]}
-                    className="resize-none w-full m-1"
+                    className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 "
                     value={portfolioData.text}
                     onChange={(event) => handleEdit('text',event.target.value, id)}
                 />
             ) : (
-                <p className=" p-1">{portfolioData.text}</p>
+                <p className="p-2">{portfolioData.text}</p>
             )}
             <DownloadList />
             <Comment />
