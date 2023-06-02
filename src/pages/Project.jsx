@@ -6,7 +6,7 @@ import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
 import UserList from "../components/userList";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -30,9 +30,25 @@ export default function Project() {
         let { data, error } = await supabase
             .from("project")
             .select("*,project_code(*)")
-            .order("id",{ascending:false});
+            .order("id", { ascending: false });
         if (error) console.error(error);
         else setProjectList(data);
+    }
+    async function getUserPortfolio() {
+        let { data, error } = await supabase
+            .from("portfolio")
+            .select("*")
+            .eq("student_id", session.id);
+        if (error) console.error(error);
+        else {
+            data = Object.assign(
+                {},
+                ...data.map((row) => {
+                    return { [row.project_id]: { ...row } };
+                })
+            );
+            setUserPortfolio(data);
+        }
     }
 
     async function handleEdit(key, value, project) {
@@ -70,13 +86,11 @@ export default function Project() {
     }
     async function createPortfolio(project_id) {
         const { data, error } = await supabase.rpc("createPortfolio", {
-            arg_project_id : project_id
+            arg_project_id: project_id,
         });
-        if (error != null) console.error(error); 
-        else navigate('/portfolio/'+data)
-
+        if (error != null) console.error(error);
+        else navigate("/portfolio/" + data);
     }
-
 
     async function setCode(project) {
         const code = generateCode();
@@ -96,14 +110,20 @@ export default function Project() {
     function copyLink(project) {
         let link = `${process.env.REACT_APP_BASE_URL}/join/${project.id}/${project.project_code.code}`;
         navigator.clipboard.writeText(link);
-        toast.success('copied !',{autoClose: 750});
+        toast.success("copied !", { autoClose: 750 });
     }
 
     const [projectList, setProjectList] = useState([]);
+    const [userPortfolio, setUserPortfolio] = useState([]);
 
     useEffect(() => {
         getProjectList();
+        if (session.role === "student") {
+            getUserPortfolio();
+        }
     }, [session]);
+
+    console.log(userPortfolio)
     return (
         <main>
             <ConfirmPopUp ref={popUpRef} />
@@ -122,10 +142,26 @@ export default function Project() {
                     <div key={project.id} className="my-7">
                         {session.role !== "professor" ? (
                             <>
-                            <h1 className="font-semibold text-3xl border-b border-black p-1">
-                                {project.name}
-                            </h1>
-                                <button onClick={() => createPortfolio(project.id)}>test</button>
+                                <h1 className="font-semibold text-3xl border-b border-black p-1">
+                                    {project.name}
+                                </h1>
+                                {userPortfolio[project.id] === undefined ? (
+                                    <button
+                                        className="my-2 mx-auto block bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
+                                        onClick={() =>
+                                            createPortfolio(project.id)
+                                        }
+                                    >
+                                        make a new portfolio
+                                    </button>
+                                ) : (
+                                    <div className="flex justify-center">
+                                            <p>my porfolio: </p>
+                                            <Link to={'/portfolio/' + userPortfolio[project.id].id} className="ml-1 text-accent underline" >
+                                                {userPortfolio[project.id].title}
+                                            </Link>
+                                    </div>
+                                )}
                             </>
                         ) : (
                             <>
@@ -182,7 +218,7 @@ export default function Project() {
                                         delete project
                                     </button>
                                 </div>
-                                <UserList projectId={project.id}/>
+                                <UserList projectId={project.id} />
                             </>
                         )}
                     </div>
