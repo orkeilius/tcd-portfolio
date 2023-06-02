@@ -6,6 +6,7 @@ import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
 import UserList from "../components/userList";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -20,6 +21,7 @@ export default function Project() {
     const text = useTranslation();
     const session = useContext(SessionContext);
     const popUpRef = useRef(null);
+    const navigate = useNavigate();
 
     async function getProjectList() {
         const { error: funcError } = await supabase.rpc("deleteExpiredCodeApi");
@@ -110,9 +112,12 @@ export default function Project() {
                 return (
                     <div key={project.id} className="my-7">
                         {session.role !== "professor" ? (
+                            <>
                             <h1 className="font-semibold text-3xl border-b border-black p-1">
                                 {project.name}
                             </h1>
+                                <button onClick={() => navigate('/')}>test</button>
+                            </>
                         ) : (
                             <>
                                 <input
