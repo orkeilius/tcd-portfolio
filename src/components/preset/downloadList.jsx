@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { IoCloudDownloadOutline, IoTrashOutline } from "react-icons/io5";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
+import { Link } from "react-router-dom";
 
 function getFileData(portfolioId) {
     // Query file from db with props.postId
@@ -59,12 +60,12 @@ export default function DownloadList(props) {
                             </button>
                         ) : null}
 
-                        <a
-                            href={file.url}
+                        <Link
+                            to={file.url}
                             className=" transition-all m-1 bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                         >
                             <IoCloudDownloadOutline />
-                        </a>
+                        </Link>
                     </li>
                 ))}
             </ul>
