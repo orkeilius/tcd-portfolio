@@ -1,4 +1,4 @@
-import React from "react";
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import Headers from "../components/headers";
 import { ToastContainer } from "react-toastify";
@@ -20,7 +20,9 @@ const Layout = () => {
             />
             <Headers />
             <div className="px-1 w-3/4 flex-1 ">
-                <Outlet />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Outlet />
+                </Suspense>
             </div>
         </div>
     );
