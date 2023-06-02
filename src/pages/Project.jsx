@@ -68,6 +68,15 @@ export default function Project() {
         if (error != null) console.error(error);
         getProjectList();
     }
+    async function createPortfolio(project_id) {
+        const { data, error } = await supabase.rpc("createPortfolio", {
+            arg_project_id : project_id
+        });
+        if (error != null) console.error(error); 
+        else navigate('/portfolio/'+data)
+
+    }
+
 
     async function setCode(project) {
         const code = generateCode();
@@ -116,7 +125,7 @@ export default function Project() {
                             <h1 className="font-semibold text-3xl border-b border-black p-1">
                                 {project.name}
                             </h1>
-                                <button onClick={() => navigate('/')}>test</button>
+                                <button onClick={() => createPortfolio(project.id)}>test</button>
                             </>
                         ) : (
                             <>
