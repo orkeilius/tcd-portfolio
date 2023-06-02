@@ -3,6 +3,7 @@ import useTranslation from "src/lib/TextString";
 import { supabase } from "../lib/supabaseClient";
 import { SessionContext } from "./SessionProvider";
 import ProfileImage from "./profileImage";
+import { Link } from "react-router-dom";
 
 function DropDownMenu() {
     const session = useContext(SessionContext);
@@ -64,7 +65,7 @@ function DropDownMenu() {
                         type="submit"
                     />
                 </form>
-                <a href="/singup" className="block text-right w-full pr-2 text-accent hover:underline">{text["create account"]}</a>
+                <Link to="/singup" className="block text-right w-full pr-2 text-accent hover:underline">{text["create account"]}</Link>
             </>
         );
     }

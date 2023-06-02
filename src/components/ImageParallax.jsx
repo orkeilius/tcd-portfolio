@@ -18,7 +18,10 @@ export default function ImageParallax(props) {
 
     }
 
-    window.addEventListener("mousemove", handleMouseMove);
+    useEffect(() => {
+        window.addEventListener("mousemove", handleMouseMove);
+        return () =>  window.removeEventListener("mousemove", handleMouseMove);
+      }, []);
     return (
         <div className={"overflow-hidden" + props.className } >
             <img id="parallax" alt="" src={props.src} className="transition-all duration-0 scale-125 relative object-cover w-full h-full" />

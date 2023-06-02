@@ -1,15 +1,16 @@
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SessionProvider } from "src/components/SessionProvider";
-import ComponentMuseum from "./pages/ComponentMuseum";
-import Home from "./pages/Home";
+import { lazy } from "react";
 import Layout from "./pages/Layout";
-import Portfolio from "./pages/Portfolio";
-import Project from "./pages/Project";
-import SingUp from "./pages/SingUp";
-import Join from "./pages/Join";
 
 // import NoPage from "./pages/NoPage";
+const ComponentMuseum = lazy(() => import("./pages/ComponentMuseum"));
+const Home = lazy(() => import("./pages/Home"));
+const Join = lazy(() => import("./pages/Join"));
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const Project = lazy(() => import("./pages/Project"));
+const SingUp = lazy(() => import("./pages/SingUp"));
 
 export default function App() {
     return (
