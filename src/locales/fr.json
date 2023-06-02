@@ -25,5 +25,12 @@
     "text placeholder": "ajouter un texte ...",
     "title": "Portfolio",
     "title placeholder": "ajouter un titre ...",
+    "create project":"+ Crée un projet",
+    "create portoflio":"Crée un portfolio",
+    "create invite":"générer un nouvelle invitation",
+    "copy invite":"copier l'invitation",
+    "invite expire":"Les invitation expire au bout de 12 heures",
+    "delete project":"supprimé le project", 
+    "my portfolio":"my porfolio:",
     "user confirm": "étes-vous sur d'exclure {0} ?"
 }

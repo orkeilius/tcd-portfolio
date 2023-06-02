@@ -133,7 +133,7 @@ export default function Project() {
                     className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
                     onClick={createProject}
                 >
-                    + Create a project
+                    {text['create project']}
                 </button>
             )}
 
@@ -152,11 +152,11 @@ export default function Project() {
                                             createPortfolio(project.id)
                                         }
                                     >
-                                        make a new portfolio
+                                        {text['create portfolio']}
                                     </button>
                                 ) : (
                                     <div className="flex justify-center">
-                                            <p>my porfolio: </p>
+                                            <p>{text['my portfolio']}</p>
                                             <Link to={'/portfolio/' + userPortfolio[project.id].id} className="ml-1 text-accent underline" >
                                                 {userPortfolio[project.id].title}
                                             </Link>
@@ -184,7 +184,7 @@ export default function Project() {
                                             className="text-accent mr-1 underline"
                                             onClick={() => setCode(project)}
                                         >
-                                            generate invite code
+                                            {text['create invite']}
                                         </button>
                                     ) : (
                                         <div className="pl-1 flex items-center">
@@ -194,11 +194,11 @@ export default function Project() {
                                                     copyLink(project)
                                                 }
                                             >
-                                                Copy invite link
+                                                {text['copy invite']}
                                             </button>
                                             <IoHelpCircle className="fill-slate-500" />
                                             <p className="text-sm">
-                                                code expire after 12 hours
+                                            {text['invite expire']}
                                             </p>
                                         </div>
                                     )}
@@ -215,7 +215,7 @@ export default function Project() {
                                             );
                                         }}
                                     >
-                                        delete project
+                                        {text['delete project']}
                                     </button>
                                 </div>
                                 <UserList projectId={project.id} />

@@ -1,4 +1,11 @@
 {
+    "create project":"+ Create a new project",
+    "create portoflio":"make a new portfolio",
+    "create invite":"generate a invite link",
+    "copy invite":"Copy invite link",
+    "invite expire":"link expire after 12 hours",
+    "delete project":"delete project", 
+    "my portfolio":"my porfolio:",
     "account created": "account created - check your email",
     "comment author": "comment by",
     "create account": "create an account",
