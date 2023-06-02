@@ -4,6 +4,7 @@ import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
 import { SessionContext } from "src/components/SessionProvider";
 import { supabase } from "src/lib/supabaseClient";
+import { Link } from "react-router-dom";
 
 export default function UserList(props) {
     const text = useTranslation();
@@ -50,12 +51,12 @@ export default function UserList(props) {
                         <p className="ml-1 font-semibold">
                             {user.first_name + " " + user.last_name}
                         </p>
-                        <a
-                            href={"/portfolio/" + user.portfolio_id}
+                        <Link
+                            to={"/portfolio/" + user.portfolio_id}
                             className="underline text-accent hover:text-accent2"
                         >
                             {user.title}
-                        </a>
+                        </Link>
                         {session.role === "professor" &&
                         session.id !== user.user_id ? (
                             <button

@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
-import { SessionContext } from "./SessionProvider";
 import { useState, useEffect, useContext, useCallback } from "react";
-import Login from "src/components/login";
-import tcdLogo from "src/image/tcd-logo.png";
+import { SessionContext } from "./SessionProvider";
 import useTranslation from "src/lib/TextString";
+import tcdLogo from "src/image/tcd-logo.png";
+import Login from "src/components/login";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     const text = useTranslation();
     const session = useContext(SessionContext);
 
-    const getMenuItem = useCallback(() => {
+    const getMenuItem= useCallback(() => {
         switch (session.role) {
             // case 'admin':
             case "student":
@@ -21,13 +21,11 @@ export default function Home() {
             default:
                 return [{ text: text["home"], link: "/" }];
         }
-    }, [session, text]);
-
+    },[session,text])
+    
     const [menuItem, setMenuItem] = useState(getMenuItem(session));
-    useEffect(() => {
-        setMenuItem(getMenuItem());
-    }, [getMenuItem]);
-
+    useEffect(() => { setMenuItem(getMenuItem()); }, [getMenuItem]);
+    
     return (
         <>
             <header className="px-1 py-5 w-10/12 sm:w-3/4 flex justify-between items-center">
@@ -35,7 +33,7 @@ export default function Home() {
                     <img
                         className="max-h-[63px]"
                         src={tcdLogo}
-                        alt={text["logo Description"]}
+                        alt={text['logo Description']}
                     />
                 </a>
                 <Login />
