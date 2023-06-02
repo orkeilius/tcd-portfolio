@@ -121,9 +121,7 @@ export default function Project() {
         if (session.role === "student") {
             getUserPortfolio();
         }
-    }, [session]);
-
-    console.log(userPortfolio)
+    }, [session])
     return (
         <main>
             <ConfirmPopUp ref={popUpRef} />
