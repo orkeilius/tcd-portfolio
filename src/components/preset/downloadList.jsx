@@ -10,7 +10,7 @@ function getFileData(portfolioId) {
 
     //place holder
     var fileList = [];
-    for (let index = 0; index < Math.round(Math.random() * 40); index++) {
+    for (let index = 0; index < Math.round(Math.random() * 4); index++) {
         fileList.push({
             name: faker.system.fileName(),
             size: Math.round(Math.random() * 999),
@@ -25,7 +25,6 @@ export default function DownloadList(props) {
     const text = useTranslation();
 
     //place holder
-    const [isAuthor, setIsAuthor] = useState(true);
     const popUpRef = useRef(null);
     const [fileList, setFileList] = useState(getFileData());
 
@@ -34,15 +33,12 @@ export default function DownloadList(props) {
 
         setFileList((fileList) => {return fileList.filter(line => line.name !== name)})
     }
+    if (fileList.length === 0 && !props.isAuthor) {
+        return null
+    }
 
     return (
         <>
-            <button
-                className="bg-green-300 mb-5"
-                onClick={() => setIsAuthor(!isAuthor)}
-            >
-                dev : is author : {isAuthor ? "true" : "false"}
-            </button>
             <ConfirmPopUp ref={popUpRef} />
             <ul className="m-auto border rounded-xl border-black border-separate w-[97%] overflow-hidden">
                 {fileList.map((file) => (
@@ -51,8 +47,9 @@ export default function DownloadList(props) {
                             {file.name}
                         </p>
                         <p className="a">{file.size + "mo"}</p>
-                        {isAuthor ? (
+                        {props.isAuthor ? (
                             <button
+                                aria-label={text["button delete"]}
                                 onClick={() => { popUpRef.current.popUp(text["file confirm"].replace('{0}',file.name), () => handleFileDelete(file.name)) }}
                                 className=" transition-all m-1 mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                             >
@@ -61,6 +58,7 @@ export default function DownloadList(props) {
                         ) : null}
 
                         <Link
+                            aria-label={text["button download"]}
                             to={file.url}
                             className=" transition-all m-1 bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                         >

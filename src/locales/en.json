@@ -34,5 +34,7 @@
     "text placeholder": "add a text ...",
     "title": "Portfolio",
     "title placeholder": "add a title ...",
+    "button delete": "delete button",
+    "button download": "download button",
     "user confirm": "are you sure to kick {0} ?"
 }
