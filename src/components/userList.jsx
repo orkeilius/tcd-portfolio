@@ -71,7 +71,7 @@ export default function UserList(props) {
                                         () => handleUserDelete(user.user_id)
                                     );
                                 }}
-                                className=" transition-all m-1 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
+                                className="transition-all bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-6 h-6 m-2 md:m-1 md:w-5 md:h-5"
                             >
                                 <IoExitOutline />
                             </button>
