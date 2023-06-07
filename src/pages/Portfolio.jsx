@@ -54,7 +54,7 @@ export default function Portfolio(props) {
     const isAuthor = portfolioData.student_id === session.id;
     if (isAuthor) {
         setTimeout(() => {
-            var textarea = document.getElementById("area");
+            var textarea = document.getElementById("portfolio text");
             textarea.style.height = `${textarea.scrollHeight}px`;
         });
     }
@@ -86,7 +86,7 @@ export default function Portfolio(props) {
             </p>
             {isAuthor ? (
                 <textarea
-                    id="area"
+                    id="portfolio text"
                     placeholder={text["text placeholder"]}
                     className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 "
                     value={portfolioData.text}

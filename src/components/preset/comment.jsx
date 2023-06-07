@@ -38,7 +38,7 @@ export default function DownloadList(props) {
 
     if (isAuthor) {
         setTimeout(() => {
-            var textarea = document.getElementById("area");
+            var textarea = document.getElementById("comment text");
             textarea.style.height = `${textarea.scrollHeight}px`;
         });
     }
@@ -66,7 +66,7 @@ export default function DownloadList(props) {
                 </div>
                 {isAuthor ? (
                     <textarea
-                        id="area"
+                        id="comment text"
                         placeholder={text["comment placeholder"]}
                         className="w-full resize-none"
                         value={commentData.text}

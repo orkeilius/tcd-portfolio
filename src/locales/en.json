@@ -36,5 +36,6 @@
     "title placeholder": "add a title ...",
     "button delete": "delete button",
     "button download": "download button",
+    "button kick": "kick user button",
     "user confirm": "are you sure to kick {0} ?"
 }
