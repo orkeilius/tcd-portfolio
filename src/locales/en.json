@@ -2,9 +2,12 @@
     "create project":"+ Create a new project",
     "create portoflio":"make a new portfolio",
     "create invite":"generate a invite link",
+    "create paragraph":"Add a paragraph",
     "copy invite":"Copy invite link",
     "invite expire":"link expire after 12 hours",
     "delete project":"delete project", 
+    "delete paragraph":"delete paragraph", 
+    "paragraph confirm": "are you sure to delete `{0}` ?", 
     "redirecting": "redirecting...",
     "join not connected" : "you must be connected to join a group",
     "my portfolio":"my porfolio:",
@@ -34,5 +37,6 @@
     "text placeholder": "add a text ...",
     "title": "Portfolio",
     "title placeholder": "add a title ...",
+    "subtitle placeholder": "add a subtitle ...",
     "user confirm": "are you sure to kick {0} ?"
 }

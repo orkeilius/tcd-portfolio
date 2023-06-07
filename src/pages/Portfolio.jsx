@@ -3,9 +3,8 @@ import { useEffect, useContext, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import useTranslation from "src/lib/TextString";
 import { useParams } from "react-router-dom";
-
-import DownloadList from "src/components/preset/downloadList";
 import Comment from "src/components/preset/comment";
+import Paragraph from "../components/paragraph";
 
 export default function Portfolio(props) {
     
@@ -84,19 +83,8 @@ export default function Portfolio(props) {
                     " " +
                     portfolioData.userInfo.lastName}
             </p>
-            {isAuthor ? (
-                <textarea
-                    id="area"
-                    placeholder={text["text placeholder"]}
-                    className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 "
-                    value={portfolioData.text}
-                    onChange={(event) => handleEdit('text',event.target.value, id)}
-                />
-            ) : (
-                <p className="p-2">{portfolioData.text}</p>
-            )}
-            <DownloadList />
             <Comment />
+            <Paragraph id={id} isAuthor={isAuthor} />
         </main>
     );
 }
