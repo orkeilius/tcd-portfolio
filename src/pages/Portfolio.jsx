@@ -51,13 +51,6 @@ export default function Portfolio(props) {
     }
 
     const isAuthor = portfolioData.student_id === session.id;
-    if (isAuthor) {
-        setTimeout(() => {
-            var textarea = document.getElementById("area");
-            textarea.style.height = `${textarea.scrollHeight}px`;
-        });
-    }
-
     return (
         <main>
             <br />

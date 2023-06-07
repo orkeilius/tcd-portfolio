@@ -202,7 +202,7 @@ export default function Project() {
                                         </div>
                                     )}
                                     <button
-                                        className="text-red-500 mr-1 underline"
+                                        className="text-red-600 mr-1 underline"
                                         onClick={() => {
                                             popUpRef.current.popUp(
                                                 text["file confirm"].replace(

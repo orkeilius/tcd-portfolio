@@ -1,6 +1,6 @@
 {
     "create project":"+ Create a new project",
-    "create portoflio":"make a new portfolio",
+    "create portfolio":"make a new portfolio",
     "create invite":"generate a invite link",
     "create paragraph":"Add a paragraph",
     "copy invite":"Copy invite link",
@@ -37,6 +37,9 @@
     "text placeholder": "add a text ...",
     "title": "Portfolio",
     "title placeholder": "add a title ...",
+    "button delete": "delete button",
+    "button download": "download button",
+    "button kick": "kick user button",
     "subtitle placeholder": "add a subtitle ...",
     "user confirm": "are you sure to kick {0} ?"
 }

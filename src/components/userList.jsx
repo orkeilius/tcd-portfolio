@@ -51,15 +51,19 @@ export default function UserList(props) {
                         <p className="ml-1 font-semibold">
                             {user.first_name + " " + user.last_name}
                         </p>
-                        <Link
-                            to={"/portfolio/" + user.portfolio_id}
-                            className="underline text-accent hover:text-accent2"
-                        >
-                            {user.title}
-                        </Link>
+                        {user.portfolio_id !== null && (
+                            <Link
+                                to={"/portfolio/" + user.portfolio_id}
+                                className="underline text-accent hover:text-accent2"
+                            >
+                                {user.title}
+                            </Link>
+                        )}
                         {session.role === "professor" &&
                         session.id !== user.user_id ? (
                             <button
+                                className="transition-all bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-6 h-6 m-2 md:m-1 md:w-5 md:h-5"
+                                aria-label={text["button kick"]}
                                 onClick={() => {
                                     popUpRef.current.popUp(
                                         text["user confirm"].replace(
@@ -71,7 +75,6 @@ export default function UserList(props) {
                                         () => handleUserDelete(user.user_id)
                                     );
                                 }}
-                                className=" transition-all m-1 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                             >
                                 <IoExitOutline />
                             </button>
