@@ -3,7 +3,7 @@ import { IoCloudDownloadOutline, IoTrashOutline } from "react-icons/io5";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
 import { supabase } from "../../lib/supabaseClient";
-import { Link } from "react-router-dom";
+
 
 function octetToSiZe(nb) {
     const sizeName = ["b", "Kb", "Mb", "Gb", "Tb"];
@@ -14,6 +14,17 @@ function octetToSiZe(nb) {
         e += 1;
     }
     return `${nb.toFixed(2)} ${sizeName[e]}`;
+}
+
+function download(target) {
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = target;
+    a.target = "_blank"
+    a.download = target;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
 
 export default function DownloadList(props) {
@@ -62,9 +73,34 @@ export default function DownloadList(props) {
         });
         getFileData(props.id);
     }
-    const text = useTranslation();
 
-    //place holder
+    async function handleDownloadFile(name) {
+        const { data, error } = await supabase.storage
+            .from("media")
+            .createSignedUrl(`${props.id}/${name}`, 3600);
+        if (error != null) {
+            console.error(error);
+        }
+        else {
+            console.log(data)
+            download(data.signedUrl)
+        }
+    }
+
+    async function handleFileDelete(name) {
+        setFileList((fileList) => {
+            return fileList.filter((line) => line.name !== name);
+        });
+
+        const { error } = await supabase.storage
+            .from("media")
+            .remove([`${props.id}/${name}`]);
+        if (error != null) {
+            console.error(error);
+        }
+    }
+
+    const text = useTranslation();
     const isAuthor = props.isAuthor;
     const popUpRef = useRef(null);
     const [fileList, setFileList] = useState([]);
@@ -73,20 +109,6 @@ export default function DownloadList(props) {
         message: null,
         progress: 0,
     });
-
-    async function handleFileDelete(name) {
-        setFileList((fileList) => {
-            return fileList.filter((line) => line.name !== name);
-        });
-
-        const { data, error } = await supabase.storage
-            .from("media")
-            .remove([`${props.id}/${name}`]);
-        if (error != null) {
-            console.error(error);
-        }
-    }
-
     useEffect(() => {
         getFileData(props.id);
     }, [props.id]);
@@ -120,12 +142,12 @@ export default function DownloadList(props) {
                             </button>
                         ) : null}
 
-                        <Link
-                            to={file.url}
+                        <button
+                            onClick={() => handleDownloadFile(file.name)}
                             className="transition-all m-1 bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                         >
                             <IoCloudDownloadOutline />
-                        </Link>
+                        </button>
                     </li>
                 ))}
                 <li
