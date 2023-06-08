@@ -44,16 +44,23 @@ export default function DownloadList(props) {
     async function handleUpload(fileList) {
         for (let i = 0; i < fileList.length; i++) {
             const element = fileList[i];
-
+            setUploadStatus({
+                message: "uploading " + element.name,
+                progress: (i / fileList.length) * 100,
+            });
             const { error } = await supabase.storage
                 .from("media")
                 .upload(props.id + "/" + element.name, element, {
                     cacheControl: "3600",
                     upsert: false,
                 });
-            if (error != null) console.error(error) 
+            if (error != null) console.error(error);
         }
-        setTimeout(() => getFileData(props.id), 1000);
+        setUploadStatus({
+            message: null,
+            progress: 0,
+        });
+        getFileData(props.id);
     }
     const text = useTranslation();
 
@@ -62,6 +69,10 @@ export default function DownloadList(props) {
     const popUpRef = useRef(null);
     const [fileList, setFileList] = useState([]);
     const [dropState, setDropState] = useState("none"); // none ¦ drag
+    const [uploadStatus, setUploadStatus] = useState({
+        message: null,
+        progress: 0,
+    });
 
     async function handleFileDelete(name) {
         setFileList((fileList) => {
@@ -130,34 +141,55 @@ export default function DownloadList(props) {
                         handleUpload(event.dataTransfer.files);
                     }}
                     className={
-                        "transition-all w-full flex border-b border-black last:border-0 px-1 font-semibold justify-center " +
+                        "transition-all w-full flex border-b border-black last:border-0 font-semibold justify-center " +
                         (dropState === "drag"
                             ? " h-20 bg-cyan-100"
                             : "h-10 bg-slate-200")
                     }
                 >
-                    <label
-                        htmlFor="file-upload"
-                        className={
-                            "custom-file-upload cursor-pointer m-auto " +
-                            (dropState === "drag" && "pointer-events-none")
-                        }
-                        onDragEnter={(event) => {
-                            if (event.dataTransfer.types.includes("Files"))
-                                setDropState("drag");
-                        }}
-                        //onDragLeave={() => setDropState("none")}
-                    >
-                        {"drag and drop file or "}
-                        <span className="underline">select a file</span>
-                    </label>
-                    <input
-                        onChange={(event) => handleUpload(event.target.files)}
-                        id="file-upload"
-                        className="hidden"
-                        type="file"
-                        multiple
-                    />
+                    {uploadStatus.message == null ? (
+                        <>
+                            <label
+                                htmlFor="file-upload"
+                                className={
+                                    "custom-file-upload cursor-pointer m-auto " +
+                                    (dropState === "drag" &&
+                                        "pointer-events-none")
+                                }
+                                onDragEnter={(event) => {
+                                    if (
+                                        event.dataTransfer.types.includes(
+                                            "Files"
+                                        )
+                                    )
+                                        setDropState("drag");
+                                }}
+                                //onDragLeave={() => setDropState("none")}
+                            >
+                                {"drag and drop file or "}
+                                <span className="underline">select a file</span>
+                            </label>
+                            <input
+                                onChange={(event) =>
+                                    handleUpload(event.target.files)
+                                }
+                                id="file-upload"
+                                className="hidden"
+                                type="file"
+                                multiple
+                            />
+                        </>
+                    ) : (
+                        <div className="w-full text-center h-10">
+                            <p className="h-9">{uploadStatus.message}</p>
+                            <div
+                                className="h-1 w-full transition-all duration-300 m-r-auto bg-accent"
+                                style={{
+                                    width: `${uploadStatus.progress}%`,
+                                }}
+                            ></div>
+                        </div>
+                    )}
                 </li>
             </ul>
             <a className="mx-3 underline" href="/">
