@@ -147,7 +147,7 @@ export default function Paragraph(props) {
                         )}
                         {/* <div className="w-full border-b my-1 border-black" /> */}
 
-                        <DownloadList isAuthor={props.isAuthor} />
+                        <DownloadList isAuthor={props.isAuthor} id={paragraph.id} />
                     </div>
                 );
             })}

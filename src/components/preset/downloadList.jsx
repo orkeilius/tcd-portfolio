@@ -1,74 +1,168 @@
-import { faker } from "@faker-js/faker";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { IoCloudDownloadOutline, IoTrashOutline } from "react-icons/io5";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
+import { supabase } from "../../lib/supabaseClient";
 import { Link } from "react-router-dom";
 
-function getFileData(portfolioId) {
-    // Query file from db with props.postId
-
-    //place holder
-    var fileList = [];
-    for (let index = 0; index < Math.round(Math.random() * 4); index++) {
-        fileList.push({
-            name: faker.system.fileName(),
-            size: Math.round(Math.random() * 999),
-            url: faker.image.url(),
-        });
+function octetToSiZe(nb) {
+    const sizeName = ["b", "Kb", "Mb", "Gb", "Tb"];
+    let e = 0;
+    nb /= 1;
+    while (nb >= 1000 && e <= sizeName.length) {
+        nb /= 1000;
+        e += 1;
     }
-    return fileList;
+    return `${nb.toFixed(2)} ${sizeName[e]}`;
 }
 
 export default function DownloadList(props) {
-    
+    async function getFileData(paragraphId) {
+        const { data, error } = await supabase.storage
+            .from("media")
+            .list(paragraphId + "", {
+                limit: 100,
+                offset: 0,
+                sortBy: { column: "name", order: "asc" },
+            });
+        if (error != null) {
+            console.error(error);
+            return;
+        }
+
+        setFileList(
+            data.map((file) => {
+                return {
+                    name: file.name,
+                    size: octetToSiZe(file.metadata?.size),
+                    url: null,
+                };
+            })
+        );
+    }
+
+    async function handleUpload(fileList) {
+        for (let i = 0; i < fileList.length; i++) {
+            const element = fileList[i];
+
+            const { error } = await supabase.storage
+                .from("media")
+                .upload(props.id + "/" + element.name, element, {
+                    cacheControl: "3600",
+                    upsert: false,
+                });
+            if (error != null) console.error(error) 
+        }
+        setTimeout(() => getFileData(props.id), 1000);
+    }
     const text = useTranslation();
 
     //place holder
+    const isAuthor = props.isAuthor;
     const popUpRef = useRef(null);
-    const [fileList, setFileList] = useState(getFileData());
+    const [fileList, setFileList] = useState([]);
+    const [dropState, setDropState] = useState("none"); // none ¦ drag
 
-    const handleFileDelete = (name) => {
-        //call to db
+    async function handleFileDelete(name) {
+        setFileList((fileList) => {
+            return fileList.filter((line) => line.name !== name);
+        });
 
-        setFileList((fileList) => {return fileList.filter(line => line.name !== name)})
+        const { data, error } = await supabase.storage
+            .from("media")
+            .remove([`${props.id}/${name}`]);
+        if (error != null) {
+            console.error(error);
+        }
     }
-    if (fileList.length === 0 && !props.isAuthor) {
-        return null
-    }
 
+    useEffect(() => {
+        getFileData(props.id);
+    }, [props.id]);
     return (
         <>
             <ConfirmPopUp ref={popUpRef} />
             <ul className="m-auto border rounded-xl border-black border-separate w-[97%] overflow-hidden">
                 {fileList.map((file) => (
-                    <li key={file.name} className="w-full flex border-b border-black last:border-0">
+                    <li
+                        key={file.name}
+                        className="transition-all duration-70000 w-full flex border-black last:border-0 overflow-hidden border-b"
+                    >
                         <p className="ml-1 mr-auto font-semibold">
                             {file.name}
                         </p>
-                        <p className="a">{file.size + "mo"}</p>
-                        {true? (
+                        <p className="a">{file.size}</p>
+                        {isAuthor ? (
                             <button
-                                aria-label={text["button delete"]}
-                                onClick={() => { popUpRef.current.popUp(text["file confirm"].replace('{0}',file.name), () => handleFileDelete(file.name)) }}
-                                className=" transition-all mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-6 h-6 m-2 md:m-1 md:w-5 md:h-5"
+                                onClick={() => {
+                                    popUpRef.current.popUp(
+                                        text["file confirm"].replace(
+                                            "{0}",
+                                            file.name
+                                        ),
+                                        () => handleFileDelete(file.name)
+                                    );
+                                }}
+                                className=" transition-all m-1 mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                             >
                                 <IoTrashOutline />
                             </button>
                         ) : null}
 
                         <Link
-                            aria-label={text["button download"]}
                             to={file.url}
-                            className=" transition-all bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-6 h-6 m-2 md:m-1 md:w-5 md:h-5"
+                            className="transition-all m-1 bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                         >
                             <IoCloudDownloadOutline />
                         </Link>
                     </li>
                 ))}
+                <li
+                    onDragEnter={(event) => {
+                        if (event.dataTransfer.types.includes("Files"))
+                            setDropState("drag");
+                    }}
+                    onDragLeave={() => setDropState("none")}
+                    onDragOver={(event) => event.preventDefault()}
+                    onDrop={(event) => {
+                        event.preventDefault();
+                        setDropState("none");
+                        handleUpload(event.dataTransfer.files);
+                    }}
+                    className={
+                        "transition-all w-full flex border-b border-black last:border-0 px-1 font-semibold justify-center " +
+                        (dropState === "drag"
+                            ? " h-20 bg-cyan-100"
+                            : "h-10 bg-slate-200")
+                    }
+                >
+                    <label
+                        htmlFor="file-upload"
+                        className={
+                            "custom-file-upload cursor-pointer m-auto " +
+                            (dropState === "drag" && "pointer-events-none")
+                        }
+                        onDragEnter={(event) => {
+                            if (event.dataTransfer.types.includes("Files"))
+                                setDropState("drag");
+                        }}
+                        //onDragLeave={() => setDropState("none")}
+                    >
+                        {"drag and drop file or "}
+                        <span className="underline">select a file</span>
+                    </label>
+                    <input
+                        onChange={(event) => handleUpload(event.target.files)}
+                        id="file-upload"
+                        className="hidden"
+                        type="file"
+                        multiple
+                    />
+                </li>
             </ul>
-            <a className="mx-3 underline" href="/" >{text["download all"]}</a>
-            
+            <a className="mx-3 underline" href="/">
+                {text["download all"]}
+            </a>
         </>
     );
 }
