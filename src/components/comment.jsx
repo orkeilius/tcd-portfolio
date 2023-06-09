@@ -122,12 +122,12 @@ export default function Comment(props) {
                                 <p className="flex-grow text-right underline text-red-600 mt-1"
                                 onClick={() => {
                                     popUpRef.current.popUp(
-                                        "are you sur to delete your comment",
+                                        text["comment confirm"],
                                         () =>
                                             handleDelete()
                                     );
                                 }}
-                                > delete comment</p>
+                                > {text["delete comment"]}</p>
                             )}
                         </div>
                         {comment.authorId === session.id ? (
@@ -158,7 +158,7 @@ export default function Comment(props) {
                             className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
                             onClick={createComment}
                         >
-                            + add a comment
+                            {text["create comment"]}
                         </button>
                     ))
             }
