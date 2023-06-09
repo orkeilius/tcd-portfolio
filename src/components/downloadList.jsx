@@ -56,7 +56,7 @@ export default function DownloadList(props) {
         for (let i = 0; i < fileList.length; i++) {
             const element = fileList[i];
             setUploadStatus({
-                message: "uploading " + element.name,
+                message: text["uploading file"].replace("{0}", element.name),
                 progress: (i / fileList.length) * 100,
             });
             const { error } = await supabase.storage
@@ -188,8 +188,9 @@ export default function DownloadList(props) {
                                 }}
                                 //onDragLeave={() => setDropState("none")}
                             >
-                                {"drag and drop file or "}
-                                <span className="underline">select a file</span>
+                                {text["drag and drop file"][0]}
+                                    <span className="underline">{text["drag and drop file"][1]}</span>
+                                
                             </label>
                             <input
                                 onChange={(event) =>

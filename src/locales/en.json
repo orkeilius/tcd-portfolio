@@ -41,5 +41,7 @@
     "button download": "download button",
     "button kick": "kick user button",
     "subtitle placeholder": "add a subtitle ...",
+    "uploading file" : "uploading {0}",
+    "drag and drop file":["drag and drop file or ","select a file"],
     "user confirm": "are you sure to kick {0} ?"
 }
