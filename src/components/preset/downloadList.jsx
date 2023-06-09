@@ -214,9 +214,9 @@ export default function DownloadList(props) {
                     )}
                 </li>
             </ul>
-            <a className="mx-3 underline" href="/">
+            {/* <a className="mx-3 underline" href="/">
                 {text["download all"]}
-            </a>
+            </a> */}
         </>
     );
 }
