@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { IoCloudDownloadOutline, IoTrashOutline } from "react-icons/io5";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
-import { supabase } from "../../lib/supabaseClient";
+import { supabase } from "../lib/supabaseClient";
 
 
 function octetToSiZe(nb) {

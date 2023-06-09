@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { supabase } from "src/lib/supabaseClient";
 import useTranslation from "src/lib/TextString";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
-import DownloadList from "src/components/preset/downloadList";
+import DownloadList from "src/components/downloadList";
 
 export default function Paragraph(props) {
     async function getParagraphData(portfolioId) {

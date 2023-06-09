@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import DownloadList from "src/components/preset/downloadList";
 import Comment from "src/components/preset/comment";
 
 
@@ -20,7 +19,6 @@ export default function Home() {
                 <div>
                     <p>{Math.random()}</p>
                     <Comment />
-                    <DownloadList />
                 </div>
             )}
         </main>
