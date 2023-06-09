@@ -16,7 +16,7 @@ export default function Portfolio() {
             join_id: id,
             join_code: code,
         });
-        if (error === null) {
+        if (error !== null) {
             console.error(error);
             toast.error(text["error"])
             navigate("/")
