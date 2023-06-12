@@ -80,10 +80,8 @@ export default function DownloadList(props) {
             .createSignedUrl(`${props.id}/${name}`, 3600);
         if (error != null) {
             console.error(error);
-        }
-        else {
-            console.log(data)
-            download(data.signedUrl)
+        } else {
+            download(data.signedUrl);
         }
     }
 

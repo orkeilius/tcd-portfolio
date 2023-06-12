@@ -30,7 +30,6 @@ export default function Comment(props) {
     }
 
     async function handleEdit(key, value) {
-        console.log(commentData)
         setCommentData((commentData) =>
             commentData.map((elem) => {
                 return elem.authorId !== session.id
@@ -61,7 +60,6 @@ export default function Comment(props) {
     }
 
     async function createComment() {
-        console.log(props.id)
         const { error } = await supabase.rpc("createComment", {
             arg_portfolio_id: parseInt( props.id),
         });
@@ -81,7 +79,7 @@ export default function Comment(props) {
     const session = useContext(SessionContext);
 
     setTimeout(() => {
-        console.log("e")
+
         var textarea = Array.from(
             document.getElementsByTagName("textarea")
         );
