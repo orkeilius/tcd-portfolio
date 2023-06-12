@@ -24,7 +24,7 @@ export default function Project() {
     const navigate = useNavigate();
 
     async function getProjectList() {
-        const { error: funcError } = await supabase.rpc("deleteExpiredCodeApi");
+        const { error: funcError } = await supabase.rpc("fn_deleteExpiredCode");
         if (funcError) console.error(funcError);
 
         let { data, error } = await supabase
@@ -80,12 +80,12 @@ export default function Project() {
     };
 
     async function createProject() {
-        const { error } = await supabase.rpc("createProject");
+        const { error } = await supabase.rpc("fn_createProject");
         if (error != null) console.error(error);
         getProjectList();
     }
     async function createPortfolio(project_id) {
-        const { data, error } = await supabase.rpc("createPortfolio", {
+        const { data, error } = await supabase.rpc("fn_createPortfolio", {
             arg_project_id: project_id,
         });
         if (error != null) console.error(error);

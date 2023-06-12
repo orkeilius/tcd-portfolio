@@ -50,7 +50,7 @@ export default function Paragraph(props) {
     }
 
     async function createParagraph(id) {
-        const { error } = await supabase.rpc("createParagraph", {
+        const { error } = await supabase.rpc("fn_createParagraph", {
             portfolio_id: id,
         });
         if (error != null) console.error(error);

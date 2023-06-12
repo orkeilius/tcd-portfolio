@@ -60,7 +60,7 @@ export default function Comment(props) {
     }
 
     async function createComment() {
-        const { error } = await supabase.rpc("createComment", {
+        const { error } = await supabase.rpc("fn_createComment", {
             arg_portfolio_id: parseInt( props.id),
         });
         if (error != null) console.error(error);
