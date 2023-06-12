@@ -4,7 +4,6 @@ import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
 import { supabase } from "../lib/supabaseClient";
 
-
 function octetToSiZe(nb) {
     const sizeName = ["b", "Kb", "Mb", "Gb", "Tb"];
     let e = 0;
@@ -17,10 +16,10 @@ function octetToSiZe(nb) {
 }
 
 function download(target) {
-    const a = document.createElement('a');
-    a.style.display = 'none';
+    const a = document.createElement("a");
+    a.style.display = "none";
     a.href = target;
-    a.target = "_blank"
+    a.target = "_blank";
     a.download = target;
     document.body.appendChild(a);
     a.click();
@@ -110,6 +109,10 @@ export default function DownloadList(props) {
     useEffect(() => {
         getFileData(props.id);
     }, [props.id]);
+
+    if (!isAuthor && fileList.length === 0) {
+        return <></>;
+    }
     return (
         <>
             <ConfirmPopUp ref={popUpRef} />
@@ -123,7 +126,7 @@ export default function DownloadList(props) {
                             {file.name}
                         </p>
                         <p className="a">{file.size}</p>
-                        {isAuthor ? (
+                        {isAuthor && (
                             <button
                                 onClick={() => {
                                     popUpRef.current.popUp(
@@ -138,7 +141,7 @@ export default function DownloadList(props) {
                             >
                                 <IoTrashOutline />
                             </button>
-                        ) : null}
+                        )}
 
                         <button
                             onClick={() => handleDownloadFile(file.name)}
@@ -148,70 +151,73 @@ export default function DownloadList(props) {
                         </button>
                     </li>
                 ))}
-                <li
-                    onDragEnter={(event) => {
-                        if (event.dataTransfer.types.includes("Files"))
-                            setDropState("drag");
-                    }}
-                    onDragLeave={() => setDropState("none")}
-                    onDragOver={(event) => event.preventDefault()}
-                    onDrop={(event) => {
-                        event.preventDefault();
-                        setDropState("none");
-                        handleUpload(event.dataTransfer.files);
-                    }}
-                    className={
-                        "transition-all w-full flex border-b border-black last:border-0 font-semibold justify-center " +
-                        (dropState === "drag"
-                            ? " h-20 bg-cyan-100"
-                            : "h-10 bg-slate-200")
-                    }
-                >
-                    {uploadStatus.message == null ? (
-                        <>
-                            <label
-                                htmlFor="file-upload"
-                                className={
-                                    "custom-file-upload cursor-pointer m-auto " +
-                                    (dropState === "drag" &&
-                                        "pointer-events-none")
-                                }
-                                onDragEnter={(event) => {
-                                    if (
-                                        event.dataTransfer.types.includes(
-                                            "Files"
+                {isAuthor && (
+                    <li
+                        onDragEnter={(event) => {
+                            if (event.dataTransfer.types.includes("Files"))
+                                setDropState("drag");
+                        }}
+                        onDragLeave={() => setDropState("none")}
+                        onDragOver={(event) => event.preventDefault()}
+                        onDrop={(event) => {
+                            event.preventDefault();
+                            setDropState("none");
+                            handleUpload(event.dataTransfer.files);
+                        }}
+                        className={
+                            "transition-all w-full flex border-b border-black last:border-0 font-semibold justify-center " +
+                            (dropState === "drag"
+                                ? " h-20 bg-cyan-100"
+                                : "h-10 bg-slate-200")
+                        }
+                    >
+                        {uploadStatus.message == null ? (
+                            <>
+                                <label
+                                    htmlFor="file-upload"
+                                    className={
+                                        "custom-file-upload cursor-pointer m-auto " +
+                                        (dropState === "drag" &&
+                                            "pointer-events-none")
+                                    }
+                                    onDragEnter={(event) => {
+                                        if (
+                                            event.dataTransfer.types.includes(
+                                                "Files"
+                                            )
                                         )
-                                    )
-                                        setDropState("drag");
-                                }}
-                                //onDragLeave={() => setDropState("none")}
-                            >
-                                {text["drag and drop file"][0]}
-                                    <span className="underline">{text["drag and drop file"][1]}</span>
-                                
-                            </label>
-                            <input
-                                onChange={(event) =>
-                                    handleUpload(event.target.files)
-                                }
-                                id="file-upload"
-                                className="hidden"
-                                type="file"
-                                multiple
-                            />
-                        </>
-                    ) : (
-                        <div className="w-full text-center h-10">
-                            <p className="h-9">{uploadStatus.message}</p>
-                            <div
-                                className="h-1 w-full transition-all duration-300 m-r-auto bg-accent"
-                                style={{
-                                    width: `${uploadStatus.progress}%`,
-                                }}
-                            ></div>
-                        </div>
-                    )}
-                </li>
+                                            setDropState("drag");
+                                    }}
+                                    //onDragLeave={() => setDropState("none")}
+                                >
+                                    {text["drag and drop file"][0]}
+                                    <span className="underline">
+                                        {text["drag and drop file"][1]}
+                                    </span>
+                                </label>
+                                <input
+                                    onChange={(event) =>
+                                        handleUpload(event.target.files)
+                                    }
+                                    id="file-upload"
+                                    className="hidden"
+                                    type="file"
+                                    multiple
+                                />
+                            </>
+                        ) : (
+                            <div className="w-full text-center h-10">
+                                <p className="h-9">{uploadStatus.message}</p>
+                                <div
+                                    className="h-1 w-full transition-all duration-300 m-r-auto bg-accent"
+                                    style={{
+                                        width: `${uploadStatus.progress}%`,
+                                    }}
+                                ></div>
+                            </div>
+                        )}
+                    </li>
+                )}
             </ul>
             {/* <a className="mx-3 underline" href="/">
                 {text["download all"]}
