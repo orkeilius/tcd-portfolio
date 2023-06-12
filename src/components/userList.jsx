@@ -14,7 +14,7 @@ export default function UserList(props) {
     async function getUserData(project) {
         // Query file from db with props.postId
         let { data: userData, userError } = await supabase.rpc(
-            "query_user_list",
+            "fn_queryUserList",
             { query_project_id: props.projectId }
         );
         if (userError != null) console.error(userError);
@@ -25,7 +25,7 @@ export default function UserList(props) {
     const [userList, setUserList] = useState([]);
 
     const handleUserDelete = async (user_id) => {
-        let { error } = await supabase.rpc("kickUserProject", {
+        let { error } = await supabase.rpc("fn_kickUser", {
             arg_project_id: props.projectId,
             arg_user_id: user_id,
         });

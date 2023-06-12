@@ -2,8 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { IoCloudDownloadOutline, IoTrashOutline } from "react-icons/io5";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
-import { supabase } from "../../lib/supabaseClient";
-
+import { supabase } from "../lib/supabaseClient";
 
 function octetToSiZe(nb) {
     const sizeName = ["b", "Kb", "Mb", "Gb", "Tb"];
@@ -17,10 +16,10 @@ function octetToSiZe(nb) {
 }
 
 function download(target) {
-    const a = document.createElement('a');
-    a.style.display = 'none';
+    const a = document.createElement("a");
+    a.style.display = "none";
     a.href = target;
-    a.target = "_blank"
+    a.target = "_blank";
     a.download = target;
     document.body.appendChild(a);
     a.click();
@@ -56,7 +55,7 @@ export default function DownloadList(props) {
         for (let i = 0; i < fileList.length; i++) {
             const element = fileList[i];
             setUploadStatus({
-                message: "uploading " + element.name,
+                message: text["uploading file"].replace("{0}", element.name),
                 progress: (i / fileList.length) * 100,
             });
             const { error } = await supabase.storage
@@ -80,10 +79,8 @@ export default function DownloadList(props) {
             .createSignedUrl(`${props.id}/${name}`, 3600);
         if (error != null) {
             console.error(error);
-        }
-        else {
-            console.log(data)
-            download(data.signedUrl)
+        } else {
+            download(data.signedUrl);
         }
     }
 
@@ -112,6 +109,10 @@ export default function DownloadList(props) {
     useEffect(() => {
         getFileData(props.id);
     }, [props.id]);
+
+    if (!isAuthor && fileList.length === 0) {
+        return <></>;
+    }
     return (
         <>
             <ConfirmPopUp ref={popUpRef} />
@@ -125,7 +126,7 @@ export default function DownloadList(props) {
                             {file.name}
                         </p>
                         <p className="a">{file.size}</p>
-                        {isAuthor ? (
+                        {isAuthor && (
                             <button
                                 onClick={() => {
                                     popUpRef.current.popUp(
@@ -137,86 +138,92 @@ export default function DownloadList(props) {
                                     );
                                 }}
                                 className=" transition-all m-1 mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
+                                aria-label={text["button delete"]}
                             >
                                 <IoTrashOutline />
                             </button>
-                        ) : null}
+                        )}
 
                         <button
                             onClick={() => handleDownloadFile(file.name)}
                             className="transition-all m-1 bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
+                            aria-label={text["button download"]}
                         >
                             <IoCloudDownloadOutline />
                         </button>
                     </li>
                 ))}
-                <li
-                    onDragEnter={(event) => {
-                        if (event.dataTransfer.types.includes("Files"))
-                            setDropState("drag");
-                    }}
-                    onDragLeave={() => setDropState("none")}
-                    onDragOver={(event) => event.preventDefault()}
-                    onDrop={(event) => {
-                        event.preventDefault();
-                        setDropState("none");
-                        handleUpload(event.dataTransfer.files);
-                    }}
-                    className={
-                        "transition-all w-full flex border-b border-black last:border-0 font-semibold justify-center " +
-                        (dropState === "drag"
-                            ? " h-20 bg-cyan-100"
-                            : "h-10 bg-slate-200")
-                    }
-                >
-                    {uploadStatus.message == null ? (
-                        <>
-                            <label
-                                htmlFor="file-upload"
-                                className={
-                                    "custom-file-upload cursor-pointer m-auto " +
-                                    (dropState === "drag" &&
-                                        "pointer-events-none")
-                                }
-                                onDragEnter={(event) => {
-                                    if (
-                                        event.dataTransfer.types.includes(
-                                            "Files"
+                {isAuthor && (
+                    <li
+                        onDragEnter={(event) => {
+                            if (event.dataTransfer.types.includes("Files"))
+                                setDropState("drag");
+                        }}
+                        onDragLeave={() => setDropState("none")}
+                        onDragOver={(event) => event.preventDefault()}
+                        onDrop={(event) => {
+                            event.preventDefault();
+                            setDropState("none");
+                            handleUpload(event.dataTransfer.files);
+                        }}
+                        className={
+                            "transition-all w-full flex border-b border-black last:border-0 font-semibold justify-center " +
+                            (dropState === "drag"
+                                ? " h-20 bg-cyan-100"
+                                : "h-10 bg-slate-200")
+                        }
+                    >
+                        {uploadStatus.message == null ? (
+                            <>
+                                <label
+                                    htmlFor="file-upload"
+                                    className={
+                                        "custom-file-upload cursor-pointer m-auto " +
+                                        (dropState === "drag" &&
+                                            "pointer-events-none")
+                                    }
+                                    onDragEnter={(event) => {
+                                        if (
+                                            event.dataTransfer.types.includes(
+                                                "Files"
+                                            )
                                         )
-                                    )
-                                        setDropState("drag");
-                                }}
-                                //onDragLeave={() => setDropState("none")}
-                            >
-                                {"drag and drop file or "}
-                                <span className="underline">select a file</span>
-                            </label>
-                            <input
-                                onChange={(event) =>
-                                    handleUpload(event.target.files)
-                                }
-                                id="file-upload"
-                                className="hidden"
-                                type="file"
-                                multiple
-                            />
-                        </>
-                    ) : (
-                        <div className="w-full text-center h-10">
-                            <p className="h-9">{uploadStatus.message}</p>
-                            <div
-                                className="h-1 w-full transition-all duration-300 m-r-auto bg-accent"
-                                style={{
-                                    width: `${uploadStatus.progress}%`,
-                                }}
-                            ></div>
-                        </div>
-                    )}
-                </li>
+                                            setDropState("drag");
+                                    }}
+                                    //onDragLeave={() => setDropState("none")}
+                                >
+                                    {text["drag and drop file"][0]}
+                                    <span className="underline">
+                                        {text["drag and drop file"][1]}
+                                    </span>
+                                </label>
+                                <input
+                                    onChange={(event) =>
+                                        handleUpload(event.target.files)
+                                    }
+                                    id="file-upload"
+                                    className="hidden"
+                                    type="file"
+                                    multiple
+                                />
+                            </>
+                        ) : (
+                            <div className="w-full text-center h-10">
+                                <p className="h-9">{uploadStatus.message}</p>
+                                <div
+                                    className="h-1 w-full transition-all duration-300 m-r-auto bg-accent"
+                                    style={{
+                                        width: `${uploadStatus.progress}%`,
+                                    }}
+                                ></div>
+                            </div>
+                        )}
+                    </li>
+                )}
             </ul>
-            <a className="mx-3 underline" href="/">
+            {/* <a className="mx-3 underline" href="/">
                 {text["download all"]}
-            </a>
+            </a> */}
         </>
     );
 }

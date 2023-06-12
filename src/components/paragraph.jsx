@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { supabase } from "src/lib/supabaseClient";
 import useTranslation from "src/lib/TextString";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
-import DownloadList from "src/components/preset/downloadList";
+import DownloadList from "src/components/downloadList";
 
 export default function Paragraph(props) {
     async function getParagraphData(portfolioId) {
@@ -50,7 +50,7 @@ export default function Paragraph(props) {
     }
 
     async function createParagraph(id) {
-        const { error } = await supabase.rpc("createParagraph", {
+        const { error } = await supabase.rpc("fn_createParagraph", {
             portfolio_id: id,
         });
         if (error != null) console.error(error);
@@ -104,7 +104,7 @@ export default function Paragraph(props) {
                                     }
                                 />
                                 <button
-                                    className="block text-red-500 mr-1 ml-auto underline"
+                                    className="block text-red-600 mr-1 ml-auto underline"
                                     onClick={() => {
                                         popUpRef.current.popUp(
                                             text["paragraph confirm"].replace(

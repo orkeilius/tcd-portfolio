@@ -3,7 +3,7 @@ import { useEffect, useContext, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import useTranslation from "src/lib/TextString";
 import { useParams } from "react-router-dom";
-import Comment from "src/components/preset/comment";
+import Comment from "src/components/comment";
 import Paragraph from "../components/paragraph";
 
 export default function Portfolio(props) {
@@ -11,7 +11,7 @@ export default function Portfolio(props) {
     async function getPortfolioData(portfolioId) {
         let { data, error } = await supabase
             .from("portfolio")
-            .select("*,userInfo(*)")
+            .select("*,userInfo!portfolio_student_id_fkey(*)")
             .eq("id", portfolioId);
 
         if (error != null || data.length === 0) {
@@ -72,11 +72,11 @@ export default function Portfolio(props) {
             <p className="font-thin ml-1">
                 {text["portfolio author"] +
                     " " +
-                    portfolioData.userInfo.firstName +
+                    portfolioData.userInfo.first_name +
                     " " +
-                    portfolioData.userInfo.lastName}
+                    portfolioData.userInfo.last_name}
             </p>
-            <Comment />
+            <Comment id={id} />
             <Paragraph id={id} isAuthor={isAuthor} />
         </main>
     );

@@ -7,6 +7,6 @@ BEGIN
     new.raw_user_meta_data ->> 'lastName',
     '2'
   );
-
+  
   return new;
 END

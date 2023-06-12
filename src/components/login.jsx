@@ -28,9 +28,9 @@ function DropDownMenu() {
     if (session.isLogged) {
         return (
             <div className="flex flex-col">
-                <button className="mt-2 px-1 rounded-md bg-boutton1 hover:bg-slate-300">
+                {/* <button className="mt-2 px-1 rounded-md bg-boutton1 hover:bg-slate-300">
                     {text.setting}
-                </button>
+                </button> */}
                 <button
                     className="mt-1 px-1 rounded-md bg-boutton1 hover:bg-slate-300"
                     onClick={() => supabase.auth.signOut()}
@@ -125,7 +125,7 @@ export default function Login() {
                                 : text["not connected"]}
                         </h3>
                         <p className="underline text-right">
-                            {session.logged ? null : text["login"]}
+                            {session.isLogged ? text["account setting"] : text["login"]}
                         </p>
                     </div>
 

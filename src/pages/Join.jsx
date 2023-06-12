@@ -12,11 +12,11 @@ export default function Portfolio() {
     const text = useTranslation()
 
     async function join() {
-        const { error } = await supabase.rpc("joinProject", {
+        const { error } = await supabase.rpc("fn_joinProject", {
             join_id: id,
             join_code: code,
         });
-        if (error === null) {
+        if (error !== null) {
             console.error(error);
             toast.error(text["error"])
             navigate("/")
