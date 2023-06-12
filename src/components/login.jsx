@@ -125,7 +125,7 @@ export default function Login() {
                                 : text["not connected"]}
                         </h3>
                         <p className="underline text-right">
-                            {session.logged ? null : text["login"]}
+                            {session.isLogged ? text["account setting"] : text["login"]}
                         </p>
                     </div>
 
