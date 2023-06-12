@@ -72,9 +72,9 @@ export default function Portfolio(props) {
             <p className="font-thin ml-1">
                 {text["portfolio author"] +
                     " " +
-                    portfolioData.userInfo.firstName +
+                    portfolioData.userInfo.first_name +
                     " " +
-                    portfolioData.userInfo.lastName}
+                    portfolioData.userInfo.last_name}
             </p>
             <Comment id={id} />
             <Paragraph id={id} isAuthor={isAuthor} />
