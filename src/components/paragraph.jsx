@@ -104,7 +104,7 @@ export default function Paragraph(props) {
                                     }
                                 />
                                 <button
-                                    className="block text-red-500 mr-1 ml-auto underline"
+                                    className="block text-red-600 mr-1 ml-auto underline"
                                     onClick={() => {
                                         popUpRef.current.popUp(
                                             text["paragraph confirm"].replace(

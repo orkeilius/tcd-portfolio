@@ -138,6 +138,7 @@ export default function DownloadList(props) {
                                     );
                                 }}
                                 className=" transition-all m-1 mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
+                                aria-label={text["button delete"]}
                             >
                                 <IoTrashOutline />
                             </button>
@@ -146,6 +147,7 @@ export default function DownloadList(props) {
                         <button
                             onClick={() => handleDownloadFile(file.name)}
                             className="transition-all m-1 bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
+                            aria-label={text["button download"]}
                         >
                             <IoCloudDownloadOutline />
                         </button>
