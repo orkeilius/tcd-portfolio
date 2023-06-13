@@ -5,9 +5,9 @@ import useTranslation from "src/lib/TextString";
 import { useParams } from "react-router-dom";
 import Comment from "src/components/comment";
 import Paragraph from "../components/paragraph";
+import { downloadPortfolio } from "../lib/downloader";
 
 export default function Portfolio(props) {
-    
     async function getPortfolioData(portfolioId) {
         let { data, error } = await supabase
             .from("portfolio")
@@ -16,9 +16,8 @@ export default function Portfolio(props) {
 
         if (error != null || data.length === 0) {
             console.error(error);
-        }
-        else {       
-            return {...data[0],};
+        } else {
+            return { ...data[0] };
         }
     }
 
@@ -33,13 +32,13 @@ export default function Portfolio(props) {
             .update({ [key]: value })
             .eq("id", portfolioId);
 
-        if (error != null) console.error(error);        
-    };
+        if (error != null) console.error(error);
+    }
 
     const text = useTranslation();
     const session = useContext(SessionContext);
     const { id } = useParams();
-    
+
     const [portfolioData, setPortfolioData] = useState(null);
 
     useEffect(() => {
@@ -60,7 +59,7 @@ export default function Portfolio(props) {
                     className="font-semibold text-3xl p-1 w-full hover:bg-gray-100 rounded-lg"
                     value={portfolioData.title}
                     onChange={(event) =>
-                        handleEdit('title',event.target.value, id)
+                        handleEdit("title", event.target.value, id)
                     }
                 />
             ) : (
@@ -69,13 +68,24 @@ export default function Portfolio(props) {
                 </h1>
             )}
             <div className="w-full border-b my-1 border-black" />
-            <p className="font-thin ml-1">
-                {text["portfolio author"] +
-                    " " +
-                    portfolioData.userInfo.first_name +
-                    " " +
-                    portfolioData.userInfo.last_name}
-            </p>
+            <div className="flex justify-between">
+                <p className="font-thin ml-1">
+                    {text["portfolio author"] +
+                        " " +
+                        portfolioData.userInfo.first_name +
+                        " " +
+                        portfolioData.userInfo.last_name}
+                </p>
+                <button
+                    className=" underline"
+                    onClick={() => {
+                        downloadPortfolio(id);
+                    }}
+                >
+                    {text["download portfolio"]}
+                </button>
+            </div>
+
             <Comment id={id} />
             <Paragraph id={id} isAuthor={isAuthor} />
         </main>
