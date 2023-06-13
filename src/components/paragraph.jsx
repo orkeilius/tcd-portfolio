@@ -87,7 +87,7 @@ export default function Paragraph(props) {
             <ConfirmPopUp ref={popUpRef} />
             {paragraphData.map((paragraph, index) => {
                 return (
-                    <div key={paragraph.position}>
+                    <div key={paragraph.position} className="my-4">
                         {props.isAuthor ? (
                             <>
                                 <input
