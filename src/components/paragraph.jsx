@@ -142,7 +142,7 @@ export default function Paragraph(props) {
                                 <h1 className="font-semibold text-xl p-1">
                                     {paragraph.title}
                                 </h1>
-                                <p className="p-2">{paragraph.text}</p>
+                                <p className="p-2 whitespace-pre-wrap">{paragraph.text}</p>
                             </>
                         )}
                         {/* <div className="w-full border-b my-1 border-black" /> */}
