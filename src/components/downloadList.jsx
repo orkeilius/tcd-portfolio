@@ -176,7 +176,7 @@ export default function DownloadList(props) {
                         {uploadStatus.message == null ? (
                             <>
                                 <label
-                                    htmlFor="file-upload"
+                                    htmlFor={"file-upload-"+props.id}
                                     className={
                                         "custom-file-upload cursor-pointer m-auto " +
                                         (dropState === "drag" &&
@@ -201,7 +201,7 @@ export default function DownloadList(props) {
                                     onChange={(event) =>
                                         handleUpload(event.target.files)
                                     }
-                                    id="file-upload"
+                                    id={"file-upload-"+props.id}
                                     className="hidden"
                                     type="file"
                                     multiple
