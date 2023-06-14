@@ -1,5 +1,4 @@
 import { default as translation } from "src/lib/TextString";
-import { pdf, Document, Page, Text, StyleSheet } from '@react-pdf/renderer';
 import { supabase } from "../lib/supabaseClient";
 import jsZip from "jszip"
 import React from 'react';
@@ -40,9 +39,11 @@ export async function downloadProject(ProjectId) {
     let { data, error } = await supabase
         .from("portfolio")
         .select("id,project(name)")
-        .eq("project_id", ProjectId);
+        .eq("project_id", ProjectId)
 
-    if (error != null || data.length === 0) {
+
+    if (error != null) {
+        console.error(error)
         return
     }
 
@@ -64,15 +65,21 @@ export async function downloadPortfolio(portfolioId) {
     saveFile(doc.file, doc.name.replace(/[/\\?%*:|"<>]/g, '-'))
 }
 
-const pdfStyles = StyleSheet.create({
-    page: { display: 'flex', justifyContent: 'space-around', alignItems: 'center' },
-    title: { fontSize: 36 },
-    section: { padding: 40 },
-    subTitle: { fontSize: 24, fontWeight: 'light', marginBottom: 20, borderBottom: 2 },
-});
+
 
 async function getPdfPortfolio(portfolioId) {
+
+    // async load because @react-pdf bundle is 1.4mb 
+    const { pdf, Document, Page, Text, StyleSheet } =  await import( '@react-pdf/renderer');
+
     const text = translation();
+    
+    const pdfStyles = StyleSheet.create({
+        page: { display: 'flex', justifyContent: 'space-around', alignItems: 'center' },
+        title: { fontSize: 36 },
+        section: { padding: 40 },
+        subTitle: { fontSize: 24, fontWeight: 'light', marginBottom: 20, borderBottom: 2 },
+    });
 
     let { data: portfolioData, error: portfolioError } = await supabase
         .from("portfolio")
