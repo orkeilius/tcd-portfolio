@@ -183,7 +183,7 @@ export default function Project() {
                                     }}
                                 />
                                 <div className="w-full border-b my-1 border-black" />
-                                <div className="flex justify-between flex-wrap">
+                                <div className="flex flex-col sm:flex-row justify-between flex-wrap">
                                     {project.project_code?.code ===
                                     undefined ? (
                                         <button
@@ -208,9 +208,9 @@ export default function Project() {
                                             </p>
                                         </div>
                                     )}
-                                    <div>
+                                    
                                         <button
-                                            className="underline mr-1"
+                                            className="underline mr-1 sm:ml-auto"
                                             onClick={() => {
                                                 downloadProject(project.id);
                                             }}
@@ -236,7 +236,7 @@ export default function Project() {
                                         >
                                             {text["delete project"]}
                                         </button>
-                                    </div>
+                                   
                                 </div>
                                 <UserList projectId={project.id} />
                             </>

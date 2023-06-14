@@ -68,8 +68,8 @@ export default function Portfolio(props) {
                 </h1>
             )}
             <div className="w-full border-b my-1 border-black" />
-            <div className="flex justify-between">
-                <p className="font-thin ml-1">
+            <div className="flex flex-col sm:flex-row justify-between mb-4">
+                <p className="font-thin mx-auto sm:ml-1">
                     {text["portfolio author"] +
                         " " +
                         portfolioData.userInfo.first_name +
