@@ -112,6 +112,7 @@ export default function Login() {
             <div
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
+                onClick={() => setIsOpen(true)}
                 className={
                     "overflow-y-hidden transition-shadow transform-colors duration-700 rounded-xl h-fit p-2 relative bg-white z-10 w-fit sm:-translate-y-8 " +
                     (isOpen ? "shadow-2xl max-h-fit -translate-y-9" : "sm:hover:bg-gray-100 ")
