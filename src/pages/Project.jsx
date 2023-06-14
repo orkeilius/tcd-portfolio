@@ -1,12 +1,13 @@
+import { downloadProject } from "../lib/downloader";
 import { IoHelpCircle } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
 import { SessionContext } from "src/components/SessionProvider";
 import { supabase } from "src/lib/supabaseClient";
+import { toast } from "react-toastify";
 import { useEffect, useContext, useState, useRef } from "react";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
-import useTranslation from "src/lib/TextString";
 import UserList from "../components/userList";
-import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import useTranslation from "src/lib/TextString";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -121,7 +122,7 @@ export default function Project() {
         if (session.role === "student") {
             getUserPortfolio();
         }
-    }, [session])
+    }, [session]);
     return (
         <main>
             <ConfirmPopUp ref={popUpRef} />
@@ -131,7 +132,7 @@ export default function Project() {
                     className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
                     onClick={createProject}
                 >
-                    {text['create project']}
+                    {text["create project"]}
                 </button>
             )}
 
@@ -150,14 +151,20 @@ export default function Project() {
                                             createPortfolio(project.id)
                                         }
                                     >
-                                        {text['create portfolio']}
+                                        {text["create portfolio"]}
                                     </button>
                                 ) : (
                                     <div className="flex justify-center">
-                                            <p>{text['my portfolio']}</p>
-                                            <Link to={'/portfolio/' + userPortfolio[project.id].id} className="ml-1 text-accent underline" >
-                                                {userPortfolio[project.id].title}
-                                            </Link>
+                                        <p>{text["my portfolio"]}</p>
+                                        <Link
+                                            to={
+                                                "/portfolio/" +
+                                                userPortfolio[project.id].id
+                                            }
+                                            className="ml-1 text-accent underline"
+                                        >
+                                            {userPortfolio[project.id].title}
+                                        </Link>
                                     </div>
                                 )}
                             </>
@@ -174,16 +181,16 @@ export default function Project() {
                                             project
                                         );
                                     }}
-                                    />
-                                    <div className="w-full border-b my-1 border-black" />
-                                <div className="flex justify-between flex-wrap">
+                                />
+                                <div className="w-full border-b my-1 border-black" />
+                                <div className="flex flex-col sm:flex-row justify-between flex-wrap">
                                     {project.project_code?.code ===
                                     undefined ? (
                                         <button
                                             className="text-accent mr-1 underline"
                                             onClick={() => setCode(project)}
                                         >
-                                            {text['create invite']}
+                                            {text["create invite"]}
                                         </button>
                                     ) : (
                                         <div className="pl-1 flex items-center">
@@ -193,29 +200,43 @@ export default function Project() {
                                                     copyLink(project)
                                                 }
                                             >
-                                                {text['copy invite']}
+                                                {text["copy invite"]}
                                             </button>
                                             <IoHelpCircle className="fill-slate-500" />
                                             <p className="text-sm">
-                                            {text['invite expire']}
+                                                {text["invite expire"]}
                                             </p>
                                         </div>
                                     )}
-                                    <button
-                                        className="text-red-600 mr-1 underline"
-                                        onClick={() => {
-                                            popUpRef.current.popUp(
-                                                text["file confirm"].replace(
-                                                    "{0}",
-                                                    project.name
-                                                ),
-                                                () =>
-                                                    handleProjectDelete(project)
-                                            );
-                                        }}
-                                    >
-                                        {text['delete project']}
-                                    </button>
+                                    
+                                        <button
+                                            className="underline mr-1 sm:ml-auto"
+                                            onClick={() => {
+                                                downloadProject(project.id);
+                                            }}
+                                        >
+                                            {text["download project"]}
+                                        </button>
+                                        <button
+                                            className="text-red-600 mr-1 underline"
+                                            onClick={() => {
+                                                popUpRef.current.popUp(
+                                                    text[
+                                                        "file confirm"
+                                                    ].replace(
+                                                        "{0}",
+                                                        project.name
+                                                    ),
+                                                    () =>
+                                                        handleProjectDelete(
+                                                            project
+                                                        )
+                                                );
+                                            }}
+                                        >
+                                            {text["delete project"]}
+                                        </button>
+                                   
                                 </div>
                                 <UserList projectId={project.id} />
                             </>

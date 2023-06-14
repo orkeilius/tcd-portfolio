@@ -18,6 +18,8 @@
   "delete paragraph": "delete paragraph",
   "delete project": "delete project",
   "download all": "download all",
+  "download portfolio": "download portfolio (beta)",
+  "download project": "download project (beta)",
   "drag and drop file": [
     "drag and drop file or ",
     "select a file"

@@ -3,6 +3,7 @@ import { IoCloudDownloadOutline, IoTrashOutline } from "react-icons/io5";
 import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
 import { supabase } from "../lib/supabaseClient";
+import { downloadFileList } from "../lib/downloader";
 
 function octetToSiZe(nb) {
     const sizeName = ["b", "Kb", "Mb", "Gb", "Tb"];
@@ -221,9 +222,9 @@ export default function DownloadList(props) {
                     </li>
                 )}
             </ul>
-            {/* <a className="mx-3 underline" href="/">
+            <button className="mx-3 underline" onClick={() => {downloadFileList(props.id)}}>
                 {text["download all"]}
-            </a> */}
+            </button>
         </>
     );
 }
