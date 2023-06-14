@@ -25,3 +25,19 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 
+import { supabase } from "./supabaseClient";
+
+
+Cypress.Commands.add('login', (user) => {
+    //supabase = import("./supabaseClient.j")
+    const { error } = supabase.auth.signInWithPassword({
+        email: `${user}@cypress-example.local`,
+        password: Cypress.env("login_password"),
+    });
+    error && console.error(error);
+})
+
+Cypress.Commands.add('logout', () => {
+    const { error } = supabase.auth.signOut()
+    error && console.error(error);
+})
