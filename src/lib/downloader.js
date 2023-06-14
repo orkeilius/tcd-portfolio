@@ -2,6 +2,7 @@ import { default as translation } from "src/lib/TextString";
 import { supabase } from "../lib/supabaseClient";
 import jsZip from "jszip"
 import React from 'react';
+import { toast } from "react-toastify";
 
 export async function downloadFileList(paragraphId) {
     let folder = new jsZip()
@@ -36,6 +37,8 @@ export async function downloadFileList(paragraphId) {
 }
 
 export async function downloadProject(ProjectId) {
+    const text = translation();
+
     let { data, error } = await supabase
         .from("portfolio")
         .select("id,project(name)")
@@ -44,6 +47,10 @@ export async function downloadProject(ProjectId) {
 
     if (error != null) {
         console.error(error)
+        return
+    }
+    if (data.length === 0) {
+        toast.error(text["error empty project"])
         return
     }
 

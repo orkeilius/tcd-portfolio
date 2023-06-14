@@ -26,6 +26,7 @@
   ],
   "email": "email",
   "error": "an error occurred",
+  "error empty project": "there is no portfolio to download",
   "file confirm": "are you sure to delete {0} ?",
   "firstName": "firstName",
   "home": "Home",
