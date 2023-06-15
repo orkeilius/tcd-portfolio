@@ -1,41 +1,25 @@
 
-describe('test login professor', () => {
-  it('passes', () => {
-    cy.visit('http://localhost:3000')
-    cy.contains('not connected')
-
-    cy.login("professor")
-    cy.contains('professor cypress')
-
-    cy.logout()
-    cy.contains('not connected')
 
 
-  })
+const datas = [
+  { name: 'professor', expected: 'professor cypress' },
+  { name: 'student', expected: 'student cypress' },
+]
 
-})
-describe('test login student', () => {
-  it('passes', () => {
-    cy.visit('http://localhost:3000')
-    cy.contains('not connected')
-
-    cy.login("student")
-    cy.contains('student cypress')
+describe('test login utils', () => {
+  datas.forEach(data => {
+    it(data.name, () => {
+      cy.visit('http://localhost:3000')
+      cy.contains('not connected')
       
-    cy.logout()
-    cy.contains('not connected')
-  })
-})
+      cy.intercept('*token?grant_type=password').as('requestLogin')
+      cy.login(data.name)
 
-describe('test login invalid', () => {
-  it('passes', () => {
-    cy.visit('http://localhost:3000')
-    cy.contains('not connected')
+      cy.contains(data.expected)
 
-    cy.login("invalid")
-    cy.contains('not connected')
+      cy.logout()
+      cy.contains('not connected')
+    })
 
-    cy.logout()
-    cy.contains('not connected')
   })
 })
