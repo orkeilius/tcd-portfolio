@@ -45,5 +45,14 @@ describe('test login menu', () => {
     cy.get('@menu').find('input').should('not.be.visible')
 
   })
+  it('singup link', () => {
+
+    cy.visit('http://localhost:3000')
+    cy.get('header > div > div').as('menu')
+
+    cy.get('@menu').click()
+    cy.contains('create an account').click()
+    cy.contains('Sing Up')
+  })
 
 })
