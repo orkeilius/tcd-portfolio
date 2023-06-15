@@ -4,6 +4,7 @@ import { supabase } from "../lib/supabaseClient";
 import { SessionContext } from "./SessionProvider";
 import ProfileImage from "./profileImage";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function DropDownMenu() {
     const session = useContext(SessionContext);
@@ -19,10 +20,14 @@ function DropDownMenu() {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        await supabase.auth.signInWithPassword({
+        const {error} = await supabase.auth.signInWithPassword({
             email: inputs.email,
             password: inputs.password,
         });
+        if (error != null) {
+            console.error(error)
+            toast.error(text['error login'])
+        }
     };
 
     if (session.isLogged) {
