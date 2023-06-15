@@ -18,3 +18,7 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+cy.on('test:before:run', () => {
+    cy.logout()
+    cy.reload()
+})
