@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext,useRef } from "react";
 import useTranslation from "src/lib/TextString";
 import { supabase } from "../lib/supabaseClient";
 import { SessionContext } from "./SessionProvider";
@@ -81,8 +81,8 @@ export default function Login() {
     const session = useContext(SessionContext);
 
     const [userInfo, setuserInfo] = useState({});
-    const [isHover, setIsHover] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const menuDom = useRef(null);
 
     useEffect(() => {
         const getuserInfo = async () => {
@@ -103,8 +103,8 @@ export default function Login() {
         getuserInfo();
     }, [session]);
 
-    const handleClick = () => {
-        setIsOpen(isHover);
+    const handleClick = (event) => {
+        setIsOpen(menuDom.current.contains( event.target ))
     };
 
     useEffect(() => {
@@ -113,11 +113,8 @@ export default function Login() {
     });
 
     return (
-        <div className={"overflow-visible sm:h-0 "+ (isOpen && "h-0") }>
-            <div
-                onMouseEnter={() => setIsHover(true)}
-                onMouseLeave={() => setIsHover(false)}
-                onClick={() => setIsOpen(true)}
+        <div className={"overflow-visible sm:h-0 "+ (isOpen && "h-0") } ref={menuDom}>
+        <div
                 className={
                     "overflow-y-hidden transition-shadow transform-colors duration-700 rounded-xl h-fit p-2 relative bg-white z-10 w-fit sm:-translate-y-8 " +
                     (isOpen ? "shadow-2xl max-h-fit -translate-y-9" : "sm:hover:bg-gray-100 ")
