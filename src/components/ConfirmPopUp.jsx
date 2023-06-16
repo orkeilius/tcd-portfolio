@@ -58,7 +58,6 @@ const ConfirmPopUp = forwardRef((props, ref) => {
                     </button>
                     <button
                         onClick={() => {
-                            console.log(popUpData)
                             popUpData.onConfirm.call();
                             hide();
                         }}
