@@ -20,5 +20,6 @@ import './commands'
 // require('./commands')
 cy.on('test:before:run', () => {
     cy.logout()
+    cy.wait(100)
     cy.reload()
 })
