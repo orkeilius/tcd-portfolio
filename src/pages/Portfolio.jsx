@@ -43,7 +43,7 @@ export default function Portfolio(props) {
 
     useEffect(() => {
         getPortfolioData(id).then((res) => setPortfolioData(res));
-    }, [id]);
+    }, [id,session]);
 
     if (portfolioData == null) {
         return null;
