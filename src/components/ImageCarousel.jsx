@@ -77,6 +77,9 @@ export default function DownloadList(props) {
             return "translate-x-10 opacity-0";
         }
     };
+    if (imageList.length === 0) { 
+        return null;
+    }
 
     console.log(imageList, props.id);
     return (
