@@ -4,6 +4,7 @@ import ConfirmPopUp from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
 import { supabase } from "../lib/supabaseClient";
 import { downloadFileList } from "../lib/downloader";
+import ImageCarousel from "src/components/ImageCarousel";
 
 function octetToSiZe(nb) {
     const sizeName = ["b", "Kb", "Mb", "Gb", "Tb"];
@@ -40,7 +41,6 @@ export default function DownloadList(props) {
             console.error(error);
             return;
         }
-
         setFileList(
             data.map((file) => {
                 return {
@@ -117,6 +117,7 @@ export default function DownloadList(props) {
     return (
         <>
             <ConfirmPopUp ref={popUpRef} />
+            <ImageCarousel id={props.id} fileList={fileList} />
             <ul className="m-auto border rounded-xl border-black border-separate w-[97%] overflow-hidden">
                 {fileList.map((file) => (
                     <li
