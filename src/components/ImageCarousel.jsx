@@ -83,12 +83,14 @@ export default function DownloadList(props) {
         <>
             <ul className="relative m-auto border mb-8 overflow-hidden rounded-lg h-96">
                 <div className="transition-all duration-500 absolute h-full w-full z-10 select-none opacity-0 hover:opacity-100">
-                    <div className="absolute top-1/2 -translate-y-1/2 w-6 left-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 opacity-80"
+                    <div className={"transition-all absolute top-1/2 -translate-y-1/2 w-6 left-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 opacity-80 "
+                        + (pos == 0 && "-translate-x-7")}
                         onClick={() => { setPos(Math.max(0, pos - 1)) }}
                     >
                         <IoCaretBack />
                     </div>
-                    <div className="absolute top-1/2 -translate-y-1/2 w-6 right-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 opacity-80"
+                    <div className={"transition-all absolute top-1/2 -translate-y-1/2 w-6 right-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 opacity-80 "
+                        + (pos == imageList.length - 1 && "translate-x-7")}
                         onClick={() => { setPos(Math.min(imageList.length - 1, pos + 1)) }}
                     >
                         <IoCaretForward />
