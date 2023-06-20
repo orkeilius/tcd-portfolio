@@ -39,13 +39,13 @@ const ConfirmPopUp = forwardRef((props, ref) => {
             <div
                 className={
                     (popUpData.isMount ? "" : "scale-0 rounded-full") +
-                    " transition-all fixed w-screen h-screen opacity-25 bg-slate-500 top-0 left-0 z-10 flex"
+                    " transition-all fixed w-screen h-screen opacity-25 bg-slate-500 top-0 left-0 z-40 flex"
                 }
             />
             <div
                 className={
                     (!popUpData.isMount && "scale-0 ") +
-                    " transition-all fixed top-1/2 -translate-x-1/2  -translate-y-1/2 z-10 left-1/2 bg-white min-w-[14em]  p-3 rounded-xl m-auto opacity-100 w-min"
+                    " transition-all fixed top-1/2 -translate-x-1/2  -translate-y-1/2 z-50 left-1/2 bg-white min-w-[14em]  p-3 rounded-xl m-auto opacity-100 w-min"
                 }
             >
                 <p className="font-bold mb-3 text-center">{popUpData.text}</p>

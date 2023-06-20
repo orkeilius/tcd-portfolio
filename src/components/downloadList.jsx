@@ -117,7 +117,7 @@ export default function DownloadList(props) {
     return (
         <>
             <ConfirmPopUp ref={popUpRef} />
-            <ImageCarousel id={props.id} fileList={fileList} />
+            <ImageCarousel id={props.id} fileList={fileList} isAuthor={props.isAuthor} />
             <ul className="m-auto border rounded-xl border-black border-separate w-[97%] overflow-hidden">
                 {fileList.map((file) => (
                     <li

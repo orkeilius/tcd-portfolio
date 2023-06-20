@@ -1,7 +1,8 @@
-import { useRef, useState, useEffect } from "react";
-import { IoCaretBack, IoCaretForward } from "react-icons/io5";
-import useTranslation from "src/lib/TextString";
+import { IoCaretBack, IoCaretForward, IoTrashOutline } from "react-icons/io5";
 import { supabase } from "../lib/supabaseClient";
+import { useRef, useState, useEffect } from "react";
+import ConfirmPopUp from "src/components/ConfirmPopUp";
+import useTranslation from "src/lib/TextString";
 
 const imageExtensions = [
     "apng",
@@ -18,7 +19,7 @@ const imageExtensions = [
     "icon",
 ];
 
-export default function DownloadList(props) {
+export default function ImageCarousel(props) {
     async function getImageData(paragraphId, fileList) {
         let list = [];
         for (let i = 0; i < fileList.length; i++) {
@@ -26,7 +27,6 @@ export default function DownloadList(props) {
             const fileExtention = file.name.substring(
                 file.name.lastIndexOf(".") + 1
             );
-            console.log(file.name, fileExtention);
             if (!imageExtensions.includes(fileExtention)) {
                 continue;
             }
@@ -43,74 +43,108 @@ export default function DownloadList(props) {
                 image: data,
             });
         }
+        setPos((pos) => Math.min(pos, Math.max(0, list.length - 1)));
         setImageList(list);
     }
 
-    // async function handleFileDelete(name) {
-    //     setFileList((fileList) => {
-    //         return fileList.filter((line) => line.name !== name);
-    //     });
+    async function handleFileDelete(name) {
+        setImageList((fileList) => {
+            return fileList.filter((line) => line.name !== name);
+        });
+        setPos((pos) => Math.min(pos, imageList.length - 2));
 
-    //     const { error } = await supabase.storage
-    //         .from("media")
-    //         .remove([`${props.id}/${name}`]);
-    //     if (error != null) {
-    //         console.error(error);
-    //     }
-    // }
+        const { error } = await supabase.storage
+            .from("media")
+            .remove([`${props.id}/${name}`]);
+        if (error != null) {
+            console.error(error);
+        }
+    }
 
-    const text = useTranslation();
-    const isAuthor = props.isAuthor;
-    const popUpRef = useRef(null);
-    const [pos, setPos] = useState(0);
     const [imageList, setImageList] = useState([]);
+    const [pos, setPos] = useState(0);
+    const popUpRef = useRef(null);
+    const text = useTranslation();
     useEffect(() => {
         getImageData(props.id, props.fileList);
     }, [props.id, props.fileList]);
 
     const imageCss = (index) => {
         if (index === pos) {
-            return "";
+            return "z-10";
         } else if (index < pos) {
-            return "-translate-x-10 opacity-0";
+            return "-translate-x-10 --z-10 opacity-0";
         } else {
-            return "translate-x-10 opacity-0";
+            return "translate-x-10 --z-10 opacity-0 ";
         }
     };
-    if (imageList.length === 0) { 
+    if (imageList.length === 0) {
         return null;
     }
-
-    console.log(imageList, props.id);
     return (
         <>
-            <ul className="relative m-auto border mb-8 overflow-hidden rounded-lg h-96">
-                <div className="transition-all duration-500 absolute h-full w-full z-10 select-none opacity-0 hover:opacity-100">
-                    <div className={"transition-all absolute top-1/2 -translate-y-1/2 w-6 left-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 opacity-80 "
-                        + (pos == 0 && "-translate-x-7")}
-                        onClick={() => { setPos(Math.max(0, pos - 1)) }}
-                    >
-                        <IoCaretBack />
-                    </div>
-                    <div className={"transition-all absolute top-1/2 -translate-y-1/2 w-6 right-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 opacity-80 "
-                        + (pos == imageList.length - 1 && "translate-x-7")}
-                        onClick={() => { setPos(Math.min(imageList.length - 1, pos + 1)) }}
-                    >
-                        <IoCaretForward />
-                    </div>
-                </div>
+            <ConfirmPopUp ref={popUpRef} />
+            <div className="group mx-5 relative m-auto border mb-8 overflow-hidden rounded-lg h-96">
                 {imageList.map((image, index) => (
-                    <li key={image.name} className={"absolute transition-all h-full w-full " + imageCss(index)}>
+                    <div
+                        key={image.name}
+                        className={
+                            "absolute transition-all h-full w-full " +
+                            imageCss(index)
+                        }
+                    >
                         <img
                             className="m-auto px-2 h-[calc(100%-2em)] object-contain"
-                            src={URL.createObjectURL(image.image)} alt=""
+                            src={URL.createObjectURL(image.image)}
+                            alt=""
                         />
-                        <p className="w-full pl-2 py-1 bg-slate-600 text-white">
+                        <p className="w-full pl-2 py-1 bg-slate-600 text-white flex justify-between">
                             {image.name}
+                            {props.isAuthor && (
+                                <button
+                                    onClick={() => {
+                                        popUpRef.current.popUp(
+                                            text["file confirm"].replace(
+                                                "{0}",
+                                                image.name
+                                            ),
+                                            () => handleFileDelete(image.name)
+                                        );
+                                    }}
+                                    className=" transition-all m-1 mr-1 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
+                                    aria-label={text["button delete"]}
+                                >
+                                    <IoTrashOutline />
+                                </button>
+                            )}
                         </p>
-                    </li>
+                    </div>
                 ))}
-            </ul>
+                <div className="transition-all duration-500 absolute h-full w-full select-none opacity-0 group-hover:opacity-100 ">
+                    <div
+                        className={
+                            "transition-all absolute top-1/2 -translate-y-1/2 w-6 left-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 opacity-80 z-20 " +
+                            (pos === 0 && "-translate-x-7")
+                        }
+                        onClick={() => {
+                            setPos(Math.max(0, pos - 1));
+                        }}
+                    >
+                        <IoCaretBack className=" pointer-events: none" />
+                    </div>
+                    <div
+                        className={
+                            "transition-all absolute top-1/2 -translate-y-1/2 w-6 right-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 opacity-80 z-20 " +
+                            (pos === imageList.length - 1 && "translate-x-7")
+                        }
+                        onClick={() => {
+                            setPos(Math.min(imageList.length - 1, pos + 1));
+                        }}
+                    >
+                        <IoCaretForward className=" pointer-events: none" />
+                    </div>
+                </div>
+            </div>
         </>
     );
 }
