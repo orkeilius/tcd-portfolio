@@ -1,15 +1,15 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { ConfirmPopUpContext } from "../components/ConfirmPopUp";
 import { IoExitOutline } from "react-icons/io5";
-import ConfirmPopUp from "src/components/ConfirmPopUp";
-import useTranslation from "src/lib/TextString";
+import { Link } from "react-router-dom";
 import { SessionContext } from "src/components/SessionProvider";
 import { supabase } from "src/lib/supabaseClient";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import useTranslation from "src/lib/TextString";
 
 export default function UserList(props) {
     const text = useTranslation();
     const session = useContext(SessionContext);
-    const popUpRef = useRef(null);
+    const setConfirmPopUp = useContext(ConfirmPopUpContext);
 
     async function getUserData(project) {
         // Query file from db with props.postId
@@ -41,7 +41,6 @@ export default function UserList(props) {
 
     return (
         <>
-            <ConfirmPopUp ref={popUpRef} />
             <ul className="mx-auto my-1 border rounded-xl border-gray-500 border-separate w-[97%] overflow-hidden">
                 {userList.map((user) => (
                     <li
@@ -65,7 +64,7 @@ export default function UserList(props) {
                                 className="transition-all bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-6 h-6 m-2 md:m-1 md:w-5 md:h-5"
                                 aria-label={text["button kick"]}
                                 onClick={() => {
-                                    popUpRef.current.popUp(
+                                    setConfirmPopUp(
                                         text["user confirm"].replace(
                                             "{0}",
                                             user.first_name +

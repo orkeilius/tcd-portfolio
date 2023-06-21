@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import Headers from "../components/headers";
 import { ToastContainer } from "react-toastify";
+import { ConfirmPopUpProvider } from "../components/ConfirmPopUp";
 
 const Layout = () => {
     return (
@@ -18,12 +19,14 @@ const Layout = () => {
                 pauseOnHover
                 theme="colored"
             />
-            <Headers />
-            <div className="px-1 w-3/4 flex-1 ">
-                <Suspense fallback={<div>Loading...</div>}>
-                    <Outlet />
-                </Suspense>
-            </div>
+            <ConfirmPopUpProvider>
+                <Headers />
+                <div className="px-1 w-3/4 flex-1 ">
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Outlet />
+                    </Suspense>
+                </div>
+            </ConfirmPopUpProvider>
         </div>
     );
 };

@@ -1,9 +1,9 @@
-import { useRef, useState, useContext, useEffect } from "react";
+import { ConfirmPopUpContext } from "../components/ConfirmPopUp";
 import { SessionContext } from "src/components/SessionProvider";
-import ConfirmPopUp from "src/components/ConfirmPopUp";
-import useTranslation from "src/lib/TextString";
-import ProfileImage from "./profileImage";
 import { supabase } from "src/lib/supabaseClient";
+import { useContext, useState, useEffect } from "react";
+import ProfileImage from "./profileImage";
+import useTranslation from "src/lib/TextString";
 
 export default function Comment(props) {
     async function getCommentData() {
@@ -61,7 +61,7 @@ export default function Comment(props) {
 
     async function createComment() {
         const { error } = await supabase.rpc("fn_createComment", {
-            arg_portfolio_id: parseInt( props.id),
+            arg_portfolio_id: parseInt(props.id),
         });
         if (error != null) console.error(error);
         getCommentData();
@@ -74,29 +74,23 @@ export default function Comment(props) {
         event.target.style.height = `${event.target.scrollHeight}px`;
     }
 
-    const popUpRef = useRef(null);
+    const setConfirmPopUp = useContext(ConfirmPopUpContext);
     const [commentData, setCommentData] = useState([]);
     const session = useContext(SessionContext);
 
     setTimeout(() => {
-
-        var textarea = Array.from(
-            document.getElementsByTagName("textarea")
-        );
+        var textarea = Array.from(document.getElementsByTagName("textarea"));
         textarea.forEach((elem) => {
             elem.style.height = `${elem.scrollHeight}px`;
         });
-        
     });
-    
-    useEffect(
-        () => { getCommentData() }
-        ,[props.id,session]
-    )
+
+    useEffect(() => {
+        getCommentData();
+    }, [props.id, session]);
 
     return (
         <>
-            <ConfirmPopUp ref={popUpRef} />
             {commentData.map((comment) => {
                 return (
                     <div
@@ -117,15 +111,18 @@ export default function Comment(props) {
                                 </p>
                             </div>
                             {comment.authorId === session.id && (
-                                <p className="flex-grow text-right underline text-red-600 mt-1"
-                                onClick={() => {
-                                    popUpRef.current.popUp(
-                                        text["comment confirm"],
-                                        () =>
-                                            handleDelete()
-                                    );
-                                }}
-                                > {text["delete comment"]}</p>
+                                <p
+                                    className="flex-grow text-right underline text-red-600 mt-1"
+                                    onClick={() => {
+                                        setConfirmPopUp(
+                                            text["comment confirm"],
+                                            () => handleDelete()
+                                        );
+                                    }}
+                                >
+                                    
+                                    {text["delete comment"]}
+                                </p>
                             )}
                         </div>
                         {comment.authorId === session.id ? (
@@ -136,7 +133,7 @@ export default function Comment(props) {
                                 value={comment.text}
                                 onChange={(event) => {
                                     resizeTextarea(event);
-                                    handleEdit('text', event.target.value)
+                                    handleEdit("text", event.target.value);
                                 }}
                             />
                         ) : (
@@ -145,21 +142,19 @@ export default function Comment(props) {
                     </div>
                 );
             })}
-            {
-                (session.role === "professor" &&
-                    !commentData
-                        .map((elem) => {
-                            return elem.authorId;
-                        })
-                        .includes(session.id) && (
-                        <button
-                            className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
-                            onClick={createComment}
-                        >
-                            {text["create comment"]}
-                        </button>
-                    ))
-            }
+            {session.role === "professor" &&
+                !commentData
+                    .map((elem) => {
+                        return elem.authorId;
+                    })
+                    .includes(session.id) && (
+                    <button
+                        className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
+                        onClick={createComment}
+                    >
+                        {text["create comment"]}
+                    </button>
+                )}
         </>
     );
 }

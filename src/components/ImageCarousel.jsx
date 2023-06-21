@@ -1,7 +1,7 @@
 import { IoCaretBack, IoCaretForward, IoTrashOutline } from "react-icons/io5";
 import { supabase } from "../lib/supabaseClient";
-import { useRef, useState, useEffect } from "react";
-import ConfirmPopUp from "src/components/ConfirmPopUp";
+import { useState, useEffect, useContext } from "react";
+import { ConfirmPopUpContext } from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
 
 const imageExtensions = [
@@ -83,7 +83,7 @@ export default function ImageCarousel(props) {
 
     const [imageList, setImageList] = useState([]);
     const [pos, setPos] = useState(0);
-    const popUpRef = useRef(null);
+    const setConfirmPopUp = useContext(ConfirmPopUpContext);
     const text = useTranslation();
     useEffect(() => {
         getImageData(props.id, props.fileList);
@@ -103,7 +103,6 @@ export default function ImageCarousel(props) {
     }
     return (
         <>
-            <ConfirmPopUp ref={popUpRef} />
             <div
                 className="group mx-5 relative m-auto border mb-8 overflow-hidden rounded-lg h-96"
                 onTouchStart={onTouchStart}
@@ -128,7 +127,7 @@ export default function ImageCarousel(props) {
                             {props.isAuthor && (
                                 <button
                                     onClick={() => {
-                                        popUpRef.current.popUp(
+                                        setConfirmPopUp(
                                             text["file confirm"].replace(
                                                 "{0}",
                                                 image.name

@@ -1,10 +1,10 @@
-import { useRef, useState, useEffect } from "react";
-import { IoCloudDownloadOutline, IoTrashOutline } from "react-icons/io5";
-import ConfirmPopUp from "src/components/ConfirmPopUp";
-import useTranslation from "src/lib/TextString";
-import { supabase } from "../lib/supabaseClient";
+import { ConfirmPopUpContext } from "../components/ConfirmPopUp";
 import { downloadFileList } from "../lib/downloader";
+import { IoCloudDownloadOutline, IoTrashOutline } from "react-icons/io5";
+import { supabase } from "../lib/supabaseClient";
 import ImageCarousel from "src/components/ImageCarousel";
+import { useContext, useState, useEffect } from "react";
+import useTranslation from "src/lib/TextString";
 
 function octetToSiZe(nb) {
     const sizeName = ["b", "Kb", "Mb", "Gb", "Tb"];
@@ -100,7 +100,7 @@ export default function DownloadList(props) {
 
     const text = useTranslation();
     const isAuthor = props.isAuthor;
-    const popUpRef = useRef(null);
+    const setConfirmPopUp = useContext(ConfirmPopUpContext);
     const [fileList, setFileList] = useState([]);
     const [dropState, setDropState] = useState("none"); // none ¦ drag
     const [uploadStatus, setUploadStatus] = useState({
@@ -116,7 +116,6 @@ export default function DownloadList(props) {
     }
     return (
         <>
-            <ConfirmPopUp ref={popUpRef} />
             <ImageCarousel id={props.id} fileList={fileList} isAuthor={props.isAuthor} />
             <ul className="m-auto border rounded-xl border-black border-separate w-[97%] overflow-hidden">
                 {fileList.map((file) => (
@@ -131,7 +130,7 @@ export default function DownloadList(props) {
                         {isAuthor && (
                             <button
                                 onClick={() => {
-                                    popUpRef.current.popUp(
+                                    setConfirmPopUp(
                                         text["file confirm"].replace(
                                             "{0}",
                                             file.name
@@ -178,7 +177,7 @@ export default function DownloadList(props) {
                         {uploadStatus.message == null ? (
                             <>
                                 <label
-                                    htmlFor={"file-upload-"+props.id}
+                                    htmlFor={"file-upload-" + props.id}
                                     className={
                                         "custom-file-upload cursor-pointer m-auto " +
                                         (dropState === "drag" &&
@@ -203,7 +202,7 @@ export default function DownloadList(props) {
                                     onChange={(event) =>
                                         handleUpload(event.target.files)
                                     }
-                                    id={"file-upload-"+props.id}
+                                    id={"file-upload-" + props.id}
                                     className="hidden"
                                     type="file"
                                     multiple
@@ -223,7 +222,12 @@ export default function DownloadList(props) {
                     </li>
                 )}
             </ul>
-            <button className="mx-3 underline" onClick={() => {downloadFileList(props.id)}}>
+            <button
+                className="mx-3 underline"
+                onClick={() => {
+                    downloadFileList(props.id);
+                }}
+            >
                 {text["download all"]}
             </button>
         </>
