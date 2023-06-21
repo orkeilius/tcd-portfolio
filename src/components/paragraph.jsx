@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef } from "react";
+import { ConfirmPopUpContext } from "../components/ConfirmPopUp";
 import { supabase } from "src/lib/supabaseClient";
-import useTranslation from "src/lib/TextString";
-import ConfirmPopUp from "src/components/ConfirmPopUp";
+import { useEffect, useState, useContext } from "react";
 import DownloadList from "src/components/downloadList";
+import useTranslation from "src/lib/TextString";
 
 export default function Paragraph(props) {
     async function getParagraphData(portfolioId) {
@@ -64,7 +64,7 @@ export default function Paragraph(props) {
 
     const text = useTranslation();
     const id = parseInt(props.id);
-    const popUpRef = useRef(null);
+    const setConfirmPopUp = useContext(ConfirmPopUpContext);
 
     const [paragraphData, setParagraphData] = useState([]);
 
@@ -84,7 +84,6 @@ export default function Paragraph(props) {
     }
     return (
         <>
-            <ConfirmPopUp ref={popUpRef} />
             {paragraphData.map((paragraph, index) => {
                 return (
                     <div key={paragraph.position} className="my-4">
@@ -106,7 +105,7 @@ export default function Paragraph(props) {
                                 <button
                                     className="block text-red-600 mr-1 ml-auto underline"
                                     onClick={() => {
-                                        popUpRef.current.popUp(
+                                        setConfirmPopUp(
                                             text["paragraph confirm"].replace(
                                                 "{0}",
                                                 paragraph.title
@@ -142,12 +141,17 @@ export default function Paragraph(props) {
                                 <h1 className="font-semibold text-xl p-1">
                                     {paragraph.title}
                                 </h1>
-                                <p className="p-2 whitespace-pre-wrap">{paragraph.text}</p>
+                                <p className="p-2 whitespace-pre-wrap">
+                                    {paragraph.text}
+                                </p>
                             </>
                         )}
                         {/* <div className="w-full border-b my-1 border-black" /> */}
 
-                        <DownloadList isAuthor={props.isAuthor} id={paragraph.id} />
+                        <DownloadList
+                            isAuthor={props.isAuthor}
+                            id={paragraph.id}
+                        />
                     </div>
                 );
             })}

@@ -4,10 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { SessionContext } from "src/components/SessionProvider";
 import { supabase } from "src/lib/supabaseClient";
 import { toast } from "react-toastify";
-import { useEffect, useContext, useState, useRef } from "react";
-import ConfirmPopUp from "src/components/ConfirmPopUp";
+import { useEffect, useContext, useState } from "react";
 import UserList from "../components/userList";
 import useTranslation from "src/lib/TextString";
+import { ConfirmPopUpContext } from "../components/ConfirmPopUp";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -21,7 +21,7 @@ function generateCode() {
 export default function Project() {
     const text = useTranslation();
     const session = useContext(SessionContext);
-    const popUpRef = useRef(null);
+    const setConfirmPopUp = useContext(ConfirmPopUpContext);
     const navigate = useNavigate();
 
     async function getProjectList() {
@@ -125,7 +125,6 @@ export default function Project() {
     }, [session]);
     return (
         <main>
-            <ConfirmPopUp ref={popUpRef} />
             <br />
             {session.role === "professor" && (
                 <button
@@ -220,7 +219,7 @@ export default function Project() {
                                         <button
                                             className="text-red-600 mr-1 underline"
                                             onClick={() => {
-                                                popUpRef.current.popUp(
+                                                setConfirmPopUp(
                                                     text[
                                                         "file confirm"
                                                     ].replace(
