@@ -61,6 +61,26 @@ export default function ImageCarousel(props) {
         }
     }
 
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null); // otherwise the swipe is fired even with usual touch events
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd || Math.abs(touchStart - touchEnd) <= 50)
+            return;
+
+        const newPos = touchStart > touchEnd ? 1 : -1;
+        setPos((pos) =>
+            Math.max(0, Math.min(newPos + pos, imageList.length - 1))
+        );
+    };
+
     const [imageList, setImageList] = useState([]);
     const [pos, setPos] = useState(0);
     const popUpRef = useRef(null);
@@ -84,7 +104,12 @@ export default function ImageCarousel(props) {
     return (
         <>
             <ConfirmPopUp ref={popUpRef} />
-            <div className="group mx-5 relative m-auto border mb-8 overflow-hidden rounded-lg h-96">
+            <div
+                className="group mx-5 relative m-auto border mb-8 overflow-hidden rounded-lg h-96"
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+            >
                 {imageList.map((image, index) => (
                     <div
                         key={image.name}
