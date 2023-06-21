@@ -46,7 +46,7 @@ function deleteAllParagraph() {
      cy.logout()
    })
 
-   it.only('create project', () => {
+   it('create project', () => {
     cy.contains('Add a paragraph').click()
      cy.get('textarea')
    })
@@ -71,7 +71,7 @@ function deleteAllParagraph() {
     });
   })
 
-  it.only('upload', () => {
+  it('upload', () => {
     cy.contains('Add a paragraph').click()
     cy.get('input[type=file]').selectFile({
       contents: Cypress.Buffer.from('file contents'),
