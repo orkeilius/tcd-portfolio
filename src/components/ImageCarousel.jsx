@@ -120,10 +120,10 @@ export default function ImageCarousel(props) {
                         </p>
                     </div>
                 ))}
-                <div className="transition-all duration-500 absolute h-full w-full select-none opacity-0 group-hover:opacity-100 ">
+                <div className="absolute h-full w-full select-none z-20 pointer-events-none ">
                     <div
                         className={
-                            "transition-all absolute top-1/2 -translate-y-1/2 w-6 left-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 opacity-80 z-20 " +
+                            "transition-all duration-500 absolute top-1/2 -translate-y-1/2 w-6 left-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 pointer-events-auto opacity-0 group-hover:opacity-80 " +
                             (pos === 0 && "-translate-x-7")
                         }
                         onClick={() => {
@@ -134,7 +134,7 @@ export default function ImageCarousel(props) {
                     </div>
                     <div
                         className={
-                            "transition-all absolute top-1/2 -translate-y-1/2 w-6 right-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 opacity-80 z-20 " +
+                            "transition-all duration-500 absolute top-1/2 -translate-y-1/2 w-6 right-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 pointer-events-auto opacity-0 group-hover:opacity-80 " +
                             (pos === imageList.length - 1 && "translate-x-7")
                         }
                         onClick={() => {
@@ -143,6 +143,27 @@ export default function ImageCarousel(props) {
                     >
                         <IoCaretForward className=" pointer-events: none" />
                     </div>
+                    {imageList.length > 1 && (
+                        <div className="transition-all duration-500 absolute bottom-[8%] left-1/2 -translate-x-1/2 pointer-events-auto opacity-90 md:opacity-0 group-hover:opacity-90 ">
+                            <div
+                                className="relative transition-all duration-700 flex p-1 translate-x-1/2"
+                                style={{ left: pos * -0.75 - 1 + "em" }}
+                            >
+                                {imageList.map((_, i) => (
+                                    <div
+                                        key={i}
+                                        className={
+                                            "relative transition-all duration-700 h-2 rounded-full mr-1 last:mr-0 " +
+                                            (pos === i
+                                                ? "bg-slate-700 w-6"
+                                                : "bg-slate-400 w-2")
+                                        }
+                                        onClick={() => setPos(i)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </>
