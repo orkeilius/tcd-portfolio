@@ -1,7 +1,6 @@
 import { IoCaretBack, IoCaretForward, IoTrashOutline } from "react-icons/io5";
 import { supabase } from "src/lib/supabaseClient";
-import { useState, useEffect, useContext } from "react";
-import { ConfirmPopUpContext } from "src/components/ConfirmPopUp";
+import { useState, useEffect } from "react";
 import useTranslation from "src/lib/TextString";
 
 export default function ImageCarousel(props) {
@@ -12,7 +11,7 @@ export default function ImageCarousel(props) {
             
             let isInCache = false
             for (let e = 0; e < imageList.length; e++) { 
-                if (imageList[e].name == file.name) {
+                if (imageList[e].name === file.name) {
                     list.push(imageList[e])
                     isInCache = true
                     break

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoCloudDownloadOutline, IoTrashOutline } from "react-icons/io5";
 import { downloadFileList } from "src/lib/downloader";
 import useTranslation from "src/lib/TextString";
