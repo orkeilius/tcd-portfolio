@@ -9,6 +9,19 @@ export default function ImageCarousel(props) {
         let list = [];
         for (let i = 0; i < fileList.length; i++) {
             const file = fileList[i]
+            
+            let isInCache = false
+            for (let e = 0; e < imageList.length; e++) { 
+                if (imageList[e].name == file.name) {
+                    list.push(imageList[e])
+                    isInCache = true
+                    break
+                }
+            }
+            if (isInCache) {
+                continue
+            }
+
             const { data, error } = await supabase.storage
                 .from("media")
                 .download(`${paragraphId}/${file.name}`);
@@ -18,7 +31,7 @@ export default function ImageCarousel(props) {
             }
             list.push({
                 name: file.name,
-                image: data,
+                image: URL.createObjectURL(data),
             });
         }
         setPos((pos) => Math.min(pos, Math.max(0, list.length - 1)));
@@ -87,7 +100,7 @@ export default function ImageCarousel(props) {
                     >
                         <img
                             className="m-auto px-2 h-[calc(100%-2em)] object-contain"
-                            src={URL.createObjectURL(image.image)}
+                            src={image.image}
                             alt=""
                         />
                         <p className="w-full pl-2 py-1 bg-slate-600 text-white flex justify-between">
