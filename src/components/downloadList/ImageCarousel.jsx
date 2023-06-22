@@ -1,36 +1,14 @@
 import { IoCaretBack, IoCaretForward, IoTrashOutline } from "react-icons/io5";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "src/lib/supabaseClient";
 import { useState, useEffect, useContext } from "react";
 import { ConfirmPopUpContext } from "src/components/ConfirmPopUp";
 import useTranslation from "src/lib/TextString";
-
-const imageExtensions = [
-    "apng",
-    "avif",
-    "bmp",
-    "gif",
-    "ico",
-    "jpeg",
-    "jpg",
-    "png",
-    "svg",
-    "tiff",
-    "webp",
-    "icon",
-];
 
 export default function ImageCarousel(props) {
     async function getImageData(paragraphId, fileList) {
         let list = [];
         for (let i = 0; i < fileList.length; i++) {
-            const file = fileList[i];
-            const fileExtention = file.name.substring(
-                file.name.lastIndexOf(".") + 1
-            );
-            if (!imageExtensions.includes(fileExtention)) {
-                continue;
-            }
-
+            const file = fileList[i]
             const { data, error } = await supabase.storage
                 .from("media")
                 .download(`${paragraphId}/${file.name}`);
@@ -45,20 +23,6 @@ export default function ImageCarousel(props) {
         }
         setPos((pos) => Math.min(pos, Math.max(0, list.length - 1)));
         setImageList(list);
-    }
-
-    async function handleFileDelete(name) {
-        setImageList((fileList) => {
-            return fileList.filter((line) => line.name !== name);
-        });
-        setPos((pos) => Math.min(pos, imageList.length - 2));
-
-        const { error } = await supabase.storage
-            .from("media")
-            .remove([`${props.id}/${name}`]);
-        if (error != null) {
-            console.error(error);
-        }
     }
 
     const [touchStart, setTouchStart] = useState(null);
@@ -83,11 +47,15 @@ export default function ImageCarousel(props) {
 
     const [imageList, setImageList] = useState([]);
     const [pos, setPos] = useState(0);
-    const setConfirmPopUp = useContext(ConfirmPopUpContext);
     const text = useTranslation();
+    
+    const fileList = props.fileList;
+    const fileUtils = props.fileUtils;
+    const paragraphInfo = props.paragraphInfo;
+
     useEffect(() => {
-        getImageData(props.id, props.fileList);
-    }, [props.id, props.fileList]);
+        getImageData(paragraphInfo.id,fileList);
+    }, [paragraphInfo.id, fileList]);
 
     const imageCss = (index) => {
         if (index === pos) {
@@ -124,16 +92,10 @@ export default function ImageCarousel(props) {
                         />
                         <p className="w-full pl-2 py-1 bg-slate-600 text-white flex justify-between">
                             {image.name}
-                            {props.isAuthor && (
+                            {paragraphInfo.isAuthor && (
                                 <button
                                     onClick={() => {
-                                        setConfirmPopUp(
-                                            text["file confirm"].replace(
-                                                "{0}",
-                                                image.name
-                                            ),
-                                            () => handleFileDelete(image.name)
-                                        );
+                                        fileUtils.handleDelete(image.name)
                                     }}
                                     className=" transition-all m-1 mr-1 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                                     aria-label={text["button delete"]}
