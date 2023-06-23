@@ -40,3 +40,18 @@ Cypress.Commands.add('logout',async () => {
     const { error } = await supabase.auth.signOut()
     error && console.error(error);
 })
+
+Cypress.Commands.add('supabase', async (func) => {
+    return await func.call()
+
+})
+
+Cypress.Commands.add('customAssert', (bool) => {
+    if (!bool) {
+        throw 'assertion error'
+    }
+    else {
+        cy.log('assertion success')
+    }
+
+})
