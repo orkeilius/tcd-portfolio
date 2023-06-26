@@ -7,42 +7,10 @@ import { useContext, useEffect, useState } from "react";
 import useTranslation from "src/lib/TextString";
 
 export default function UserList(props) {
-    const text = useTranslation();
-    const session = useContext(SessionContext);
-    const setConfirmPopUp = useContext(ConfirmPopUpContext);
-
-    async function getUserData(project) {
-        // Query file from db with props.postId
-        let { data: userData, userError } = await supabase.rpc(
-            "fn_queryUserList",
-            { query_project_id: props.projectId }
-        );
-        if (userError != null) console.error(userError);
-
-        setUserList(userData);
-    }
-
-    const [userList, setUserList] = useState([]);
-
-    const handleUserDelete = async (user_id) => {
-        let { error } = await supabase.rpc("fn_kickUser", {
-            arg_project_id: props.projectId,
-            arg_user_id: user_id,
-        });
-
-        if (error) console.error(error);
-
-        getUserData();
-    };
-
-    useEffect(() => {
-        getUserData();
-    }, []);
-
-    return (
-        <>
+    function UserTable({ users }) {
+        return (
             <ul className="mx-auto my-1 border rounded-xl border-gray-500 border-separate w-[97%] overflow-hidden">
-                {userList.map((user) => (
+                {users.map((user) => (
                     <li
                         key={user.first_name + user.last_name}
                         className="w-full flex justify-between border-b border-gray-500 last:border-0"
@@ -83,6 +51,58 @@ export default function UserList(props) {
                     </li>
                 ))}
             </ul>
+        );
+    }
+    const text = useTranslation();
+    const session = useContext(SessionContext);
+    const setConfirmPopUp = useContext(ConfirmPopUpContext);
+
+    async function getUserData(project) {
+        // Query file from db with props.postId
+        let { data: userData, userError } = await supabase.rpc(
+            "fn_queryUserList",
+            { query_project_id: props.projectId }
+        );
+        if (userError != null) console.error(userError);
+        setUserList(userData);
+    }
+
+    const [userList, setUserList] = useState([]);
+
+    const handleUserDelete = async (user_id) => {
+        let { error } = await supabase.rpc("fn_kickUser", {
+            arg_project_id: props.projectId,
+            arg_user_id: user_id,
+        });
+
+        if (error) console.error(error);
+
+        getUserData();
+    };
+
+    useEffect(() => {
+        getUserData();
+    }, []);
+    return (
+        <>
+            <h2 className="mt-4 ml-5 ">{text['professor']}</h2>
+            <UserTable
+                users={userList.filter(
+                    (user) => user.user_role === "professor"
+                )}
+            />
+
+            {userList.filter((user) => user.user_role === "student").length !==
+                0 && (
+                <>
+                    <h2 className="mt-4 ml-5 ">{text['student']}</h2>
+                    <UserTable
+                        users={userList.filter(
+                            (user) => user.user_role === "student"
+                        )}
+                    />
+                </>
+            )}
         </>
     );
 }

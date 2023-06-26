@@ -54,5 +54,7 @@
   "title": "Portfolio",
   "title placeholder": "add a title ...",
   "uploading file": "uploading {0}",
-  "user confirm": "are you sure to kick {0} ?"
+  "user confirm": "are you sure to kick {0} ?",
+  "professor":"professor",
+  "student":"student"
 }
