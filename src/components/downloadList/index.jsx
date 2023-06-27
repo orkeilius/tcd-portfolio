@@ -1,4 +1,5 @@
 import { ConfirmPopUpContext } from "src/components/ConfirmPopUp";
+import { downloadFileList } from "src/lib/downloader";
 import { supabase } from "src/lib/supabaseClient";
 import { useState, useEffect, useContext } from "react";
 import FileList from "./FileList";
@@ -42,10 +43,7 @@ const imageExtensions = [
     "icon",
 ];
 
-
-
 export default function Index(props) {
-
     const text = useTranslation();
     const setConfirmPopUp = useContext(ConfirmPopUpContext);
     const [fileList, setFileList] = useState([]);
@@ -105,7 +103,6 @@ export default function Index(props) {
         });
         getFileData(props.id);
     }
-    
 
     async function handleDownload(name) {
         const { data, error } = await supabase.storage
@@ -137,20 +134,30 @@ export default function Index(props) {
         getFileData(props.id);
     }, [props.id]);
 
-    const fileUtils = { handleDelete, handleDownload, handleUpload }
+    const fileUtils = { handleDelete, handleDownload, handleUpload };
     return (
         <>
             <ImageCarousel
                 fileList={fileList.filter((file) => file.type === "image")}
-                paragraphInfo={{isAuthor: props.isAuthor,id:props.id }}
+                paragraphInfo={{ isAuthor: props.isAuthor, id: props.id }}
                 fileUtils={fileUtils}
             />
             <FileList
                 fileList={fileList.filter((file) => file.type === "file")}
-                paragraphInfo={{isAuthor: props.isAuthor,id:props.id }}
+                paragraphInfo={{ isAuthor: props.isAuthor, id: props.id }}
                 fileUtils={fileUtils}
                 uploadStatus={uploadStatus}
             />
+            {fileList.length > 1 && (
+                <button
+                    className="mx-3 underline"
+                    onClick={() => {
+                        downloadFileList(props.id);
+                    }}
+                >
+                    {text["download all"]}
+                </button>
+            )}
         </>
     );
 }
