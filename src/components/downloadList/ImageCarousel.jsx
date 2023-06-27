@@ -7,18 +7,18 @@ export default function ImageCarousel(props) {
     async function getImageData(paragraphId, fileList) {
         let list = [];
         for (let i = 0; i < fileList.length; i++) {
-            const file = fileList[i]
-            
-            let isInCache = false
-            for (let e = 0; e < imageList.length; e++) { 
+            const file = fileList[i];
+
+            let isInCache = false;
+            for (let e = 0; e < imageList.length; e++) {
                 if (imageList[e].name === file.name) {
-                    list.push(imageList[e])
-                    isInCache = true
-                    break
+                    list.push(imageList[e]);
+                    isInCache = true;
+                    break;
                 }
             }
             if (isInCache) {
-                continue
+                continue;
             }
 
             const { data, error } = await supabase.storage
@@ -60,13 +60,14 @@ export default function ImageCarousel(props) {
     const [imageList, setImageList] = useState([]);
     const [pos, setPos] = useState(0);
     const text = useTranslation();
-    
+    const [isFullscreen, setIsFullscreen] = useState(false);
+
     const fileList = props.fileList;
     const fileUtils = props.fileUtils;
     const paragraphInfo = props.paragraphInfo;
 
     useEffect(() => {
-        getImageData(paragraphInfo.id,fileList);
+        getImageData(paragraphInfo.id, fileList);
     }, [paragraphInfo.id, fileList]);
 
     const imageCss = (index) => {
@@ -84,7 +85,12 @@ export default function ImageCarousel(props) {
     return (
         <>
             <div
-                className="group mx-5 relative m-auto border mb-8 overflow-hidden rounded-lg h-96"
+                className={
+                    "group transition-all duration-75 m-auto overflow-hidden " +
+                    (isFullscreen
+                        ? "fixed w-full h-[100vh] top-0 left-0 z-50 bg-slate-400/50 "
+                        : "relative h-96 border mb-8 mx-5 rounded-lg")
+                }
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
@@ -101,13 +107,16 @@ export default function ImageCarousel(props) {
                             className="m-auto px-2 h-[calc(100%-2em)] object-contain"
                             src={image.image}
                             alt=""
+                            onClick={() =>
+                                setIsFullscreen((isFullscreen) => !isFullscreen)
+                            }
                         />
                         <p className="w-full pl-2 py-1 bg-slate-600 text-white flex justify-between">
                             {image.name}
                             {paragraphInfo.isAuthor && (
                                 <button
                                     onClick={() => {
-                                        fileUtils.handleDelete(image.name)
+                                        fileUtils.handleDelete(image.name);
                                     }}
                                     className=" transition-all m-1 mr-1 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
                                     aria-label={text["button delete"]}
@@ -121,25 +130,25 @@ export default function ImageCarousel(props) {
                 <div className="absolute h-full w-full select-none z-20 pointer-events-none ">
                     <div
                         className={
-                            "transition-all duration-500 absolute top-1/2 -translate-y-1/2 w-6 left-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 pointer-events-auto opacity-0 group-hover:opacity-80 " +
-                            (pos === 0 && "-translate-x-7")
+                            "transition-all duration-500 absolute top-1/2 -translate-y-1/2 min-w-[6] w-[2%] min-h-[10px] h-[25%] left-0 rounded-lg flex items-center m-1 p-1 bg-slate-400 pointer-events-auto opacity-0 group-hover:opacity-80 " +
+                            (pos === 0 && "-translate-x-20")
                         }
                         onClick={() => {
                             setPos(Math.max(0, pos - 1));
                         }}
                     >
-                        <IoCaretBack className=" pointer-events: none" />
+                        <IoCaretBack className=" pointer-events-none m-auto" />
                     </div>
                     <div
                         className={
-                            "transition-all duration-500 absolute top-1/2 -translate-y-1/2 w-6 right-0 rounded-lg h-20 flex items-center m-1 p-1 bg-slate-400 pointer-events-auto opacity-0 group-hover:opacity-80 " +
-                            (pos === imageList.length - 1 && "translate-x-7")
+                            "transition-all duration-500 absolute top-1/2 -translate-y-1/2 min-w-[6] w-[2%] min-h-[10px] h-[25%]  right-0 rounded-lg flex items-center m-1 p-1 bg-slate-400 pointer-events-auto opacity-0 group-hover:opacity-80 " +
+                            (pos === imageList.length - 1 && "translate-x-20")
                         }
                         onClick={() => {
                             setPos(Math.min(imageList.length - 1, pos + 1));
                         }}
                     >
-                        <IoCaretForward className=" pointer-events: none" />
+                        <IoCaretForward className=" pointer-events-none m-auto " />
                     </div>
                     {imageList.length > 1 && (
                         <div className="transition-all duration-500 absolute bottom-[8%] left-1/2 -translate-x-1/2 pointer-events-auto opacity-90 md:opacity-0 group-hover:opacity-90 ">
