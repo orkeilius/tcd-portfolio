@@ -89,7 +89,7 @@ export default function ImageCarousel(props) {
                     "group transition-all duration-75 m-auto overflow-hidden " +
                     (isFullscreen
                         ? "fixed w-full h-[100vh] top-0 left-0 z-50 bg-slate-400/50 "
-                        : "relative h-96 border mb-8 mx-5 rounded-lg")
+                        : "relative h-96 border mx-5 rounded-lg")
                 }
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
