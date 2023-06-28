@@ -123,7 +123,7 @@ export default function Paragraph(props) {
                                 <textarea
                                     id="area"
                                     placeholder={text["text placeholder"]}
-                                    className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 "
+                                    className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 break-words "
                                     value={paragraph.text}
                                     onChange={(event) => {
                                         resizeTextarea(event);
@@ -141,7 +141,7 @@ export default function Paragraph(props) {
                                 <h1 className="font-semibold text-xl p-1">
                                     {paragraph.title}
                                 </h1>
-                                <p className="p-2 whitespace-pre-wrap">
+                                <p className="p-2 whitespace-pre-wrap break-words">
                                     {paragraph.text}
                                 </p>
                             </>
