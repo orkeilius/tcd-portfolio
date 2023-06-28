@@ -8,6 +8,7 @@ import { useEffect, useContext, useState } from "react";
 import UserList from "../components/userList";
 import useTranslation from "src/lib/TextString";
 import { ConfirmPopUpContext } from "../components/ConfirmPopUp";
+import PortfolioResume from "../components/PortfolioResume";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -153,17 +154,9 @@ export default function Project() {
                                         {text["create portfolio"]}
                                     </button>
                                 ) : (
-                                    <div className="flex justify-center">
-                                        <p>{text["my portfolio"]}</p>
-                                        <Link
-                                            to={
-                                                "/portfolio/" +
-                                                userPortfolio[project.id].id
-                                            }
-                                            className="ml-1 text-accent underline"
-                                        >
-                                            {userPortfolio[project.id].title}
-                                        </Link>
+                                    <div>
+                                        <p className="my-2">{text["my portfolio"]}</p>
+                                        <PortfolioResume id={userPortfolio[project.id].id} />
                                     </div>
                                 )}
                             </>
