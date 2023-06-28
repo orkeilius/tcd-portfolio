@@ -1,6 +1,6 @@
 import { downloadProject } from "../lib/downloader";
 import { IoHelpCircle } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SessionContext } from "src/components/SessionProvider";
 import { supabase } from "src/lib/supabaseClient";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import { useEffect, useContext, useState } from "react";
 import UserList from "../components/userList";
 import useTranslation from "src/lib/TextString";
 import { ConfirmPopUpContext } from "../components/ConfirmPopUp";
+import PortfolioResume from "../components/PortfolioResume";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -18,7 +19,7 @@ function generateCode() {
     return code;
 }
 
-export default function Project() {
+export default function Project(props) {
     const text = useTranslation();
     const session = useContext(SessionContext);
     const setConfirmPopUp = useContext(ConfirmPopUpContext);
@@ -128,8 +129,8 @@ export default function Project() {
             <br />
             {session.role === "professor" && (
                 <button
-                    className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
-                    onClick={createProject}
+                className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500 text-white rounded-lg py-1 px-2"
+                onClick={createProject}
                 >
                     {text["create project"]}
                 </button>
@@ -138,7 +139,7 @@ export default function Project() {
             {projectList.map((project) => {
                 return (
                     <div key={project.id} className="my-7">
-                        {session.role !== "professor" ? (
+                        {session.role === "student" &&(
                             <>
                                 <h1 className="font-semibold text-3xl border-b border-black p-1">
                                     {project.name}
@@ -153,21 +154,15 @@ export default function Project() {
                                         {text["create portfolio"]}
                                     </button>
                                 ) : (
-                                    <div className="flex justify-center">
-                                        <p>{text["my portfolio"]}</p>
-                                        <Link
-                                            to={
-                                                "/portfolio/" +
-                                                userPortfolio[project.id].id
-                                            }
-                                            className="ml-1 text-accent underline"
-                                        >
-                                            {userPortfolio[project.id].title}
-                                        </Link>
+                                    <div>
+                                        {props.variation !== "home" && <UserList projectId={project.id} />}
+                                        <p className="my-2">{text["my portfolio"]}</p>
+                                        <PortfolioResume id={userPortfolio[project.id].id} />
                                     </div>
                                 )}
                             </>
-                        ) : (
+                        )}
+                        {session.role === "professor" && (
                             <>
                                 <input
                                     placeholder={text["title placeholder"]}

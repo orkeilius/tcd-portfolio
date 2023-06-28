@@ -85,17 +85,17 @@ export default function UserList(props) {
     }, []);
     return (
         <>
-            <h2 className="mt-4 ml-5 ">{text['professor']}</h2>
+            <h2 className="mt-4 ml-1 ">{text['professor']}</h2>
             <UserTable
                 users={userList.filter(
                     (user) => user.user_role === "professor"
                 )}
             />
 
-            {userList.filter((user) => user.user_role === "student").length !==
+            {session.role === "professor" && userList.filter((user) => user.user_role === "student").length !==
                 0 && (
                 <>
-                    <h2 className="mt-4 ml-5 ">{text['student']}</h2>
+                    <h2 className="mt-4 ml-1 ">{text['student']}</h2>
                     <UserTable
                         users={userList.filter(
                             (user) => user.user_role === "student"

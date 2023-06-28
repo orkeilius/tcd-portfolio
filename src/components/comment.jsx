@@ -95,7 +95,7 @@ export default function Comment(props) {
                 return (
                     <div
                         key={comment.authorId}
-                        className="mx-auto my-2 border rounded-xl border-black border-separate w-[97%] p-2"
+                        className={"mx-auto my-2 rounded-xl border-separate w-[97%] p-2 " + (props.variation === "portfolioResume" ? "bg-slate-50" :"border border-black")}
                     >
                         <div className="flex w-full">
                             <ProfileImage

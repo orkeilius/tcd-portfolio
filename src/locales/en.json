@@ -45,16 +45,17 @@
   "password mismatch": "missmatching password",
   "password2": "confirm password",
   "portfolio author": "portfolio by",
+  "professor": "professor",
   "project": "My projects",
   "redirecting": "redirecting...",
   "setting": "Setting",
   "singUp": "Sing Up",
+  "student": "student",
   "subtitle placeholder": "add a subtitle ...",
   "text placeholder": "add a text ...",
   "title": "Portfolio",
   "title placeholder": "add a title ...",
   "uploading file": "uploading {0}",
   "user confirm": "are you sure to kick {0} ?",
-  "professor":"professor",
-  "student":"student"
+  "view portfolio": "view portfolio"
 }
