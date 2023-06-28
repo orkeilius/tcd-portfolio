@@ -155,6 +155,7 @@ export default function Project() {
                                     </button>
                                 ) : (
                                     <div>
+                                        <UserList projectId={project.id} />
                                         <p className="my-2">{text["my portfolio"]}</p>
                                         <PortfolioResume id={userPortfolio[project.id].id} />
                                     </div>
