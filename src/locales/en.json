@@ -28,6 +28,7 @@
   "error": "an error occurred",
   "error empty project": "there is no portfolio to download",
   "error login": "login invalid",
+  "error account exist": "this email is already used",
   "file confirm": "are you sure to delete {0} ?",
   "firstName": "first name",
   "home": "Home",

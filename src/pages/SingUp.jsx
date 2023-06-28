@@ -29,7 +29,24 @@ export default function SingUp() {
         }
         setFormStatus("pending");
 
-        const { error } = await supabase.auth.signUp({
+        const { data: existData, error: existError } = await supabase
+            .rpc('fn_userExist', {
+                arg_email : args.email.value 
+            })
+
+        if (existError) { 
+            console.error(existError)
+            toast.error(text["error"]);
+            setFormStatus("edit");
+            return
+        }
+        if (existData) { 
+            toast.error(text["error account exist"]);
+            setFormStatus("edit"); 
+            return
+        }
+
+        let { error } = await supabase.auth.signUp({
             email: args.email.value,
             password: args.password.value,
             options: {
@@ -39,6 +56,7 @@ export default function SingUp() {
                 },
             },
         });
+
         if (error !== null) {
             console.error(error);
             toast.error(text["error"]);
