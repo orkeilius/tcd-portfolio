@@ -102,7 +102,7 @@ export default function SingUp() {
                             : "max-h-0 border-black")
                     }
                 >
-                    <h1 className="text-6xl mb-16 text-center">Sing Up</h1>
+                    <h1 className="text-6xl mb-16 text-center">{text["singUp"]}</h1>
                     <InputEntry
                         type="text"
                         placeholder={text["firstName"]}
