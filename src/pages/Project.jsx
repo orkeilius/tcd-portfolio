@@ -126,7 +126,6 @@ export default function Project(props) {
     }, [session]);
     return (
         <main>
-            <br />
             {session.role === "professor" && (
                 <button
                 className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500 text-white rounded-lg py-1 px-2"
@@ -135,10 +134,16 @@ export default function Project(props) {
                     {text["create project"]}
                 </button>
             )}
+            {session.role === "student"  && projectList.length === 0 &&(
+                <p className="text-center">{text["no project"]}</p>
+            )}
+            {session.role === undefined  && (
+                <p className="text-center">{text["project not connected"]}</p>
+            )}
 
             {projectList.map((project) => {
                 return (
-                    <div key={project.id} className="my-7">
+                    <div key={project.id} className="my-20 first:mt-10">
                         {session.role === "student" &&(
                             <>
                                 <h1 className="font-semibold text-3xl border-b border-black p-1">
