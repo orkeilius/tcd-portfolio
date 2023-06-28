@@ -86,7 +86,7 @@ export default function ImageCarousel(props) {
         <>
             <div
                 className={
-                    "group transition-all duration-75 m-auto overflow-hidden " +
+                    "group transition-all duration-75 m-auto overflow-hidden mb-3 " +
                     (isFullscreen
                         ? "fixed w-full h-[100vh] top-0 left-0 z-50 bg-slate-400/50 "
                         : "relative h-96 border mx-5 rounded-lg")
@@ -130,7 +130,7 @@ export default function ImageCarousel(props) {
                 <div className="absolute h-full w-full select-none z-20 pointer-events-none ">
                     <div
                         className={
-                            "transition-all duration-500 absolute top-1/2 -translate-y-1/2 min-w-[6] w-[2%] min-h-[10px] h-[25%] left-0 rounded-lg flex items-center m-1 p-1 bg-slate-400 pointer-events-auto opacity-0 group-hover:opacity-80 " +
+                            "transition-all duration-500 absolute top-1/2 -translate-y-1/2 min-w-[1.5em] w-[2%] min-h-[7em] h-[15%] left-0 rounded-lg flex items-center m-1 p-1 bg-slate-400 pointer-events-auto opacity-0 group-hover:opacity-80 " +
                             (pos === 0 && "-translate-x-20")
                         }
                         onClick={() => {
@@ -141,7 +141,7 @@ export default function ImageCarousel(props) {
                     </div>
                     <div
                         className={
-                            "transition-all duration-500 absolute top-1/2 -translate-y-1/2 min-w-[6] w-[2%] min-h-[10px] h-[25%]  right-0 rounded-lg flex items-center m-1 p-1 bg-slate-400 pointer-events-auto opacity-0 group-hover:opacity-80 " +
+                            "transition-all duration-500 absolute top-1/2 -translate-y-1/2 min-w-[1.5em] w-[2%] min-h-[7em] h-[15%]  right-0 rounded-lg flex items-center m-1 p-1 bg-slate-400 pointer-events-auto opacity-0 group-hover:opacity-80 " +
                             (pos === imageList.length - 1 && "translate-x-20")
                         }
                         onClick={() => {
