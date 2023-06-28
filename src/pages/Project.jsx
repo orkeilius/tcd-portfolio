@@ -129,8 +129,8 @@ export default function Project() {
             <br />
             {session.role === "professor" && (
                 <button
-                    className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
-                    onClick={createProject}
+                className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500 text-white rounded-lg py-1 px-2"
+                onClick={createProject}
                 >
                     {text["create project"]}
                 </button>
@@ -139,7 +139,7 @@ export default function Project() {
             {projectList.map((project) => {
                 return (
                     <div key={project.id} className="my-7">
-                        {session.role !== "professor" ? (
+                        {session.role === "student" &&(
                             <>
                                 <h1 className="font-semibold text-3xl border-b border-black p-1">
                                     {project.name}
@@ -161,7 +161,8 @@ export default function Project() {
                                     </div>
                                 )}
                             </>
-                        ) : (
+                        )}
+                        {session.role === "professor" && (
                             <>
                                 <input
                                     placeholder={text["title placeholder"]}
