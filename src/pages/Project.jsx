@@ -1,6 +1,6 @@
 import { downloadProject } from "../lib/downloader";
 import { IoHelpCircle } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SessionContext } from "src/components/SessionProvider";
 import { supabase } from "src/lib/supabaseClient";
 import { toast } from "react-toastify";
@@ -19,7 +19,7 @@ function generateCode() {
     return code;
 }
 
-export default function Project() {
+export default function Project(props) {
     const text = useTranslation();
     const session = useContext(SessionContext);
     const setConfirmPopUp = useContext(ConfirmPopUpContext);
@@ -155,7 +155,7 @@ export default function Project() {
                                     </button>
                                 ) : (
                                     <div>
-                                        <UserList projectId={project.id} />
+                                        {props.variation !== "home" && <UserList projectId={project.id} />}
                                         <p className="my-2">{text["my portfolio"]}</p>
                                         <PortfolioResume id={userPortfolio[project.id].id} />
                                     </div>

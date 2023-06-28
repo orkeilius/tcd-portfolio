@@ -24,8 +24,6 @@ export default function PortfolioResume({ id }) {
     useEffect(() => {
         getPortfolioData(id).then((res) => setPortfolioData(res));
     }, [id, session]);
-
-    console.table(portfolioData);
     if (portfolioData === null) {
         return;
     }
