@@ -10,6 +10,8 @@ const Join = lazy(() => import("./pages/Join"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
 const Project = lazy(() => import("./pages/Project"));
 const SingUp = lazy(() => import("./pages/SingUp"));
+const RecoverPassword = lazy(() => import("./pages/account/RecoverPassword"))
+const ResetPassword = lazy(() => import("./pages/account/ResetPassword") )
 
 export default function App() {
     return (
@@ -22,6 +24,8 @@ export default function App() {
                         <Route path="/join/:id/:code" element={<Join />} />
                         <Route path="/SingUp" element={<SingUp />} />
                         <Route path="/Project" element={<Project />} />
+                        <Route path="/account/recover-password" element={<RecoverPassword />} />
+                        <Route path="/account/reset-password" element={<ResetPassword />} />
                         {/* test page */}
                         {/* <Route path="*" element={<Home />} />  */}
                     </Route>

@@ -60,5 +60,12 @@
   "title placeholder": "add a title ...",
   "uploading file": "uploading {0}",
   "user confirm": "are you sure to kick {0} ?",
-  "view portfolio": "view portfolio"
+  "view portfolio": "view portfolio",
+  "forgot password": "forgot password ?",
+  "recover password": "Recover password" ,
+  "request send": "request send, check your email",
+  "send recover email": "send recover link",
+  "reset password":"reset password",
+  "password changed": "password changed",
+  "email expired": "your link is expired, please retry"
 }
