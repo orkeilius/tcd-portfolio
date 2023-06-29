@@ -21,7 +21,7 @@ const Layout = () => {
             />
             <ConfirmPopUpProvider>
                 <Headers />
-                <div className="px-1 w-3/4 flex-1 ">
+                <div className="px-1 py-4 w-3/4 flex-1 ">
                     <Suspense fallback={<div>Loading...</div>}>
                         <Outlet />
                     </Suspense>

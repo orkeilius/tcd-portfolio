@@ -143,7 +143,7 @@ export default function Project(props) {
 
             {projectList.map((project) => {
                 return (
-                    <div key={project.id} className="my-20 first:mt-10">
+                    <div key={project.id} className="mb-24 mt-5 last:mb-10">
                         {session.role === "student" &&(
                             <>
                                 <h1 className="font-semibold text-3xl border-b border-black p-1">
