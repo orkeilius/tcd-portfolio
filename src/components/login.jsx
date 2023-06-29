@@ -70,6 +70,7 @@ function DropDownMenu() {
                         type="submit"
                     />
                 </form>
+                <Link to="/account/recover-password" className="block text-right w-full pr-2 text-accent hover:underline">{text["forgot password"]}</Link>
                 <Link to="/singup" className="block text-right w-full pr-2 text-accent hover:underline">{text["create account"]}</Link>
             </>
         );
