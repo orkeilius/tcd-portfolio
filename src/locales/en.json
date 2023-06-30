@@ -7,7 +7,7 @@
   "comment author": "comment by",
   "comment confirm": "are you sure to delete your comment ?",
   "comment placeholder": "add a comment ...",
-  "copy invite": "Copy invite link",
+"copy invite": "Copy invite link",
   "create account": "create an account",
   "create comment": "+ Add a comment",
   "create invite": "generate a invite link",
@@ -18,8 +18,8 @@
   "delete paragraph": "delete paragraph",
   "delete project": "delete project",
   "download all": "download all",
-  "download portfolio": "download portfolio (beta)",
-  "download project": "download project (beta)",
+  "download portfolio": "download portfolio",
+  "download project": "download project ",
   "drag and drop file": [
     "drag and drop file or ",
     "select a file"
