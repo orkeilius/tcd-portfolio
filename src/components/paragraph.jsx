@@ -91,7 +91,7 @@ export default function Paragraph(props) {
                             <>
                                 <input
                                     placeholder={text["subtitle placeholder"]}
-                                    className="font-semibold text-xl p-1 w-full hover:bg-gray-100 rounded-lg"
+                                    className="font-semibold text-xl p-1 w-full hover:bg-gray-100 rounded-lg "
                                     value={paragraph.title}
                                     onChange={(event) =>
                                         handleEdit(
@@ -103,7 +103,7 @@ export default function Paragraph(props) {
                                     }
                                 />
                                 <button
-                                    className="block text-red-600 mr-1 ml-auto underline"
+                                    className="block text-red-600 mr-1 underline w-full text-center sm:text-right"
                                     onClick={() => {
                                         setConfirmPopUp(
                                             text["paragraph confirm"].replace(
@@ -138,7 +138,7 @@ export default function Paragraph(props) {
                             </>
                         ) : (
                             <>
-                                <h1 className="font-semibold text-xl p-1">
+                                <h1 className="font-semibold text-xl p-1 text-center sm:text-left">
                                     {paragraph.title}
                                 </h1>
                                 <p className="p-2 whitespace-pre-wrap break-words">

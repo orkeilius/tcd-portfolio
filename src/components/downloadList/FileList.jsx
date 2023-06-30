@@ -31,7 +31,7 @@ export default function FileList(props) {
                         {paragraphInfo.isAuthor && (
                             <button
                                 onClick={() => fileUtils.handleDelete(file.name)}
-                                className=" transition-all m-1 mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
+                                className=" transition-all m-1 mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5 aspect-square"
                                 aria-label={text["button delete"]}
                             >
                                 <IoTrashOutline />
@@ -40,7 +40,7 @@ export default function FileList(props) {
 
                         <button
                             onClick={() => fileUtils.handleDownload(file.name)}
-                            className="transition-all m-1 bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
+                            className="transition-all m-1 bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5 aspect-square"
                             aria-label={text["button download"]}
                         >
                             <IoCloudDownloadOutline />
@@ -61,10 +61,10 @@ export default function FileList(props) {
                             fileUtils.handleUpload(event.dataTransfer.files);
                         }}
                         className={
-                            "transition-all w-full flex border-b border-black last:border-0 font-semibold justify-center " +
+                            "transition-all w-full flex border-b border-black last:border-0 font-semibold justify-center text-center " +
                             (dropState === "drag"
-                                ? " h-20 bg-cyan-100"
-                                : "h-10 bg-slate-200")
+                                ? " sm:h-20 bg-cyan-100"
+                                : "sm:first-letter:h-10 bg-slate-200")
                         }
                     >
                         {uploadStatus.message == null ? (

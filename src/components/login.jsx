@@ -114,11 +114,11 @@ export default function Login() {
     });
 
     return (
-        <div className={"overflow-visible sm:h-0 "+ (isOpen && "h-0") } ref={menuDom}>
+        <div className={"overflow-visible "+ (isOpen && "h-0") } ref={menuDom}>
         <div
                 className={
-                    "overflow-y-hidden transition-shadow transform-colors duration-700 rounded-xl h-fit p-2 relative bg-white z-10 w-fit sm:-translate-y-8 " +
-                    (isOpen ? "shadow-2xl max-h-fit -translate-y-9" : "sm:hover:bg-gray-100 ")
+                    "overflow-y-hidden transition-all duration-700 rounded-xl h-fit p-2 absolute right-5 top-3 bg-white z-10 items-end justify-end " +
+                    (isOpen ? "shadow-2xl max-h-fit" : "sm:hover:bg-gray-100 ")
                 }
             >
                 <div className="flex flex-row justify-end">
@@ -145,8 +145,8 @@ export default function Login() {
                 </div>
                 <div
                     className={
-                        "transition-all duration-700 overflow-hidden min-w-full " +
-                        (isOpen ? "max-h-96" : "max-h-0")
+                        "transition-all duration-700 overflow-hidden " +
+                        (isOpen ? "max-h-96 max-w-7xl" : "max-h-0 max-w-0")
                     }
                 >
                     <DropDownMenu />
