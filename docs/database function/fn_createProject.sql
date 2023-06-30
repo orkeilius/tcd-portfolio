@@ -8,6 +8,8 @@ begin
 
     insert into project_user (project_id,user_id)
       values(newProjectID,auth.uid());
+    
+    return newProjectID;
   else
     RAISE EXCEPTION '403 Forbidden';
   end if;
