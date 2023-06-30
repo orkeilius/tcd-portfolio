@@ -66,7 +66,7 @@ function DropDownMenu() {
                     />
                     <input
                         className="transition duration-500 m-1 text-white bg-accent rounded-md border-accent border-2 hover:bg-white hover:text-accent"
-                        placeholder={text["login"]}
+                        value={text["login"]}
                         type="submit"
                     />
                 </form>

@@ -130,7 +130,7 @@ export default function SingUp() {
                     <input
                         className=" relative my-8 mx-auto block text-center py-1 w-[193px] text-lg transition duration-500 text-white bg-accent rounded-md border-accent border-2 hover:bg-white hover:text-accent"
                         type="submit"
-                        text={text["singUp"]}
+                        value={text["singUp"]}
                     />
                 </form>
             </div>
