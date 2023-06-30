@@ -29,7 +29,7 @@ export default function Home() {
     return (
         <>
             <header className="px-1 py-5 w-10/12 sm:w-3/4 flex justify-between items-center">
-                <a href="https://www.tcd.ie/">
+                <a href="https://www.tcd.ie/" className="mr-16">
                     <img
                         className="max-h-[63px]"
                         src={tcdLogo}
