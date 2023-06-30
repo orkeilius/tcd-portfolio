@@ -97,7 +97,7 @@ export default function Comment(props) {
                         key={comment.authorId}
                         className={"mx-auto my-2 rounded-xl border-separate w-[97%] p-2 " + (props.variation === "portfolioResume" ? "bg-slate-50" :"border border-black")}
                     >
-                        <div className="flex w-full">
+                        <div className="flex w-full mb-1">
                             <ProfileImage
                                 firstName={comment.firstName}
                                 lastName={comment.lastName}
@@ -129,7 +129,7 @@ export default function Comment(props) {
                             <textarea
                                 id="comment text"
                                 placeholder={text["comment placeholder"]}
-                                className="w-full resize-none break-words"
+                                className="w-full resize-none break-words px-1"
                                 value={comment.text}
                                 onChange={(event) => {
                                     resizeTextarea(event);
@@ -149,7 +149,7 @@ export default function Comment(props) {
                     })
                     .includes(session.id) && (
                     <button
-                        className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
+                        className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2 w-full sm:w-fit "
                         onClick={createComment}
                     >
                         {text["create comment"]}

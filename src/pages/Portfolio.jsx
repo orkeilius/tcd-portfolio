@@ -63,7 +63,7 @@ export default function Portfolio(props) {
                     }
                 />
             ) : (
-                <h1 className="font-semibold text-3xl p-1">
+                <h1 className="font-semibold text-3xl p-1 text-center sm:text-left">
                     {portfolioData.title}
                 </h1>
             )}
