@@ -114,11 +114,11 @@ export default function Login() {
     });
 
     return (
-        <div className={"overflow-visible "+ (isOpen && "h-0") } ref={menuDom}>
+        <div className={"overflow-visible h-0 w-0 -translate-y-8 " } ref={menuDom}>
         <div
                 className={
-                    "overflow-y-hidden transition-all duration-700 rounded-xl h-fit p-2 absolute right-5 top-3 bg-white z-10 items-end justify-end " +
-                    (isOpen ? "shadow-2xl max-h-fit" : "sm:hover:bg-gray-100 ")
+                    "overflow-y-hidden transition-all -translate-x-full duration-700 rounded-xl h-fit w-fit p-2 bg-white z-10 items-end justify-end  " +
+                    (isOpen ? "shadow-2xl max-h-fit" : "sm:hover:bg-gray-100")
                 }
             >
                 <div className="flex flex-row justify-end">
