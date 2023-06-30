@@ -29,7 +29,7 @@ export default function UserList(props) {
                         {session.role === "professor" &&
                         session.id !== user.user_id ? (
                             <button
-                                className="transition-all bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-6 h-6 m-2 md:m-1 md:w-5 md:h-5"
+                                className="transition-all bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-6 h-6 m-2 md:m-1 md:w-5 md:h-5 aspect-square"
                                 aria-label={text["button kick"]}
                                 onClick={() => {
                                     setConfirmPopUp(

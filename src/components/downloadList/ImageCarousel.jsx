@@ -118,7 +118,7 @@ export default function ImageCarousel(props) {
                                     onClick={() => {
                                         fileUtils.handleDelete(image.name);
                                     }}
-                                    className=" transition-all m-1 mr-1 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5"
+                                    className=" transition-all m-1 mr-1 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5 aspect-square"
                                     aria-label={text["button delete"]}
                                 >
                                     <IoTrashOutline />
