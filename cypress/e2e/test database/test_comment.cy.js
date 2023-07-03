@@ -85,9 +85,9 @@ describe('test comment access', () => {
         cy.login('student-author')
         cy.supabase(async () => {
             const { data, error } = await supabase
-            .from('portfolio')
+            .from('comment')
             .delete()
-            .eq('project_id',728)
+            .eq('portfolio_id',728)
             if (error != null) {
                 throw error
             }
