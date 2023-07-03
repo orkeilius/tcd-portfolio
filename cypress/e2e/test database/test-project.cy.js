@@ -79,7 +79,7 @@ describe('test project access', () => {
     })
 
     after(() => {
-        cy.login('student-author')
+        cy.login('professor-author')
         cy.supabase(async () => {
             const { data, error } = await supabase
                 .from('project')
