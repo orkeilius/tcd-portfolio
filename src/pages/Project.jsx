@@ -1,6 +1,5 @@
-import { downloadProject } from "../lib/downloader";
 import { IoHelpCircle } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { SessionContext } from "src/components/SessionProvider";
 import { supabase } from "src/lib/supabaseClient";
 import { toast } from "react-toastify";
@@ -9,6 +8,7 @@ import UserList from "../components/userList";
 import useTranslation from "src/lib/TextString";
 import { ConfirmPopUpContext } from "../components/ConfirmPopUp";
 import PortfolioResume from "../components/PortfolioResume";
+import { Link } from "react-router-dom";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -208,14 +208,17 @@ export default function Project(props) {
                                         </div>
                                     )}
                                     
-                                        <button
+                                    <Link
+                                        to={"/download/project/" + project.id}
+                                        target="_blank"
+                                        rel="noopener noreferrer" 
                                             className="underline mr-1 sm:ml-auto"
                                             onClick={() => {
-                                                downloadProject(project.id);
+                                                Navigate()
                                             }}
                                         >
                                             {text["download project"]}
-                                        </button>
+                                        </Link>
                                         <button
                                             className="text-red-600 mr-1 underline"
                                             onClick={() => {

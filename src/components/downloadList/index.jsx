@@ -1,5 +1,5 @@
 import { ConfirmPopUpContext } from "src/components/ConfirmPopUp";
-import { downloadFileList } from "src/lib/downloader";
+import { Link } from "react-router-dom";
 import { supabase } from "src/lib/supabaseClient";
 import { useState, useEffect, useContext } from "react";
 import FileList from "./FileList";
@@ -149,14 +149,14 @@ export default function Index(props) {
                 uploadStatus={uploadStatus}
             />
             {fileList.length > 1 && (
-                <button
+                <Link
+                to={"/download/fileList/" + props.id}
+                target="_blank"
+                rel="noopener noreferrer" 
                     className="mx-3 underline"
-                    onClick={() => {
-                        downloadFileList(props.id);
-                    }}
                 >
                     {text["download all"]}
-                </button>
+                </Link>
             )}
         </>
     );

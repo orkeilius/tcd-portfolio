@@ -5,7 +5,7 @@ import useTranslation from "src/lib/TextString";
 import { useParams } from "react-router-dom";
 import Comment from "src/components/comment";
 import Paragraph from "../components/paragraph";
-import { downloadPortfolio } from "../lib/downloader";
+import { Link } from "react-router-dom";
 
 export default function Portfolio(props) {
     async function getPortfolioData(portfolioId) {
@@ -43,7 +43,7 @@ export default function Portfolio(props) {
 
     useEffect(() => {
         getPortfolioData(id).then((res) => setPortfolioData(res));
-    }, [id,session]);
+    }, [id, session]);
 
     if (portfolioData == null) {
         return null;
@@ -76,14 +76,14 @@ export default function Portfolio(props) {
                         " " +
                         portfolioData.userInfo.last_name}
                 </p>
-                <button
+                <Link
+                    to={"/download/portfolio/" + id}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className=" underline"
-                    onClick={() => {
-                        downloadPortfolio(id);
-                    }}
                 >
                     {text["download portfolio"]}
-                </button>
+                </Link>
             </div>
 
             <Comment id={id} />
