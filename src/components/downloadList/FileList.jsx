@@ -61,10 +61,10 @@ export default function FileList(props) {
                             fileUtils.handleUpload(event.dataTransfer.files);
                         }}
                         className={
-                            "transition-all w-full flex border-b border-black last:border-0 font-semibold justify-center text-center " +
+                            "transition-all w-full flex border-b border-black last:border-0 font-semibold justify-center text-center h-8 " +
                             (dropState === "drag"
                                 ? " sm:h-20 bg-cyan-100"
-                                : "sm:first-letter:h-10 bg-slate-200")
+                                : "sm:first:h-10 bg-slate-200")
                         }
                     >
                         {uploadStatus.message == null ? (
