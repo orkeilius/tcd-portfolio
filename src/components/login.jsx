@@ -117,7 +117,7 @@ export default function Login() {
         <div className={"overflow-visible h-0 w-0 -translate-y-8 " } ref={menuDom}>
         <div
                 className={
-                    "overflow-y-hidden transition-all -translate-x-full duration-700 rounded-xl h-fit w-fit p-2 bg-white z-10 items-end justify-end  " +
+                    "overflow-y-hidden transition-all -translate-x-full duration-700 rounded-xl h-fit w-max p-2 bg-white z-10 items-end justify-end  " +
                     (isOpen ? "shadow-2xl max-h-fit" : "sm:hover:bg-gray-100")
                 }
             >
