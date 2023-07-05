@@ -64,5 +64,9 @@
   "title placeholder": "Cuir teideal leis ...",
   "uploading file": "ag uaslódáil {0}",
   "user confirm": "an bhfuil tú cinnte go bhfuil tú ag iarraidh {0} a bhaint ón ngrúpa?",
-  "view portfolio": "Féach ar an bpunann foghlama"
+  "view portfolio": "Féach ar an bpunann foghlama",
+  "downloading": "ag íoslódáil",
+  "downloading project": "ag íoslódáil an tionscadail",
+  "downloading portfolio": "ag íoslódáil na punainne foghlama",
+  "download complete": "íoslódáilte"
 }

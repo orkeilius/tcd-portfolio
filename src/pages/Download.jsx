@@ -1,11 +1,9 @@
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { default as translation } from "src/lib/TextString";
 import { supabase } from "../lib/supabaseClient";
 import jsZip from "jszip";
 import React from "react";
-import { toast } from "react-toastify";
-import { IoNuclearOutline } from "react-icons/io5";
 import { pdf, Document, Page, Text, StyleSheet,Image } from "@react-pdf/renderer"
 let dataURL = [];
 
@@ -27,8 +25,10 @@ function saveFile(file, name) {
 }
 
 export default function Download(props) {
+    const text = translation();
+
     async function downloadFileList(paragraphId) {
-        setStatus(status => { return { ...status, 2: { name: `downloading ...`, percent: 0 } } }) 
+        setStatus(status => { return { ...status, 2: { name: `${text['downloading']}...`, percent: 0 } } }) 
         let folder = new jsZip();
         const { data, error } = await supabase.storage
             .from("media")
@@ -43,7 +43,7 @@ export default function Download(props) {
         }
 
         for (let i = 0; i < data.length; i++) {
-            setStatus(status => { return { ...status, 2: { name: `downloading : ${data[i].name}...`, percent: i / data.length * 100 } } }) 
+            setStatus(status => { return { ...status, 2: { name: `${text['downloading']} : ${data[i].name}...`, percent: i / data.length * 100 } } }) 
             const { data: file_data, error } = await supabase.storage
                 .from("media")
                 .download(`${paragraphId}/${data[i].name}`);
@@ -61,9 +61,8 @@ export default function Download(props) {
     }
 
     async function downloadProject(ProjectId) {
-        const text = translation();
 
-        setStatus(status => {return  {...status, 0: { name: 'downloading project', percent: 0 }}})
+        setStatus(status => {return  {...status, 0: { name: text['download project'], percent: 0 }}})
         let folder = new jsZip();
         let { data, error } = await supabase
             .from("portfolio")
@@ -75,11 +74,11 @@ export default function Download(props) {
             return;
         }
         else if (data.length === 0) {
-            toast.error(text["error empty project"]);
+            setError(text["error empty project"]);
             return;
         }
         else {
-            setStatus(status => {return  {...status, 0: { name: 'downloading project', percent:0 }}})   
+            setStatus(status => {return  {...status, 0: { name: text['downloading project'], percent:0 }}})   
             
             for (let i = 0; i < data.length; i++) {
                 const portfolio = await getPdfPortfolio(data[i].id);
@@ -87,7 +86,7 @@ export default function Download(props) {
                     portfolio.name.replace(/[/\\?%*:|"<>]/g, "-") + ".pdf",
                     portfolio.file
                 );
-                setStatus(status => {return  {...status, 0: { name: 'downloading project', percent: 10 + ((i+1)/data.length * 90) }}})
+                setStatus(status => {return  {...status, 0: { name: text['downloading project'], percent: 10 + ((i+1)/data.length * 90) }}})
             }
             
             folder.generateAsync({ type: "blob" }).then(function (content) {
@@ -106,9 +105,8 @@ export default function Download(props) {
     }
 
     async function getPdfPortfolio(portfolioId) {
-        const text = translation();
 
-        setStatus(status => {return  {...status, 1: { name: 'downloading portfolio ...', percent: 0 }}})
+        setStatus(status => {return  {...status, 1: { name: text['downloading portfolio'], percent: 0 }}})
 
         const pdfStyles = StyleSheet.create({
             page: {
@@ -142,13 +140,13 @@ export default function Download(props) {
             console.error(portfolioError, paragraphError);
             return;
         }
-        setStatus(status => {return  {...status, 1: { name: `downloading portfolio : ${portfolioData.title}...`, percent: 50 }}})
+        setStatus(status => {return  {...status, 1: { name: `${text['downloading portfolio'] } : ${portfolioData.title}...`, percent: 50 }}})
         for (let i = 0; i < paragraphData.length; i++) {
             paragraphData[i].attachment = await PdfAttachment(
                 paragraphData[i].id
             );
         }
-        setStatus(status => {return  {...status, 1: { name: `downloading portfolio : ${portfolioData.title}...`, percent: 100 }}})
+        setStatus(status => {return  {...status, 1: { name: `${text['downloading portfolio'] } : ${portfolioData.title}...`, percent: 100 }}})
         const doc = (
             <Document
                 title={portfolioData.title}
@@ -220,7 +218,7 @@ export default function Download(props) {
 
         let files = [];
         for (let i = 0; i < filesName.length; i++) {
-            setStatus(status => { return { ...status, 2: { name: `downloading : ${filesName[i].name}...`, percent: i / filesName.length * 100 } } }) 
+            setStatus(status => { return { ...status, 2: { name: `${text['downloading']} : ${filesName[i].name}...`, percent: i / filesName.length * 100 } } }) 
             
             const { data: file_data, error } = await supabase.storage
                 .from("media")
@@ -238,10 +236,10 @@ export default function Download(props) {
             <>
                 {files.map((file) => {
                     return (
-                        <>
+                        <div key={file.name}>
                             <Image src={file.data} style={pdfStyles.image} />
                             <Text style={pdfStyles.text}>{file.name}</Text>
-                        </>
+                        </div>
                     );
                 })}
             </>
@@ -252,7 +250,6 @@ export default function Download(props) {
     const [error, setError] = useState(null);
     
     const [status, setStatus] = useState({});
-    console.log(status)
     const runOnce = useRef(false) 
     const Download = async () => {
         if (runOnce.current) {
@@ -276,13 +273,12 @@ export default function Download(props) {
                 setError("invalid link");
                 return;
         }
-        setStatus(status => { return { ...status, 0: { name: `download complete`, percent: 100 } } })  
+        setStatus(status => { return { ...status, 0: { name: text['download complete'], percent: 100 } } })  
     };
     useEffect(() => { Download() }, [type,id]);
-
     return (
         <>
-            {error != null && <h3 className="bg-red-700">{error}</h3>}
+            {error != null && <h3 className="text-red-700 text-3xl text-center ">{error}</h3>}
 
             {Object.keys(status).map((key) => { 
                 const elem = status[key]
