@@ -67,5 +67,7 @@
   "send recover email": "send recover link",
   "reset password":"reset password",
   "password changed": "password changed",
-  "email expired": "your link is expired, please retry"
+  "email expired": "your link is expired, please retry",
+  "role confirm":"are you sure to change role of {0} to {1} ?",
+  "user search": "search a user..."
 }

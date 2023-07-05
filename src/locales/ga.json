@@ -64,5 +64,7 @@
   "title placeholder": "Cuir teideal leis ...",
   "uploading file": "ag uaslódáil {0}",
   "user confirm": "an bhfuil tú cinnte go bhfuil tú ag iarraidh {0} a bhaint ón ngrúpa?",
-  "view portfolio": "Féach ar an bpunann foghlama"
+  "view portfolio": "Féach ar an bpunann foghlama",
+  "role confirm":"are you sure to change role of {0} to {1} ?",
+  "user search": "search a user..."
 }
