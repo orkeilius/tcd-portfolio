@@ -1,8 +1,17 @@
-import Project from "./Project"
+import Project from "./Project" 
+import { useContext } from "react";
+import { SessionContext } from "src/components/SessionProvider";
+import AdminPanel from "../components/AdminPanel";
+
 export default function Home() {
+  const session = useContext(SessionContext)
   return (
     <main>
-      <Project variation="home"/>
-    </main>
+      {session.role === 'admin' ?
+        <AdminPanel/>  
+        :
+        <Project variation="home" />
+      }
+      </main>
   )
 }

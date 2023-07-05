@@ -7,14 +7,16 @@ export function ConfirmPopUpProvider({ children }) {
         enable: false,
         text: null,
         onConfirm: null,
+        onCancel: null
     });
 
-    function popUp(text, onConfirm) {
+    function popUp(text, onConfirm,onCancel = null) {
         setPopUpData({
             enable: true,
             text: text,
             onConfirm: onConfirm,
             isMount: false,
+            onCancel: onCancel
         });
         setTimeout(() =>
             setPopUpData((popUpData) => {
@@ -30,6 +32,7 @@ export function ConfirmPopUpProvider({ children }) {
                 isMount: false,
                 text: null,
                 onConfirm: null,
+                onCancel:null
             };
         });
         setTimeout(() => {
@@ -60,13 +63,16 @@ export function ConfirmPopUpProvider({ children }) {
                     <div className="flex justify-around">
                         <button
                             className="transition duration-300 text-white bg-gray-400 p-2 w-24 border-gray-400 border-2 rounded-2xl hover:bg-white hover:text-gray-400"
-                            onClick={hide}
+                            onClick={() => {
+                                popUpData.onCancel?.call();
+                                hide();
+                            }}
                         >
                             cancel
                         </button>
                         <button
                             onClick={() => {
-                                popUpData.onConfirm.call();
+                                popUpData.onConfirm?.call();
                                 hide();
                             }}
                             className="transition duration-300 text-white bg-red-500 p-2 w-24 border-red-500 border-2 rounded-2xl hover:bg-white hover:text-red-500"

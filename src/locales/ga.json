@@ -68,5 +68,8 @@
   "downloading": "ag íoslódáil",
   "downloading project": "ag íoslódáil an tionscadail",
   "downloading portfolio": "ag íoslódáil na punainne foghlama",
-  "download complete": "íoslódáilte"
+  "download complete": "íoslódáilte",
+  "view portfolio": "Féach ar an bpunann foghlama",
+  "role confirm":"are you sure to change role of {0} to {1} ?",
+  "user search": "search a user..."
 }
