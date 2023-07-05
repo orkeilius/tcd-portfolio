@@ -145,8 +145,8 @@ export default function Login() {
                 </div>
                 <div
                     className={
-                        "transition-all duration-700 overflow-hidden " +
-                        (isOpen ? "max-h-96 max-w-7xl" : "max-h-0 max-w-0")
+                        "transition-all duration-700 overflow-hidden ml-[0%] whitespace-nowrap " +
+                        (isOpen ? "max-h-96 max-w-7xl" : "max-h-0 max-w-0 ml-[100%]")
                     }
                 >
                     <DropDownMenu />
