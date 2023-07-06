@@ -6,12 +6,11 @@ import useTranslation from "src/lib/TextString";
 export default function FileList(props) {
     const [dropState, setDropState] = useState("none"); // none ¦ drag
     const text = useTranslation();
-    const fileList = props.fileList
-    const paragraphInfo = props.paragraphInfo
-    const fileUtils = props.fileUtils
-    const uploadStatus = props.uploadStatus
+    const fileList = props.fileList;
+    const paragraphInfo = props.paragraphInfo;
+    const fileUtils = props.fileUtils;
+    const uploadStatus = props.uploadStatus;
 
-    
     if (!paragraphInfo.isAuthor && fileList.length === 0) {
         return <></>;
     }
@@ -22,7 +21,7 @@ export default function FileList(props) {
                 {fileList.map((file) => (
                     <li
                         key={file.name}
-                        className="transition-all duration-70000 w-full flex border-black last:border-0 overflow-hidden border-b"
+                        className="transition-all duration-70000 w-full flex border-black last:border-0 overflow-hidden border-b items-center"
                     >
                         <p className="ml-1 mr-auto font-semibold">
                             {file.name}
@@ -30,8 +29,10 @@ export default function FileList(props) {
                         <p className="a">{file.size}</p>
                         {paragraphInfo.isAuthor && (
                             <button
-                                onClick={() => fileUtils.handleDelete(file.name)}
-                                className=" transition-all m-1 mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5 aspect-square"
+                                onClick={() =>
+                                    fileUtils.handleDelete(file.name)
+                                }
+                                className=" transition-all m-2 mr-0 bg-red-500 flex justify-center items-center rounded-md hover:scale-125 w-6 h-6 md:m-1 md:w-5 md:h-5 aspect-square"
                                 aria-label={text["button delete"]}
                             >
                                 <IoTrashOutline />
@@ -40,7 +41,7 @@ export default function FileList(props) {
 
                         <button
                             onClick={() => fileUtils.handleDownload(file.name)}
-                            className="transition-all m-1 bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-5 h-5 aspect-square"
+                            className="transition-all m-2 bg-accent2 flex justify-center items-center rounded-md hover:scale-125 w-6 h-6 md:m-1 md:w-5 md:h-5 aspect-square"
                             aria-label={text["button download"]}
                         >
                             <IoCloudDownloadOutline />
@@ -93,7 +94,9 @@ export default function FileList(props) {
                                 </label>
                                 <input
                                     onChange={(event) => {
-                                        fileUtils.handleUpload(event.target.files);
+                                        fileUtils.handleUpload(
+                                            event.target.files
+                                        );
                                     }}
                                     id={"file-upload-" + paragraphInfo.id}
                                     className="hidden"
