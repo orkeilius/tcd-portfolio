@@ -24,7 +24,7 @@ function DropDownMenu() {
             email: inputs.email,
             password: inputs.password,
         });
-        if (error != null) {
+        if (error !== null) {
             console.error(error)
             toast.error(text['error login'])
         }
@@ -117,7 +117,7 @@ export default function Login() {
         <div className={"overflow-visible h-0 w-0 -translate-y-8 " } ref={menuDom}>
         <div
                 className={
-                    "overflow-y-hidden transition-all -translate-x-full duration-700 rounded-xl h-fit w-max p-2 bg-white z-10 items-end justify-end  " +
+                    "overflow-y-hidden transition-all -translate-x-full duration-700 rounded-xl w-fit h-fit p-2 bg-white z-10 items-end justify-end  " +
                     (isOpen ? "shadow-2xl max-h-fit" : "sm:hover:bg-gray-100")
                 }
             >
@@ -128,7 +128,7 @@ export default function Login() {
                                 ? `${userInfo.first_name} ${userInfo.last_name}`
                                 : text["not connected"]}
                         </h3>
-                        <p className="underline text-right">
+                        <p className="underline text-right whitespace-nowrap">
                             {session.isLogged ? text["account setting"] : text["login"]}
                         </p>
                     </div>
@@ -145,8 +145,8 @@ export default function Login() {
                 </div>
                 <div
                     className={
-                        "transition-all duration-700 overflow-hidden ml-[0%] whitespace-nowrap " +
-                        (isOpen ? "max-h-96 max-w-7xl" : "max-h-0 max-w-0 ml-[100%]")
+                        "transition-[max-height,max-width] duration-700 overflow-hidden whitespace-nowrap " +
+                        (isOpen ? "max-h-96 max-w-7xl" : "max-h-0 max-w-0 sm:max-w-full ")
                     }
                 >
                     <DropDownMenu />

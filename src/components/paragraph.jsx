@@ -12,7 +12,7 @@ export default function Paragraph(props) {
             .eq("portfolio", portfolioId)
             .order("position");
 
-        if (error != null) {
+        if (error !== null) {
             console.error(error);
         }
         setParagraphData(data);
@@ -35,7 +35,7 @@ export default function Paragraph(props) {
             .update({ [key]: value })
             .eq("portfolio", portfolioId)
             .eq("position", paragraphData[listPos].position);
-        if (error != null) console.error(error);
+        if (error !== null) console.error(error);
     }
 
     async function handleDelete(position, id) {
@@ -45,7 +45,7 @@ export default function Paragraph(props) {
             .eq("portfolio", id)
             .eq("position", position);
 
-        if (error != null) console.error(error);
+        if (error !== null) console.error(error);
         getParagraphData(id);
     }
 
@@ -53,7 +53,7 @@ export default function Paragraph(props) {
         const { error } = await supabase.rpc("fn_createParagraph", {
             portfolio_id: id,
         });
-        if (error != null) console.error(error);
+        if (error !== null) console.error(error);
         getParagraphData(id);
     }
 
@@ -62,7 +62,7 @@ export default function Paragraph(props) {
             .from("paragraph")
             .update({ position: paragraph.position })
             .eq("position", newPos);
-        if (error1 != null) {
+        if (error1 !== null) {
             console.error(error1);
             return;
         }
@@ -71,7 +71,7 @@ export default function Paragraph(props) {
             .from("paragraph")
             .update({ position: newPos })
             .eq("id", paragraph.id);
-        if (error2 != null) {
+        if (error2 !== null) {
             console.error(error2);
             return;
         }
@@ -112,7 +112,7 @@ export default function Paragraph(props) {
                             <div className="group ">
                                 <div className="w-0 h-0">
                                     <div className="group-hover:max-w-lg hover:overflow-visible  md:max-w-0 relative h-fit transition-all duration-500 w-fit -translate-x-[130%] overflow-clip ">
-                                        {index != 0 && <IoCaretUp className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-gray-500"
+                                        {index !== 0 && <IoCaretUp className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-gray-500"
                                             onClick={() => {
                                                 moveParagraph(
                                                     paragraph,
@@ -120,7 +120,7 @@ export default function Paragraph(props) {
                                                 );
                                             }}
                                         />}
-                                        {index != paragraphData.length - 1 && <IoCaretDown
+                                        {index !== paragraphData.length - 1 && <IoCaretDown
                                             className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-gray-500"
                                             onClick={() => {
                                                 moveParagraph(
@@ -163,24 +163,6 @@ export default function Paragraph(props) {
                                         )
                                     }
                                 />
-                                <button
-                                    className="block text-red-600 mr-1 underline w-full text-center sm:text-right"
-                                    onClick={() => {
-                                        setConfirmPopUp(
-                                            text["paragraph confirm"].replace(
-                                                "{0}",
-                                                paragraph.title
-                                            ),
-                                            () =>
-                                                handleDelete(
-                                                    paragraph.position,
-                                                    id
-                                                )
-                                        );
-                                    }}
-                                >
-                                    {text["delete paragraph"]}
-                                </button>
                                 <textarea
                                     id="area"
                                     placeholder={text["text placeholder"]}
