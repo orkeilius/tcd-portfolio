@@ -21,8 +21,7 @@ export default function Home() {
             default:
                 return [{ text: text["home"], link: "/" }];
         }
-    },[session,text])
-    
+    },[session])
     const [menuItem, setMenuItem] = useState(getMenuItem(session));
     useEffect(() => { setMenuItem(getMenuItem()); }, [getMenuItem]);
     

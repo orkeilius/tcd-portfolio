@@ -24,7 +24,7 @@ export default function RecoverPassword() {
         const args = event.target.elements;
         const { error } = await supabase.auth
     	    .resetPasswordForEmail(args.email.value,{
-                redirectTo: `${process.env.REACT_APP_BASE_URL}/account/reset-password`,
+                redirectTo: `${import.meta.VITE_BASE_URL}/account/reset-password`,
               })
 
         if (error !== null) {
