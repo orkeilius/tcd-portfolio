@@ -13,7 +13,7 @@ export default function UserList(props) {
                 {users.map((user) => (
                     <li
                         key={user.first_name + user.last_name}
-                        className="w-full flex justify-between border-b border-gray-500 last:border-0"
+                        className="w-full flex justify-between border-b border-gray-500 last:border-0 items-center"
                     >
                         <p className="ml-1 font-semibold">
                             {user.first_name + " " + user.last_name}
@@ -57,7 +57,7 @@ export default function UserList(props) {
     const session = useContext(SessionContext);
     const setConfirmPopUp = useContext(ConfirmPopUpContext);
 
-    async function getUserData(project) {
+    async function getUserData() {
         // Query file from db with props.postId
         let { data: userData, userError } = await supabase.rpc(
             "fn_queryUserList",
