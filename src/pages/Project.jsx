@@ -192,7 +192,7 @@ export default function Project(props) {
                                             {text["create invite"]}
                                         </button>
                                     ) : (
-                                        <div className="pl-1 flex items-center">
+                                        <div className="pl-1 flex items-center justify-center">
                                             <button
                                                 className="text-accent mr-1 underline"
                                                 onClick={() =>
@@ -201,10 +201,7 @@ export default function Project(props) {
                                             >
                                                 {text["copy invite"]}
                                             </button>
-                                            <IoHelpCircle className="fill-slate-500" />
-                                            <p className="text-sm">
-                                                {text["invite expire"]}
-                                            </p>
+                                            <IoHelpCircle className="fill-slate-500" title={text["invite expire"]} />
                                         </div>
                                     )}
                                     
@@ -212,10 +209,7 @@ export default function Project(props) {
                                         to={"/download/project/" + project.id}
                                         target="_blank"
                                         rel="noopener noreferrer" 
-                                            className="underline mr-1 sm:ml-auto"
-                                            onClick={() => {
-                                                Navigate()
-                                            }}
+                                            className="underline mr-1 text-center sm:ml-auto"
                                         >
                                             {text["download project"]}
                                         </Link>
