@@ -1,5 +1,5 @@
 import { IoHelpCircle } from "react-icons/io5";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SessionContext } from "src/components/SessionProvider";
 import { supabase } from "src/lib/supabaseClient";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import useTranslation from "src/lib/TextString";
 import { ConfirmPopUpContext } from "../components/ConfirmPopUp";
 import PortfolioResume from "../components/PortfolioResume";
 import { Link } from "react-router-dom";
+import { IoDownload, IoTrashBin } from "react-icons/io5";
 
 function generateCode() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";
@@ -128,23 +129,23 @@ export default function Project(props) {
         <main>
             {session.role === "professor" && (
                 <button
-                className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500 text-white rounded-lg py-1 px-2"
-                onClick={createProject}
+                    className="bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500 text-white rounded-lg py-1 px-2"
+                    onClick={createProject}
                 >
                     {text["create project"]}
                 </button>
             )}
-            {session.role === "student"  && projectList.length === 0 &&(
+            {session.role === "student" && projectList.length === 0 && (
                 <p className="text-center">{text["no project"]}</p>
             )}
-            {session.role === undefined  && (
+            {session.role === undefined && (
                 <p className="text-center">{text["project not connected"]}</p>
             )}
 
             {projectList.map((project) => {
                 return (
                     <div key={project.id} className="mb-24 mt-5 last:mb-10">
-                        {session.role === "student" &&(
+                        {session.role === "student" && (
                             <>
                                 <h1 className="font-semibold text-3xl border-b border-black p-1">
                                     {project.name}
@@ -160,9 +161,15 @@ export default function Project(props) {
                                     </button>
                                 ) : (
                                     <div>
-                                        {props.variation !== "home" && <UserList projectId={project.id} />}
-                                        <p className="my-2">{text["my portfolio"]}</p>
-                                        <PortfolioResume id={userPortfolio[project.id].id} />
+                                        {props.variation !== "home" && (
+                                            <UserList projectId={project.id} />
+                                        )}
+                                        <p className="my-2">
+                                            {text["my portfolio"]}
+                                        </p>
+                                        <PortfolioResume
+                                            id={userPortfolio[project.id].id}
+                                        />
                                     </div>
                                 )}
                             </>
@@ -182,7 +189,7 @@ export default function Project(props) {
                                     }}
                                 />
                                 <div className="w-full border-b my-1 border-black" />
-                                <div className="flex flex-col sm:flex-row justify-between flex-wrap">
+                                <div className="flex sm:flex-row justify-between flex-wrap">
                                     {project.project_code?.code ===
                                     undefined ? (
                                         <button
@@ -201,38 +208,38 @@ export default function Project(props) {
                                             >
                                                 {text["copy invite"]}
                                             </button>
-                                            <IoHelpCircle className="fill-slate-500" title={text["invite expire"]} />
+                                            <IoHelpCircle
+                                                className="fill-slate-500"
+                                                title={text["invite expire"]}
+                                            />
                                         </div>
                                     )}
-                                    
+
                                     <Link
                                         to={"/download/project/" + project.id}
                                         target="_blank"
-                                        rel="noopener noreferrer" 
-                                            className="underline mr-1 text-center sm:ml-auto"
-                                        >
-                                            {text["download project"]}
-                                        </Link>
-                                        <button
-                                            className="text-red-600 mr-1 underline"
-                                            onClick={() => {
-                                                setConfirmPopUp(
-                                                    text[
-                                                        "file confirm"
-                                                    ].replace(
-                                                        "{0}",
-                                                        project.name
-                                                    ),
-                                                    () =>
-                                                        handleProjectDelete(
-                                                            project
-                                                        )
-                                                );
-                                            }}
-                                        >
-                                            {text["delete project"]}
-                                        </button>
-                                   
+                                        rel="noopener noreferrer"
+                                        className="aspect-square ml-auto"
+                                    >
+                                        <IoDownload
+                                            className="w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125"
+                                            title={text["download project"]}
+                                        />
+                                    </Link>
+                                    <IoTrashBin
+                                        className="w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125 text-red-700"
+                                        title={text["delete project"]}
+                                        onClick={() => {
+                                            setConfirmPopUp(
+                                                text["file confirm"].replace(
+                                                    "{0}",
+                                                    project.name
+                                                ),
+                                                () =>
+                                                    handleProjectDelete(project)
+                                            );
+                                        }}
+                                    />
                                 </div>
                                 <UserList projectId={project.id} />
                             </>
