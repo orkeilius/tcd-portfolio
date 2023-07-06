@@ -278,9 +278,9 @@ export default function Download(props) {
     useEffect(() => { Download() }, [type,id]);
     return (
         <>
-            {error != null && <h3 className="text-red-700 text-3xl text-center ">{error}</h3>}
-
-            {Object.keys(status).map((key) => { 
+            {error != null ? <h3 className="text-red-700 text-3xl text-center ">{error}</h3> :
+            
+            Object.keys(status).map((key) => { 
                 const elem = status[key]
                 if (elem === null){return null}
                 return (
@@ -290,7 +290,7 @@ export default function Download(props) {
                             <div
                                 className="bg-accent h-full transition-all duration-1000"
                                 style={{ width: elem.percent + "%" }}
-                            />
+                                />
                         </div>
                     </div>
                 );
