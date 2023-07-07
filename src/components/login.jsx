@@ -95,7 +95,7 @@ export default function Login() {
                 .select("*")
                 .eq("id", session.id);
 
-            if (error == null) {
+            if (error == null && data.length != 0) {
                 setuserInfo(data[0]);
             } else {
                 console.error(error);
