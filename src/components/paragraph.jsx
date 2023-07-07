@@ -75,7 +75,7 @@ export default function Paragraph(props) {
             console.error(error2);
             return;
         }
-        getParagraphData(id)
+        getParagraphData(id);
     }
 
     function resizeTextarea(event) {
@@ -112,26 +112,35 @@ export default function Paragraph(props) {
                             <div className="group ">
                                 <div className="w-0 h-0">
                                     <div className="group-hover:max-w-lg hover:overflow-visible  md:max-w-0 relative h-fit transition-all duration-500 w-fit -translate-x-[130%] overflow-clip ">
-                                        {index !== 0 && <IoCaretUp className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-gray-500"
-                                            onClick={() => {
-                                                moveParagraph(
-                                                    paragraph,
-                                                    paragraph.position - 1
-                                                );
-                                            }}
-                                        />}
-                                        {index !== paragraphData.length - 1 && <IoCaretDown
-                                            className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-gray-500"
-                                            onClick={() => {
-                                                moveParagraph(
-                                                    paragraph,
-                                                    paragraph.position + 1
-                                                );
-                                            }}
-                                        />}
-                                        <IoTrashBin
-                                            className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-red-600"
+                                        {index !== 0 && (
+                                            <button
+                                                className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-gray-500"
+                                                onClick={() => {
+                                                    moveParagraph(
+                                                        paragraph,
+                                                        paragraph.position - 1
+                                                    );
+                                                }}
+                                            >
+                                                <IoCaretUp className="w-full h-full" />
+                                            </button>
+                                        )}
+                                        {index !== paragraphData.length - 1 && (
+                                            <button
+                                                className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-gray-500"
+                                                onClick={() => {
+                                                    moveParagraph(
+                                                        paragraph,
+                                                        paragraph.position + 1
+                                                    );
+                                                }}
+                                            >
+                                                <IoCaretDown className="w-full h-full" />
+                                            </button>
+                                        )}
+                                        <button
                                             title={text["delete paragraph"]}
+                                            className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-red-600"
                                             onClick={() => {
                                                 setConfirmPopUp(
                                                     text[
@@ -147,7 +156,9 @@ export default function Paragraph(props) {
                                                         )
                                                 );
                                             }}
-                                        />
+                                        >
+                                            <IoTrashBin className="w-full h-full" />
+                                        </button>
                                     </div>
                                 </div>
                                 <input

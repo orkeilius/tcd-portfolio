@@ -23,13 +23,13 @@ describe('test acces', () => {
 })
 
 function deleteAllParagraph() {
-  cy.get("button:contains('delete')").each((elem) => {
+  cy.get("button[title~='delete']").each((elem) => {
 
     cy.get(elem).click({ force: true })
     cy.get('button:contains(confirm):visible').click()
     cy.wait(150)
   })
-  cy.get(":contains('delete')").should('not.exist')
+  cy.get("button[title~='delete']").should('not.exist')
   cy.wait(100)
 
 }
