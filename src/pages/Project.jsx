@@ -111,7 +111,7 @@ export default function Project(props) {
     }
 
     function copyLink(project) {
-        let link = `${import.meta.VITE_BASE_URL}/join/${project.id}/${project.project_code.code}`;
+        let link = `${import.meta.env.VITE_BASE_URL}/join/${project.id}/${project.project_code.code}`;
         navigator.clipboard.writeText(link);
         toast.success("copied !", { autoClose: 750 });
     }
