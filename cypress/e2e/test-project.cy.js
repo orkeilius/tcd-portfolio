@@ -96,7 +96,7 @@ describe('test project system', () => {
 
       cy.login('professor')
       cy.contains('student cypress')
-      cy.get('button[aria-label="kick user button"]').click()
+      cy.get('button[aria-label="remove user button"]').click()
       cy.get('button:contains(confirm):visible').click()
       cy.contains('student cypress').should('not.exist')
 
