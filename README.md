@@ -22,6 +22,8 @@ VITE_LOCALE # Locales use for the website. Corespond to a files name in src/loca
 
 to set up the db use the `supabase/shema.sql`
 
+> ⚠ don't forget to mannualy add the `populateUser` trigger on insert of  `auth/users`
+
 to add the first admin account, make a account on the website then edit your row in `user_info` table to `role = 0`
 
 then in the admin panel of the website your able to change role of other user
@@ -46,6 +48,8 @@ by default the tests use this login
 where user can be `professor`,`student`,`professor-author`,`student-author` and `invalid` (don't exist in the db)
 
 this can be change in `cypress\support\commands.js` and `cypress\e2e\test-login.cy.js`
+
+> note : database test can't easely break to do `429 (Too Many Requests)`, to avoid that just wait between running test in test database folder
 
 ## other information
 
