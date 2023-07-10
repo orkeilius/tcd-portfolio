@@ -5,7 +5,7 @@ function fill(value) {
 
   cy.get('@form').find('input[placeholder="first name"]').type(value?.firstname ?? 'first name')
   cy.get('@form').find('input[placeholder="last name"]').type(value?.lastname ?? 'last name')
-  cy.get('@form').find('input[placeholder="email"]').type(value?.email ?? 'invalid@cypress.local')
+  cy.get('@form').find('input[placeholder="email"]').type(value?.email ?? 'student@cypress-example.local')
   cy.get('@form').find('input[placeholder="password"]').type(value?.password ?? 'securePassword_0')
   cy.get('@form').find('input[placeholder="confirm password"]').type(value?.password2 ?? 'securePassword_0')
 
