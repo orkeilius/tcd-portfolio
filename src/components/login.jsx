@@ -81,27 +81,27 @@ export default function Login() {
     const text = useTranslation();
     const session = useContext(SessionContext);
 
-    const [userInfo, setuserInfo] = useState({});
+    const [user_info, setuser_info] = useState({});
     const [isOpen, setIsOpen] = useState(false);
     const menuDom = useRef(null);
 
     useEffect(() => {
-        const getuserInfo = async () => {
+        const getuser_info = async () => {
             if (!session.isLogged) {
                 return;
             }
             let { data, error } = await supabase
-                .from("userInfo")
+                .from("user_info")
                 .select("*")
                 .eq("id", session.id);
 
             if (error == null && data.length != 0) {
-                setuserInfo(data[0]);
+                setuser_info(data[0]);
             } else {
                 console.error(error);
             }
         };
-        getuserInfo();
+        getuser_info();
     }, [session]);
 
     const handleClick = (event) => {
@@ -125,7 +125,7 @@ export default function Login() {
                     <div className="mr-3 hidden sm:block ">
                         <h3 className="font-bold overflow-y-clip whitespace-nowrap">
                             {session.isLogged
-                                ? `${userInfo.first_name} ${userInfo.last_name}`
+                                ? `${user_info.first_name} ${user_info.last_name}`
                                 : text["not connected"]}
                         </h3>
                         <p className="underline text-right whitespace-nowrap">
@@ -136,8 +136,8 @@ export default function Login() {
                     {/* image place holder */}
                     {session.isLogged ? (
                         <ProfileImage
-                            firstName={userInfo.first_name}
-                            lastName={userInfo.last_name}
+                            firstName={user_info.first_name}
+                            lastName={user_info.last_name}
                         />
                     ) : (
                         <ProfileImage />

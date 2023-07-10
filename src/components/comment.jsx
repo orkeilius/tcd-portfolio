@@ -10,7 +10,7 @@ export default function Comment(props) {
         // Query file from db with props.postId
         let { data, error } = await supabase
             .from("comment")
-            .select("*,userInfo(*)")
+            .select("*,user_info(*)")
             .eq("portfolio_id", props.id);
 
         if (error !== null) {
@@ -19,10 +19,10 @@ export default function Comment(props) {
             setCommentData(
                 data.map((elem) => {
                     return {
-                        firstName: elem.userInfo.first_name,
-                        lastName: elem.userInfo.last_name,
+                        firstName: elem.user_info.first_name,
+                        lastName: elem.user_info.last_name,
                         text: elem.text,
-                        authorId: elem.userInfo.id,
+                        authorId: elem.user_info.id,
                     };
                 })
             );

@@ -1,6 +1,6 @@
 BEGIN
 
-  insert into public."userInfo" ("id","first_name","last_name","role") 
+  insert into public."user_info" ("id","first_name","last_name","role") 
   values (
     new.id,
     new.raw_user_meta_data ->> 'firstName',

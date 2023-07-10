@@ -7,7 +7,7 @@ SECURITY definer
 LANGUAGE plpgsql AS $$
 begin
   if ("getUserRole"() = 'admin') then
-    UPDATE "userInfo"
+    UPDATE "user_info"
     SET role = arg_role
     where id = arg_id;
   else

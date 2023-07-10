@@ -9,7 +9,7 @@ export default function PortfolioResume({ id }) {
     async function getPortfolioData(portfolioId) {
         let { data, error } = await supabase
             .from("portfolio")
-            .select("*,userInfo!portfolio_student_id_fkey(*),project(*)")
+            .select("*,user_info!portfolio_student_id_fkey(*),project(*)")
             .eq("id", portfolioId);
 
         if (error != null || data.length === 0) {
@@ -34,7 +34,7 @@ export default function PortfolioResume({ id }) {
                     <h2 className="text-2xl font-semibold underline">
                         {portfolioData.title}
                     </h2>
-                    <p className="">{`${portfolioData.userInfo.first_name} ${portfolioData.userInfo.last_name} | ${portfolioData.project.name}`}</p>
+                    <p className="">{`${portfolioData.user_info.first_name} ${portfolioData.user_info.last_name} | ${portfolioData.project.name}`}</p>
                     
                 </div>
                 <Link

@@ -11,7 +11,7 @@ export default function Portfolio(props) {
     async function getPortfolioData(portfolioId) {
         let { data, error } = await supabase
             .from("portfolio")
-            .select("*,userInfo!portfolio_student_id_fkey(*)")
+            .select("*,user_info!portfolio_student_id_fkey(*)")
             .eq("id", portfolioId);
 
         if (error != null || data.length === 0) {
@@ -72,9 +72,9 @@ export default function Portfolio(props) {
                 <p className="font-thin mx-auto sm:ml-1">
                     {text["portfolio author"] +
                         " " +
-                        portfolioData.userInfo.first_name +
+                        portfolioData.user_info.first_name +
                         " " +
-                        portfolioData.userInfo.last_name}
+                        portfolioData.user_info.last_name}
                 </p>
                 <Link
                     to={"/download/portfolio/" + id}

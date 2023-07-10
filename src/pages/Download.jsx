@@ -126,7 +126,7 @@ export default function Download(props) {
 
         let { data: portfolioData, error: portfolioError } = await supabase
             .from("portfolio")
-            .select("*,userInfo!portfolio_student_id_fkey(*)")
+            .select("*,user_info!portfolio_student_id_fkey(*)")
             .eq("id", portfolioId)
             .single();
 
@@ -151,9 +151,9 @@ export default function Download(props) {
             <Document
                 title={portfolioData.title}
                 author={
-                    portfolioData.userInfo.first_name +
+                    portfolioData.user_info.first_name +
                     " " +
-                    portfolioData.userInfo.last_name
+                    portfolioData.user_info.last_name
                 }
             >
                 <Page size="A4" style={pdfStyles.page}>
@@ -161,9 +161,9 @@ export default function Download(props) {
                     <Text>
                         {text["portfolio author"] +
                             " " +
-                            portfolioData.userInfo.first_name +
+                            portfolioData.user_info.first_name +
                             " " +
-                            portfolioData.userInfo.last_name}
+                            portfolioData.user_info.last_name}
                     </Text>
                 </Page>
                 {paragraphData.map((paragraph) => {

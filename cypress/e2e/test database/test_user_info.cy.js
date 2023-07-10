@@ -1,7 +1,7 @@
 import { supabase } from "../../support/supabaseClient"
 
 
-describe('test userInfo access', () => {
+describe('test user_info access', () => {
 
     let projectId = undefined
 
@@ -69,7 +69,7 @@ describe('test userInfo access', () => {
             cy.supabase(async () => {
 
                 const { data, error } = await supabase
-                    .from('userInfo')
+                    .from('user_info')
                     .select('*')
                     .eq('first_name', 'student author')
                     .eq('last_name', 'cypress')

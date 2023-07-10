@@ -22,7 +22,7 @@ VITE_LOCALE # Locales use for the website. Corespond to a files name in src/loca
 
 to set up the db use the `supabase/shema.sql`
 
-to add the first admin account, make a account on the website then edit your row in `userInfo` table to `role = 0`
+to add the first admin account, make a account on the website then edit your row in `user_info` table to `role = 0`
 
 then in the admin panel of the website your able to change role of other user
 

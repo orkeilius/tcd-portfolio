@@ -10,7 +10,7 @@ async function makeSessionObject(rawSession) {
   }
 
   let { data, error } = await supabase
-    .from("userInfo")
+    .from("user_info")
     .select("id,role(role)")
     .eq("id", rawSession.user.id)
     .limit(1)
