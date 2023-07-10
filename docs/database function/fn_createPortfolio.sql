@@ -1,4 +1,6 @@
-DECLARE
+CREATE FUNCTION "public"."fn_createPortfolio"("arg_project_id" integer) RETURNS integer
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    AS $$DECLARE
   newPortfolioID INTEGER;
 
 BEGIN
@@ -21,4 +23,4 @@ BEGIN
     else
         RAISE EXCEPTION '403 Forbidden';
   end if;
-end
+end$$;

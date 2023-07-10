@@ -1,4 +1,6 @@
-BEGIN
+CREATE FUNCTION "public"."fn_createComment"("arg_portfolio_id" integer) RETURNS "void"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    AS $$BEGIN
   if (
     "getUserRole"() = 'professor' 
     and 
@@ -18,4 +20,4 @@ BEGIN
   else
     RAISE EXCEPTION '403 Forbidden';
   end if;
-end
+end$$;

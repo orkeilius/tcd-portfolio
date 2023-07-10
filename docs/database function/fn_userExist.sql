@@ -1,4 +1,6 @@
-BEGIN
+CREATE FUNCTION "public"."fn_userExist"("arg_email" "text") RETURNS boolean
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    AS $$BEGIN
    PERFORM * FROM auth.users
    WHERE email = LOWER(arg_email);
 
@@ -7,4 +9,4 @@ BEGIN
    ELSE
       RETURN FALSE;
   END if;
-END;
+END;$$;

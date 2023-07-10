@@ -1,4 +1,6 @@
-DECLARE
+CREATE FUNCTION "public"."fn_createParagraph"("portfolio_id" integer) RETURNS integer
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    AS $$DECLARE
   newPosition INTEGER;
 BEGIN
   if
@@ -18,4 +20,4 @@ BEGIN
   end if;
 
   RAISE EXCEPTION '403 Forbidden';
-end
+end$$;

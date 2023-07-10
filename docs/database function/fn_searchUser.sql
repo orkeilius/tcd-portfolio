@@ -1,13 +1,6 @@
-CREATE OR REPLACE FUNCTION "fn_searchUser"(
-    arg_search text
-)
-RETURNS TABLE (first_name text ,
-               last_name text ,
-               email varchar ,
-               role int2,
-               id uuid)
-SECURITY definer 
-LANGUAGE plpgsql AS $$
+CREATE FUNCTION "public"."fn_searchUser"("arg_search" "text") RETURNS TABLE("first_name" "text", "last_name" "text", "email" character varying, "role" smallint, "id" "uuid")
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    AS $$
 begin
   if ("getUserRole"() = 'admin') then
     return query

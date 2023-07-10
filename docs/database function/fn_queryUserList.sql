@@ -1,7 +1,6 @@
-drop function if exists "fn_queryUserList";
-create function "fn_queryUserList" (query_project_id int)
-RETURNS TABLE(title text,portfolio_id int,first_name text,last_name text,user_id uuid,user_role text) AS
-$$
+CREATE FUNCTION "public"."fn_queryUserList"("query_project_id" integer) RETURNS TABLE("title" "text", "portfolio_id" integer, "first_name" "text", "last_name" "text", "user_id" "uuid", "user_role" "text")
+    LANGUAGE "plpgsql"
+    AS $$
 BEGIN
   return query
   select 
@@ -18,5 +17,4 @@ BEGIN
   where project_user.project_id = query_project_id;
 
 END;
-$$
-language plpgsql volatile;
+$$;

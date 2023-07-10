@@ -1,4 +1,6 @@
-declare
+CREATE FUNCTION "public"."fn_createProject"() RETURNS integer
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    AS $$declare
   newProjectID integer;
 begin
   if ("getUserRole"() = 'professor') then
@@ -14,4 +16,4 @@ begin
     RAISE EXCEPTION '403 Forbidden';
   end if;
 
-end
+end$$;
