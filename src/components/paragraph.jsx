@@ -58,16 +58,17 @@ export default function Paragraph(props) {
     }
 
     async function moveParagraph(paragraph, newPos) {
-        const { error1 } = await supabase
+        let { error : error1 } = await supabase
             .from("paragraph")
             .update({ position: paragraph.position })
             .eq("position", newPos);
+        
         if (error1 !== null) {
             console.error(error1);
             return;
         }
 
-        let { error2 } = await supabase
+        let { error :error2 } = await supabase
             .from("paragraph")
             .update({ position: newPos })
             .eq("id", paragraph.id);
