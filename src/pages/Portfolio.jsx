@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import Comment from "src/components/comment";
 import Paragraph from "../components/paragraph";
 import { Link } from "react-router-dom";
+import { IoDownload } from "react-icons/io5";
 
 export default function Portfolio(props) {
     async function getPortfolioData(portfolioId) {
@@ -80,9 +81,12 @@ export default function Portfolio(props) {
                     to={"/download/portfolio/" + id}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className=" underline"
+                    className="aspect-square ml-auto"
                 >
-                    {text["download portfolio"]}
+                    <IoDownload
+                        className="w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125"
+                        title={text["download portfolio"]}
+                    />
                 </Link>
             </div>
 
