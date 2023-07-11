@@ -118,6 +118,11 @@ export default function Project(props) {
         toast.success("copied !", { autoClose: 750 });
     }
 
+    function resizeTextarea(event) {
+        event.target.style.height = "auto";
+        event.target.style.height = `${event.target.scrollHeight}px`;
+    }
+
     const [projectList, setProjectList] = useState([]);
     const [userPortfolio, setUserPortfolio] = useState([]);
 
@@ -127,6 +132,18 @@ export default function Project(props) {
             getUserPortfolio();
         }
     }, [session]);
+
+    if (session.role === "professor") {
+        setTimeout(() => {
+            var textarea = Array.from(
+                document.getElementsByTagName("textarea")
+            );
+            textarea.forEach((elem) => {
+                elem.style.height = `${elem.scrollHeight}px`;
+            });
+        });
+    }
+
     return (
         <main>
             {session.role === "professor" && (
@@ -245,17 +262,18 @@ export default function Project(props) {
                                             );
                                         }}
                                     />
-                                    <input
+                                    <textarea
                                         placeholder={text["text placeholder"]}
-                                        className="font-semibold text-lg p-1 w-full hover:bg-gray-100 rounded-lg "
+                                        className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 break-words "
                                         value={project.description}
-                                        onChange={(event) =>
+                                        onChange={(event) => {
+                                            resizeTextarea(event);
                                             handleEdit(
                                                 "description",
                                                 event.target.value,
                                                 project
-                                            )
-                                        }
+                                            );
+                                        }}
                                     />
                                 </div>
                                 <UserList projectId={project.id} />
