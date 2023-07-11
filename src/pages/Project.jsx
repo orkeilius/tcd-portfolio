@@ -111,9 +111,16 @@ export default function Project(props) {
     }
 
     function copyLink(project) {
-        let link = `${import.meta.env.VITE_BASE_URL}/join/${project.id}/${project.project_code.code}`;
+        let link = `${import.meta.env.VITE_BASE_URL}/join/${project.id}/${
+            project.project_code.code
+        }`;
         navigator.clipboard.writeText(link);
         toast.success("copied !", { autoClose: 750 });
+    }
+
+    function resizeTextarea(event) {
+        event.target.style.height = "auto";
+        event.target.style.height = `${event.target.scrollHeight}px`;
     }
 
     const [projectList, setProjectList] = useState([]);
@@ -125,6 +132,18 @@ export default function Project(props) {
             getUserPortfolio();
         }
     }, [session]);
+
+    if (session.role === "professor") {
+        setTimeout(() => {
+            var textarea = Array.from(
+                document.getElementsByTagName("textarea")
+            );
+            textarea.forEach((elem) => {
+                elem.style.height = `${elem.scrollHeight}px`;
+            });
+        });
+    }
+
     return (
         <main>
             {session.role === "professor" && (
@@ -150,6 +169,9 @@ export default function Project(props) {
                                 <h1 className="font-semibold text-3xl border-b border-black p-1">
                                     {project.name}
                                 </h1>
+                                <p className="p-2 whitespace-pre-wrap break-words">
+                                    {project.description}
+                                </p>
                                 {userPortfolio[project.id] === undefined ? (
                                     <button
                                         className="my-2 mx-auto block bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
@@ -237,6 +259,19 @@ export default function Project(props) {
                                                 ),
                                                 () =>
                                                     handleProjectDelete(project)
+                                            );
+                                        }}
+                                    />
+                                    <textarea
+                                        placeholder={text["text placeholder"]}
+                                        className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 break-words "
+                                        value={project.description}
+                                        onChange={(event) => {
+                                            resizeTextarea(event);
+                                            handleEdit(
+                                                "description",
+                                                event.target.value,
+                                                project
                                             );
                                         }}
                                     />
