@@ -111,7 +111,9 @@ export default function Project(props) {
     }
 
     function copyLink(project) {
-        let link = `${import.meta.env.VITE_BASE_URL}/join/${project.id}/${project.project_code.code}`;
+        let link = `${import.meta.env.VITE_BASE_URL}/join/${project.id}/${
+            project.project_code.code
+        }`;
         navigator.clipboard.writeText(link);
         toast.success("copied !", { autoClose: 750 });
     }
@@ -150,6 +152,9 @@ export default function Project(props) {
                                 <h1 className="font-semibold text-3xl border-b border-black p-1">
                                     {project.name}
                                 </h1>
+                                <p className="p-2 whitespace-pre-wrap break-words">
+                                    {project.description}
+                                </p>
                                 {userPortfolio[project.id] === undefined ? (
                                     <button
                                         className="my-2 mx-auto block bg-accent hover:bg-white hover:text-accent border-accent border-2 transition-all duration-500  text-white rounded-lg py-1 px-2"
@@ -239,6 +244,18 @@ export default function Project(props) {
                                                     handleProjectDelete(project)
                                             );
                                         }}
+                                    />
+                                    <input
+                                        placeholder={text["text placeholder"]}
+                                        className="font-semibold text-lg p-1 w-full hover:bg-gray-100 rounded-lg "
+                                        value={project.description}
+                                        onChange={(event) =>
+                                            handleEdit(
+                                                "description",
+                                                event.target.value,
+                                                project
+                                            )
+                                        }
                                     />
                                 </div>
                                 <UserList projectId={project.id} />
