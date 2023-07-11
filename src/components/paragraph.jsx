@@ -57,7 +57,14 @@ export default function Paragraph(props) {
         getParagraphData(id);
     }
 
-    async function moveParagraph(paragraph, newPos) {
+    async function moveParagraph(paragraph, isMoveUp) {
+        let newPos =0
+        if (isMoveUp) {
+            newPos = Math.max( ...paragraphData.filter(i => i.position < paragraph.position).map(i => i.position) )
+        } else {
+            newPos = Math.min( ...paragraphData.filter(i => i.position > paragraph.position).map(i => i.position) )
+        }
+        console.log(newPos)
         let { error : error1 } = await supabase
             .from("paragraph")
             .update({ position: paragraph.position })
@@ -119,7 +126,7 @@ export default function Paragraph(props) {
                                                 onClick={() => {
                                                     moveParagraph(
                                                         paragraph,
-                                                        paragraph.position - 1
+                                                        true
                                                     );
                                                 }}
                                             >
@@ -132,7 +139,7 @@ export default function Paragraph(props) {
                                                 onClick={() => {
                                                     moveParagraph(
                                                         paragraph,
-                                                        paragraph.position + 1
+                                                        false
                                                     );
                                                 }}
                                             >
