@@ -13,6 +13,7 @@ const SingUp = lazy(() => import("./pages/SingUp"));
 const RecoverPassword = lazy(() => import("./pages/account/RecoverPassword"))
 const ResetPassword = lazy(() => import("./pages/account/ResetPassword"))
 const Download = lazy(() => import("./pages/Download"))
+const Help = lazy(() => import("./pages/Help"))
 
 export default function App() {
     return (
@@ -28,6 +29,7 @@ export default function App() {
                         <Route path="/account/recover-password" element={<RecoverPassword />} />
                         <Route path="/account/reset-password" element={<ResetPassword />} />
                         <Route path="/download/:type/:id" element={<Download />} />
+                        <Route path="/help" element={<Help />} />
                         {/* test page */}
                         {/* <Route path="*" element={<Home />} />  */}
                     </Route>

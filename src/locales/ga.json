@@ -71,5 +71,49 @@
   "download complete": "íoslódáilte",
   "view portfolio": "Féach ar an bpunann foghlama",
   "role confirm":"are you sure to change role of {0} to {1} ?",
-  "user search": "search a user..."
+  "user search": "search a user...",
+  "help": "help",
+
+  "help file": {
+    "student guide": [
+      {
+        "title": "How to join a project",
+        "text": "Make account on the website, then open the link send by your professor"
+      },
+      {
+        "title": "How to make a new portfolio",
+        "text": "Go to the project page, click on 'Create a new portfolio'\nYou will be redirected to a new portfolio where you can make paragraph and add file"
+      },
+      {
+        "title": "How to upload a file on your portfolio",
+        "text": "Go on portfolio and make a paragraph if you don’t already, add one\nSelect files or drag and drop you want to add in the upload area"
+      },
+      {
+        "title": "How to download portfolio",
+        "text": "Go on the portfolio you want to download. Then click on the download button (near the title)"
+      }
+    ],
+    "professor guide": [
+      {
+        "title": "How to get a professor account",
+        "text": "Make an account on the website, then ask the website admin to change your account role"
+      },
+      {
+        "title": "How to make a new project",
+        "text": "Go to the project page, click on 'Create a new project'\nA new project will appear and let you change the title and the description"
+      },
+      {
+        "title": "How to invite student in your project",
+        "text": "In your project, click on “generate invite link”, copy it and send it to your student\nYour student will be able to join your project and make portfolio\nIf you refresh your page, your student will appear with their portfolio name (if they have make one) that let you see it"
+      },
+      {
+        "title": "How to comment portfolio of your student",
+        "text": "Go to the portfolio you want to comment, then click on 'add a comment'"
+      },
+      {
+        "title": "How to download portfolio or project",
+        "text": "Go on the project/portfolio you want to download. Then click on the download button (near the title)"
+      }
+    ]
+  }
 }

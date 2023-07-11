@@ -17,6 +17,7 @@ export default function Home() {
                 return [
                     { text: text["home"], link: "/" },
                     { text: text["project"], link: "/project" },
+                    { text: text["help"], link: "/help", style:"ml-auto" }
                 ];
             default:
                 return [{ text: text["home"], link: "/" }];
@@ -43,7 +44,7 @@ export default function Home() {
                     <div className="flex">
                         {menuItem.map((item) => (
                             <Link
-                                className="p-3 bg-accent hover:bg-accentHover -translate-x-3"
+                                className={"p-3 bg-accent hover:bg-accentHover -translate-x-3 " + item.style}
                                 key={item.link}
                                 to={item.link}
                             >
