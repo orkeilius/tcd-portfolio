@@ -55,17 +55,17 @@ describe('test project system', () => {
   it('create project', () => {
     cy.contains('+').click()
   })
-
   it('test input project', () => {
-
     const test_text = ['test', 'e', '_______', 'string-4', 'unit test']
+    const test_description = ['test-description', 'e-description', '_______-description', 'string-4-description', 'unit test-description']
     test_text.forEach(text => {
       cy.contains('+').click()
     })
-    cy.wait(100)
+    cy.wait(200)
 
-    cy.get('input[value="untitled project"]').each((elem, index) => {
+    cy.get('input[placeholder="add a title ..."]').each((elem, index) => {
       cy.get(elem).clear().type(test_text[index]).wait(50)
+      cy.get(elem).parent().find('textarea[placeholder="add a text ..."]').clear().type(test_description[index]).wait(100)
     });
     test_text.forEach(text => {
       cy.get(`input[value="${text}"]`)
