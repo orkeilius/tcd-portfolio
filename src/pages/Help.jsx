@@ -1,13 +1,10 @@
 import { useContext, useState } from "react";
-import { SessionContext } from "src/components/SessionProvider";
 import useTranslation from "src/lib/TextString";
 import { IoCaretForward } from "react-icons/io5";
 
 export default function Home() {
-    const session = useContext(SessionContext);
     const text = useTranslation();
     const [open, setOpen] = useState("");
-    console.log(open);
     return (
         <main>
             {Object.keys(text["help file"]).map((key, index) => {
