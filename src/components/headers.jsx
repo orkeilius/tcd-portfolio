@@ -31,7 +31,7 @@ export default function Home() {
             <header className="px-1 py-5 w-10/12 sm:w-3/4 flex justify-between items-center">
                 <a href="https://www.tcd.ie/" className="mr-16">
                     <img
-                        className="max-h-[63px]"
+                        className="transition-all duration-0 max-h-[63px] hue-rotate-0 hover:hue-rotate-[3600deg] ease-linear hover:duration-[40s] hover:delay-[30s]"
                         src={tcdLogo}
                         alt={text['logo Description']}
                     />
@@ -39,12 +39,12 @@ export default function Home() {
                 <Login />
             </header>
             <nav className="bg-accent text-white pt-5 w-full h-f">
-                <div className="px-1 mx-auto w-3/4">
+                <div className="px-1 pb-1 mx-auto w-3/4">
                     <h2 className="text-3xl font-light">{text["title"]}</h2>
                     <div className="flex">
                         {menuItem.map((item) => (
                             <Link
-                                className={"p-3 bg-accent hover:bg-accentHover -translate-x-3 " + item.style}
+                                className={"transition-all p-3 bg-accent hover:bg-accentHover -translate-x-3 rounded-xl hover:scale-105 " + item.style}
                                 key={item.link}
                                 to={item.link}
                             >

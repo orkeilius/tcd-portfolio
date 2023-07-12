@@ -119,7 +119,7 @@ export default function Paragraph(props) {
                         {props.isAuthor ? (
                             <div className="group ">
                                 <div className="w-0 h-0">
-                                    <div className="group-hover:max-w-lg hover:overflow-visible  md:max-w-0 relative h-fit transition-all duration-500 w-fit -translate-x-[130%] overflow-clip ">
+                                    <div className="group-hover:max-w-lg group-focus-within:max-w-lg hover:overflow-visible  md:max-w-0 relative h-fit transition-all duration-500 w-fit -translate-x-[130%] overflow-clip ">
                                         {index !== 0 && (
                                             <button
                                                 className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-gray-500"
@@ -135,7 +135,7 @@ export default function Paragraph(props) {
                                         )}
                                         {index !== paragraphData.length - 1 && (
                                             <button
-                                                className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-gray-500"
+                                                className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-gray-500 "
                                                 onClick={() => {
                                                     moveParagraph(
                                                         paragraph,
@@ -148,7 +148,7 @@ export default function Paragraph(props) {
                                         )}
                                         <button
                                             title={text["delete paragraph"]}
-                                            className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-red-600"
+                                            className="w-7 h-7 aspect-square mb-1 hover:scale-150 transition-all text-red-600 "
                                             onClick={() => {
                                                 setConfirmPopUp(
                                                     text[
@@ -171,7 +171,7 @@ export default function Paragraph(props) {
                                 </div>
                                 <input
                                     placeholder={text["subtitle placeholder"]}
-                                    className="font-semibold text-xl p-1 w-full hover:bg-gray-100 rounded-lg "
+                                    className="font-semibold text-xl p-1 w-full hover:bg-gray-100 rounded-lg outline-none focus:bg-gray-200 "
                                     value={paragraph.title}
                                     onChange={(event) =>
                                         handleEdit(
@@ -185,7 +185,7 @@ export default function Paragraph(props) {
                                 <textarea
                                     id="area"
                                     placeholder={text["text placeholder"]}
-                                    className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 break-words "
+                                    className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 break-words outline-none focus:bg-gray-200 "
                                     value={paragraph.text}
                                     onChange={(event) => {
                                         resizeTextarea(event);

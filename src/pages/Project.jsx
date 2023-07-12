@@ -163,7 +163,7 @@ export default function Project(props) {
 
             {projectList.map((project) => {
                 return (
-                    <div key={project.id} className="mb-24 mt-5 last:mb-10">
+                    <div key={project.id} className="mb-14 mt-5 last:mb-10 drop-shadow-xl bg-white rounded-3xl p-4 ">
                         {session.role === "student" && (
                             <>
                                 <h1 className="font-semibold text-3xl border-b border-black p-1">
@@ -182,7 +182,7 @@ export default function Project(props) {
                                         {text["create portfolio"]}
                                     </button>
                                 ) : (
-                                    <div>
+                                    <div className="p-1">
                                         {props.variation !== "home" && (
                                             <UserList projectId={project.id} />
                                         )}
@@ -200,7 +200,7 @@ export default function Project(props) {
                             <>
                                 <input
                                     placeholder={text["title placeholder"]}
-                                    className="font-semibold text-3xl p-1 w-full hover:bg-gray-100 rounded-xl"
+                                    className="font-semibold text-3xl p-1 w-full hover:bg-gray-100 rounded-xl outline-none focus:bg-gray-200 "
                                     value={project.name}
                                     onChange={(event) => {
                                         handleEdit(
@@ -264,7 +264,7 @@ export default function Project(props) {
                                     />
                                     <textarea
                                         placeholder={text["text placeholder"]}
-                                        className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 break-words "
+                                        className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 break-words outline-none focus:bg-gray-200 "
                                         value={project.description}
                                         onChange={(event) => {
                                             resizeTextarea(event);

@@ -57,7 +57,7 @@ export default function Portfolio(props) {
             {isAuthor ? (
                 <input
                     placeholder={text["title placeholder"]}
-                    className="font-semibold text-3xl p-1 w-full hover:bg-gray-100 rounded-lg"
+                    className="font-semibold text-3xl p-1 w-full hover:bg-gray-100 rounded-lg outline-none focus:bg-gray-200 "
                     value={portfolioData.title}
                     onChange={(event) =>
                         handleEdit("title", event.target.value, id)
@@ -84,7 +84,7 @@ export default function Portfolio(props) {
                     className="aspect-square ml-auto"
                 >
                     <IoDownload
-                        className="w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125"
+                        className="transition-all w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125"
                         title={text["download portfolio"]}
                     />
                 </Link>
