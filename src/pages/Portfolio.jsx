@@ -57,7 +57,7 @@ export default function Portfolio(props) {
             {isAuthor ? (
                 <input
                     placeholder={text["title placeholder"]}
-                    className="font-semibold text-3xl p-1 w-full hover:bg-gray-100 rounded-lg"
+                    className="font-semibold text-3xl p-1 w-full hover:bg-gray-100 rounded-lg outline-none focus:bg-gray-200 "
                     value={portfolioData.title}
                     onChange={(event) =>
                         handleEdit("title", event.target.value, id)

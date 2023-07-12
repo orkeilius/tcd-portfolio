@@ -129,7 +129,7 @@ export default function Comment(props) {
                             <textarea
                                 id="comment text"
                                 placeholder={text["comment placeholder"]}
-                                className="w-full resize-none break-words px-1"
+                                className="w-full resize-none break-words px-1 outline-none focus:bg-gray-20 "
                                 value={comment.text}
                                 onChange={(event) => {
                                     resizeTextarea(event);

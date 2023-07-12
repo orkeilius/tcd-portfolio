@@ -171,7 +171,7 @@ export default function Paragraph(props) {
                                 </div>
                                 <input
                                     placeholder={text["subtitle placeholder"]}
-                                    className="font-semibold text-xl p-1 w-full hover:bg-gray-100 rounded-lg "
+                                    className="font-semibold text-xl p-1 w-full hover:bg-gray-100 rounded-lg outline-none focus:bg-gray-200 "
                                     value={paragraph.title}
                                     onChange={(event) =>
                                         handleEdit(
@@ -185,7 +185,7 @@ export default function Paragraph(props) {
                                 <textarea
                                     id="area"
                                     placeholder={text["text placeholder"]}
-                                    className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 break-words "
+                                    className="resize-none w-full m-1 hover:bg-gray-100 rounded-md p-1 break-words outline-none focus:bg-gray-200 "
                                     value={paragraph.text}
                                     onChange={(event) => {
                                         resizeTextarea(event);
