@@ -84,7 +84,7 @@ export default function Portfolio(props) {
                     className="aspect-square ml-auto"
                 >
                     <IoDownload
-                        className="w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125"
+                        className="transition-all w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125"
                         title={text["download portfolio"]}
                     />
                 </Link>
