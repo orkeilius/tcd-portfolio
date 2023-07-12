@@ -244,12 +244,12 @@ export default function Project(props) {
                                         className="aspect-square ml-auto"
                                     >
                                         <IoDownload
-                                            className="w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125"
+                                            className="transition-all w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125"
                                             title={text["download project"]}
                                         />
                                     </Link>
                                     <IoTrashBin
-                                        className="w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125 text-red-700"
+                                        className="transition-all w-7 h-7 sm:w-5 sm:h-5 aspect-square hover:scale-125 text-red-700"
                                         title={text["delete project"]}
                                         onClick={() => {
                                             setConfirmPopUp(
