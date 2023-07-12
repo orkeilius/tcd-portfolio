@@ -75,44 +75,44 @@
   "help": "help",
 
   "help file": {
-    "student guide": [
+    "Treoir do mhic léinn": [
       {
-        "title": "How to join a project",
-        "text": "Make account on the website, then open the link send by your professor"
+        "title": "Tionscadal nua a chruthú",
+        "text": "Cruthaigh cuntas ar an suíomh, agus ansin oscail an nasc atá faighte agat ó do léachtóir"
       },
       {
-        "title": "How to make a new portfolio",
-        "text": "Go to the project page, click on 'Create a new portfolio'\nYou will be redirected to a new portfolio where you can make paragraph and add file"
+        "title": "Punann Foghlama a chruthú",
+        "text": "Téigh go dtí leathanach an tionscadail agus cliceáil ar 'cruthaigh punann foghlama'\nAnsin, beidh tú in ann ábhar a chur le do phunann foghlama."
       },
       {
-        "title": "How to upload a file on your portfolio",
-        "text": "Go on portfolio and make a paragraph if you don’t already, add one\nSelect files or drag and drop you want to add in the upload area"
+        "title": "Comhad a chur le do phunann foghlama",
+        "text": "Téigh go dtí an phunann foghlama agus cuir rannóg leis muna bhfuil ceann ann cheana féin.\nRoghnaigh comhad agus déan é a uaslódáil."
       },
       {
-        "title": "How to download portfolio",
-        "text": "Go on the portfolio you want to download. Then click on the download button (near the title)"
+        "title": "An Phunann Foghlama a íoslódáil",
+        "text": "Téigh go dtí an phunann foghlama ábhartha agus cliceáil ar an cnaipe 'íoslódáil'"
       }
     ],
-    "professor guide": [
+    "Treoir do Léachtóirí": [
       {
-        "title": "How to get a professor account",
+        "title": "Cuntas léachtóra a fháil",
         "text": "Make an account on the website, then ask the website admin to change your account role"
       },
       {
         "title": "How to make a new project",
-        "text": "Go to the project page, click on 'Create a new project'\nA new project will appear and let you change the title and the description"
+        "text": "Téigh go dtí leathanach an tionscadail agus roghnaigh 'tionscadal nua a chruthú'\nCruthófar tionscadal nua agus beidh tú in ann teideal a thabhairt dó agus ábhar a chur leis."
       },
       {
-        "title": "How to invite student in your project",
-        "text": "In your project, click on “generate invite link”, copy it and send it to your student\nYour student will be able to join your project and make portfolio\nIf you refresh your page, your student will appear with their portfolio name (if they have make one) that let you see it"
+        "title": "Cuireadh a thabhairt do mhic léinn",
+        "text": "Nuair atá tionscadal nua cruthaithe agat, brúigh ar an cnaipe “cuireadh a thabhairt”, déan é a chóipeáil agus cuir ar aghaidh chuig do mhic léinn é.\nAnsin, déan athnuachan ar an leathanach agus feicfidh tú ainmneacha na mac léinn agus na tionscadail atá cruthaithe acu."
       },
       {
-        "title": "How to comment portfolio of your student",
-        "text": "Go to the portfolio you want to comment, then click on 'add a comment'"
+        "title": "Aiseolas a thabhairt do mhic léinn",
+        "text": "Téigh do dtí leathanach an tionscadail agus cliceáil ar 'scríobh nóta'"
       },
       {
-        "title": "How to download portfolio or project",
-        "text": "Go on the project/portfolio you want to download. Then click on the download button (near the title)"
+        "title": "Punann foghlama nó tionscadal a\n íoslódáil",
+        "text": "Téigh go dtí an tionscadal nó an phunann foghlama ábhartha agus cliceáil ar an gcnaipe 'oslódáil'"
       }
     ]
   }
