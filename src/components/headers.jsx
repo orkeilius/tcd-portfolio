@@ -41,7 +41,7 @@ export default function Home() {
             <nav className="bg-accent text-white pt-5 w-full h-f">
                 <div className="px-1 pb-1 mx-auto w-3/4">
                     <h2 className="text-3xl font-light">{text["title"]}</h2>
-                    <div className="flex">
+                    <div className="flex mt-1">
                         {menuItem.map((item) => (
                             <Link
                                 className={"transition-all p-3 bg-accent hover:bg-accentHover -translate-x-3 rounded-xl hover:scale-105 " + item.style}
